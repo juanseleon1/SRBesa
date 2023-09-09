@@ -1,0 +1,33 @@
+package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.EmotionalModel;
+
+public final class Utils {
+
+    public static class Config {
+        public static final float PersonWeight = 0.3f;
+        public static final float EventWeight = 0.4f;
+        public static final float ObjectWeight = 0.3f;
+    }
+
+    public static double checkZeroToOneLimits(double value) {
+        return checkLimits(value, 0f, 1f);
+    }
+
+    public static double checkNegativeOneToOneLimits(double value) {
+        return checkLimits(value, -1f, 1f);
+    }
+
+    private static double checkLimits(double value, double min, double max) {
+        if (value < min) {
+            value = min;
+        }
+        if (value > max) {
+            value = max;
+        }
+        return value;
+    }
+
+    public static String formatKeyString(String str) {
+        return str.toLowerCase().trim();
+    }
+
+}
