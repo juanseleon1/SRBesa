@@ -20,7 +20,7 @@ public class BeliefAgent implements Believes {
     private UserProfile userProfile;
     private WorldModel worldModel;
 
-    public BeliefAgent(String cedula) {
+    public BeliefAgent() {
         interactionState = new InteractionState();
         psychologicalState = new PsychologicalState();
         physicalState = new PhysicalState();

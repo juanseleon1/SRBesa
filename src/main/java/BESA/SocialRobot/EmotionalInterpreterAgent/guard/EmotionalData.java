@@ -5,11 +5,12 @@
  */
 package BESA.SocialRobot.EmotionalInterpreterAgent.guard;
 
-import RobotAgentBDI.Believes.ModeloEmocional.EmotionalEvent;
-import SensorHandlerAgent.Guards.SensorData;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.EmotionalEvent;
+import BESA.SocialRobot.ExplainabilityAgent.guard.RequestData;
 import rational.data.InfoData;
 
 /**
@@ -22,7 +23,6 @@ public class EmotionalData extends InfoData {
     private List<EmotionalEvent> emoEv;
     public static EmotionalData fromSensorData(RequestData infoRecibida) {
         EmotionalData em = new EmotionalData();
-        em.info = infoRecibida.getDataP();
         em.emoEv = null;
         return em;
     }

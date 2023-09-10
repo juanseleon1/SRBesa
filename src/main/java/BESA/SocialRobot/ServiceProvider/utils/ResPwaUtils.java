@@ -32,7 +32,7 @@ public class ResPwaUtils {
 
     public static void requestService(ServiceProviderDataRequest sdr, BeliefAgent blvs) {
         try {
-            blvs.getbEstadoRobot().updateEmotionalVariables();
+            //blvs.getbEstadoRobot().updateEmotionalVariables();
             String spAgId = AdmBESA.getInstance().lookupSPServiceInDirectory(sdr.getServiceName());
             // TODO: Como hacer con varios SPs.
             // String SHID =
