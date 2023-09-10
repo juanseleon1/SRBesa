@@ -5,11 +5,8 @@
  */
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.EmotionalModel;
+import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalData;
 import rational.data.InfoData;
 import rational.mapping.Believes;
 
@@ -17,10 +14,9 @@ import rational.mapping.Believes;
  *
  * @author mafegarces
  */
-public class BEstadoEmocionalPwA implements Believes {
-
-    private double emocionPredominante;
-    private Map<EmotionPwA, List<Emotion>> emoMap;
+public class AgentEmotionalState implements Believes {
+    private EmotionalModel emotionalModel;
+    //private Map<EmotionPwA, List<Emotion>> emoMap;
     private long tiempoEmocionPredominante;
     private long tiempoAtencion;
     private Long tiempoSinAtencion;
@@ -28,14 +24,13 @@ public class BEstadoEmocionalPwA implements Believes {
     private Long tiempoSinRelajacion;
     private double atencion;
     private double relajacion;
-    private float valencia;
 
 
-    public BEstadoEmocionalPwA() {
-        emoMap = new HashMap<>();
-        for (EmotionPwA epwa : EmotionPwA.values()) {
-            emoMap.put(epwa, new ArrayList<>());
-        }
+    public AgentEmotionalState() {
+        //emoMap = new HashMap<>();
+        //for (EmotionPwA epwa : EmotionPwA.values()) {
+        //    emoMap.put(epwa, new ArrayList<>());
+        //}
     }
 
     @Override
@@ -60,71 +55,59 @@ public class BEstadoEmocionalPwA implements Believes {
             }
         }
         if (infoRecibida.getInfo().containsKey("emotions")) {
-            Map<EmotionPwA, Float> emo = (Map<EmotionPwA, Float>) infoRecibida.getInfo().get("emotions");
-            Emotion e;
-            float val;
-            if (emo != null) {
-                for (EmotionPwA epwa : emo.keySet()) {
-                    val = emo.get(epwa);
-                    e = new Emotion(val);
-                    emoMap.get(epwa).add(e);
-                }
-            }
+            //Map<EmotionPwA, Float> emo = (Map<EmotionPwA, Float>) infoRecibida.getInfo().get("emotions");
+            //Emotion e;
+            //float val;
+            //if (emo != null) {
+            //    for (EmotionPwA epwa : emo.keySet()) {
+            //        val = emo.get(epwa);
+            //        e = new Emotion(val);
+            //        emoMap.get(epwa).add(e);
+            //    }
+            //}
         }
         return true;
     }
-
-    public Map<EmotionPwA, List<Emotion>> getEmoMap() {
-        return emoMap;
-    }
-
-    public void setEmoMap(Map<EmotionPwA, List<Emotion>> emoMap) {
-        this.emoMap = emoMap;
-    }
-
 //    Return if the emotion is pleasant or unpleasant
-    public double getFeedbackEmotion() {
-        double emotionFeedback = 0.0;
-        double auxEmotionAverage = 0.0;
-        for (EmotionPwA entry : emoMap.keySet()) {
-
-            auxEmotionAverage = getEmotionAverage(emoMap.get(entry));
-            if (entry.equals(ANGER) || entry.equals(SADNESS)) {
-
-                auxEmotionAverage *= -1;
-            }
-            if (Math.abs(auxEmotionAverage) > Math.abs(emotionFeedback)) {
-                emotionFeedback = auxEmotionAverage;
-            }
-        }
-        return emotionFeedback;
-    }
-
-    private float getEmotionAverage(List<Emotion> historyEmotionsInActivity) {
-        float emotionAverage = 0.0f;
-
-        for (Emotion emotion : historyEmotionsInActivity) {
-            emotionAverage += emotion.getValence();
-        }
-
-        return emotionAverage / historyEmotionsInActivity.size();
-    }
-
-    public double getEmocionPredominante() {
-        double aux = getFeedbackEmotion();
-        if (aux > 0 && valencia != 1) {
-            valencia = 1;
-            tiempoEmocionPredominante = System.currentTimeMillis();
-        } else if (aux < 0 && valencia != -1) {
-            valencia = -1;
-            tiempoEmocionPredominante = System.currentTimeMillis();
-        }
-        return aux;
-    }
-
-    public void setEmocionPredominante(double emocionPredominante) {
-        this.emocionPredominante = emocionPredominante;
-    }
+    //public double getFeedbackEmotion() {
+    //    double emotionFeedback = 0.0;
+    //    double auxEmotionAverage = 0.0;
+    //    for (EmotionPwA entry : emoMap.keySet()) {
+//
+    //        auxEmotionAverage = getEmotionAverage(emoMap.get(entry));
+    //        if (entry.equals(ANGER) || entry.equals(SADNESS)) {
+//
+    //            auxEmotionAverage *= -1;
+    //        }
+    //        if (Math.abs(auxEmotionAverage) > Math.abs(emotionFeedback)) {
+    //            emotionFeedback = auxEmotionAverage;
+    //        }
+    //    }
+    //    return emotionFeedback;
+    //}
+//
+    //private float getEmotionAverage(List<Emotion> historyEmotionsInActivity) {
+    //    float emotionAverage = 0.0f;
+//
+    //    for (Emotion emotion : historyEmotionsInActivity) {
+    //        emotionAverage += emotion.getValence();
+    //    }
+//
+    //    return emotionAverage / historyEmotionsInActivity.size();
+    //}
+//
+    //public double getEmocionPredominante() {
+    //    double aux = getFeedbackEmotion();
+    //    if (aux > 0 && valencia != 1) {
+    //        valencia = 1;
+    //        tiempoEmocionPredominante = System.currentTimeMillis();
+    //    } else if (aux < 0 && valencia != -1) {
+    //        valencia = -1;
+    //        tiempoEmocionPredominante = System.currentTimeMillis();
+    //    }
+    //    return aux;
+    //}
+//
 
     public long getTiempoEmocionPredominante() {
         return System.currentTimeMillis() - tiempoEmocionPredominante;
@@ -193,5 +176,23 @@ public class BEstadoEmocionalPwA implements Believes {
     public void setRelajacion(double relajacion) {
         this.relajacion = relajacion;
     }
+
+    public EmotionalModel getEmotionalModel() {
+        return emotionalModel;
+    }
+
+    public void setEmotionalModel(EmotionalModel emotionalModel) {
+        this.emotionalModel = emotionalModel;
+    }
+
+    public void setTiempoSinAtencion(Long tiempoSinAtencion) {
+        this.tiempoSinAtencion = tiempoSinAtencion;
+    }
+
+    public void setTiempoSinRelajacion(Long tiempoSinRelajacion) {
+        this.tiempoSinRelajacion = tiempoSinRelajacion;
+    }
+
+    
 
 }

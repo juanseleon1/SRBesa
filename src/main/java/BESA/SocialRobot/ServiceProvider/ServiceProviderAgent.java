@@ -45,7 +45,7 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
         }
     }
 
-    private static StateServiceProvider prepareServiceProvider(Adapter adapter) {
+    private StateServiceProvider prepareServiceProvider(Adapter adapter) {
         StateServiceProvider estado = null;
         try {
             estado = new StateServiceProvider(adapter, buildProviderDescriptor());

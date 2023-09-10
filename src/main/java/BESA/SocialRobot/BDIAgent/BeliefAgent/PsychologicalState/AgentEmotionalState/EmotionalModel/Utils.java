@@ -1,4 +1,4 @@
-package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.EmotionalModel;
+package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
 public final class Utils {
 

@@ -5,17 +5,11 @@
  */
 package BESA.SocialRobot.EmotionalInterpreterAgent.agent;
 
-import EmotionalAnalyzerAgent.Guards.ProcessEmotionGuard;
-import BESA.ExceptionBESA;
+import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.AgentBESA;
-import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.Agent.KernelAgentExceptionBESA;
-import BESA.Kernel.Agent.PeriodicGuardBESA;
 import BESA.Kernel.Agent.StructBESA;
-import BESA.Kernel.System.AdmBESA;
-import BESA.Kernel.System.Directory.AgHandlerBESA;
-import BESA.Util.PeriodicDataBESA;
-import SensorHandlerAgent.Agent.SensorHandlerAgent;
+import BESA.SocialRobot.EmotionalInterpreterAgent.guard.ProcessRobotEmotionGuard;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,7 +42,7 @@ public class EmotionalAnalyzerAgent extends AgentBESA {
             struct.addBehavior(ProcessEmotionGuard);
             struct.bindGuard(ProcessEmotionGuard, ProcessRobotEmotionGuard.class);
         } catch (ExceptionBESA ex) {
-            Logger.getLogger(ExplainabilityAgent.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmotionalAnalyzerAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
         return struct;
     }

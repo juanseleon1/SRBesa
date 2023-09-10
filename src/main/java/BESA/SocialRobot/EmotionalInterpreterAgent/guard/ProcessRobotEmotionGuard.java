@@ -5,15 +5,12 @@
  */
 package BESA.SocialRobot.EmotionalInterpreterAgent.guard;
 
-import BESA.ExceptionBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
+import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.GuardBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
-import EmotionalAnalyzerAgent.Agent.EmotionalAnalyzerState;
-import Init.InitRESPwA;
-import RobotAgentBDI.Believes.ModeloEmocional.EmotionalEvent;
-import java.util.List;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import rational.guards.InformationFlowGuard;
@@ -22,17 +19,19 @@ import rational.guards.InformationFlowGuard;
  *
  * @author juans
  */
-public class ProcessRobotEmotionGuard extends GuardBESA{
+public class ProcessRobotEmotionGuard extends GuardBESA {
 
     @Override
     public void funcExecGuard(EventBESA ebesa) {
         try {
-            EmotionalData infoRecibida = (EmotionalData)ebesa.getData();
-//            System.out.println("ProcessEmotionGuard Event Received: "+infoRecibida);
-            EmotionalAnalyzerState eaState = (EmotionalAnalyzerState)this.agent.getState();
-            List<EmotionalEvent> emoList = eaState.getEaStrategy().processEmotion(infoRecibida);
-            infoRecibida.setEmoEv(emoList);
-            AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(InitRESPwA.aliasRobotAgent);
+            EmotionalData infoRecibida = (EmotionalData) ebesa.getData();
+            // System.out.println("ProcessEmotionGuard Event Received: "+infoRecibida);
+            // EmotionalAnalyzerState eaState =
+            // (EmotionalAnalyzerState)this.agent.getState();
+            // List<EmotionalEvent> emoList =
+            // eaState.getEaStrategy().processEmotion(infoRecibida);
+            // infoRecibida.setEmoEv(emoList);
+            AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(MotivationAgent.name);
             EventBESA sensorEvtA = new EventBESA(InformationFlowGuard.class.getName(), infoRecibida);
             handler.sendEvent(sensorEvtA);
         } catch (ExceptionBESA ex) {
@@ -41,5 +40,4 @@ public class ProcessRobotEmotionGuard extends GuardBESA{
 
     }
 
-    
 }

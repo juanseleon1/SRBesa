@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState;
+package BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.Resources;
 
 import rational.data.InfoData;
 import rational.mapping.Believes;
 
-public class ErrorState implements Believes {
+public class ComputationalResources implements Believes {
 
-    public ErrorState() {
+    public ComputationalResources() {
         super();
     }
 

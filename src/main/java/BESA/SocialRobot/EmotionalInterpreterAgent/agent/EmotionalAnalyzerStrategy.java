@@ -5,11 +5,10 @@
  */
 package BESA.SocialRobot.EmotionalInterpreterAgent.agent;
 
-import EmotionalAnalyzerAgent.Guards.EmotionalData;
-import RobotAgentBDI.Believes.ModeloEmocional.EmotionalEvent;
-import SensorHandlerAgent.Guards.SensorData;
 import java.util.List;
-import java.util.Map;
+
+import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.EmotionalEvent;
+import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalData;
 
 /**
  *

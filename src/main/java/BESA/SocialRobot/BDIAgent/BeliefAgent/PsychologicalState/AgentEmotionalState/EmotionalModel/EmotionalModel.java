@@ -1,10 +1,11 @@
-package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.EmotionalModel;
+package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
 import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
-import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.EmotionalModel.Personality.EmotionElementType;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Personality.EmotionElementType;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalData;
 
 import java.util.List;
@@ -48,8 +49,8 @@ public abstract class EmotionalModel {
 
     public void processEmotionalEvent(EmotionalEvent ev) {
         double i = estimateEmotionIntensity(ev);
-        if(ev.getPerson()!=null){
-          System.out.println("XEREVENTO: "+ev + " Valencia"+i);
+        if (ev.getPerson() != null) {
+            System.out.println("XEREVENTO: " + ev + " Valencia" + i);
         }
         emotionalState.updateEmotions(ev.getEvent(), i);
         System.out.println(ev.toString());
@@ -69,8 +70,8 @@ public abstract class EmotionalModel {
                 + Utils.Config.EventWeight * Math.abs(event)
                 + Utils.Config.ObjectWeight * Math.abs(object);
         boolean valence = estimateValence(person, event, object);
-//        System.out.println("P:" + person + " E:" + event + " O:" + object);
-//        System.out.println("Val: " + valence);
+        // System.out.println("P:" + person + " E:" + event + " O:" + object);
+        // System.out.println("Val: " + valence);
         intensity = (valence ? 1 : -1) * intensity;
         return intensity;
     }
@@ -86,7 +87,7 @@ public abstract class EmotionalModel {
         event = event / Math.abs(event);
         object = object / Math.abs(object);
 
-        //System.out.println("Valence P:" + person + " E:" + event + " O:" + object);
+        // System.out.println("Valence P:" + person + " E:" + event + " O:" + object);
         if ((person.equals(event) && event.equals(object))
                 || (person.equals(1f) && event.equals(-1f) && object.equals(-1f))) {
             v = true;
@@ -96,7 +97,7 @@ public abstract class EmotionalModel {
     }
 
     public abstract void emotionalStateChanged();
-    
+
     public EmotionAxis getMostActivatedEmotion() throws CloneNotSupportedException {
         return this.emotionalState.getMostActivatedEmotion();
     }
@@ -121,43 +122,41 @@ public abstract class EmotionalModel {
                 typeName = "Objetos";
             }
             String msg = "El diccionario semántico de " + typeName + " no contiene un item con el nombre " + key;
-            System.out.println("ERROR: "+msg);
+            System.out.println("ERROR: " + msg);
             Logger.getLogger(EmotionalModel.class.getName()).log(Level.WARNING, msg);
         }
     }
-    
-    
-        protected void sendAct(EmotionalData ed) throws ExceptionBESA{
-        AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(InitRESPwA.aliasRobotAgent);
-        EventBESA sensorEvtA= new EventBESA(InformationFlowGuard.class.getName(),ed);
+
+    protected void sendAct(EmotionalData ed) throws ExceptionBESA {
+        AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(MotivationAgent.name);
+        EventBESA sensorEvtA = new EventBESA(InformationFlowGuard.class.getName(), ed);
         handler.sendEvent(sensorEvtA);
     }
-    
-    private void configureEmotionalModel(){
+
+    private void configureEmotionalModel() {
         loadSemanticDictionary();
         loadCharacterDescriptor();
         loadEmotionalAxes();
     }
-    
-        protected EmotionAxis getTopEmotionAxis() throws CloneNotSupportedException {
-            EmotionAxis maxAx=null;
-            double val=Double.NEGATIVE_INFINITY;
+
+    protected EmotionAxis getTopEmotionAxis() throws CloneNotSupportedException {
+        EmotionAxis maxAx = null;
+        double val = Double.NEGATIVE_INFINITY;
         List<EmotionAxis> emoList = emotionalState.getEmotionsListCopy();
-//            System.out.println("Ejes de la lista: " + emoList.size());
+        // System.out.println("Ejes de la lista: " + emoList.size());
         for (EmotionAxis e : emoList) {
-                if(e.getCurrentValue()> val){
-                    maxAx=e;
-                    val=e.getCurrentValue();
-                }
+            if (e.getCurrentValue() > val) {
+                maxAx = e;
+                val = e.getCurrentValue();
+            }
         }
         return maxAx;
     }
-    
+
     public abstract void loadSemanticDictionary();
+
     public abstract void loadCharacterDescriptor();
+
     public abstract void loadEmotionalAxes();
-
-
-
 
 }

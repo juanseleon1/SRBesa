@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState;
+package BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionContext;
 
 import BESA.SocialRobot.DBConnection.SREntities.Ejercicio;
 import BESA.SocialRobot.DBConnection.SREntities.Historial;
@@ -48,9 +48,7 @@ public class ConversationContext implements Believes {
     private boolean ayudaExitosa = false;
     private double tiempoEmergenciaTrans = 0;
     private boolean saludo = false;
-    private PepperEmotionRanges leds = null;
     private boolean confirmarActServicios = false;
-    private static final long MAXENRIQ = 4;
     private String keyNameConf = "confReproduccion";
     private boolean movError;
     private boolean modificarPreferencias = false;
@@ -62,7 +60,6 @@ public class ConversationContext implements Believes {
     private boolean existenPruebasEjercicio = true;
     private boolean cancelarProgramacionEjercicio = false;
     private boolean estoyListoEmpezarPreparacion = false;
-    private boolean detectedCloseObstacle = false;
     private List<Historial> currHistorialList = new ArrayList<>();
 
     private String retroalimentacionValue;
@@ -78,9 +75,9 @@ public class ConversationContext implements Believes {
 
     public ConversationContext() {
         topicos = new HashMap<>();
-        for (PepperTopicsNames topic : PepperTopicsNames.values()) {
-            topicos.put(topic.getTopic(), false);
-        }
+        //for (PepperTopicsNames topic : PepperTopicsNames.values()) {
+        //    topicos.put(topic.getTopic(), false);
+        //}
     }
 
     public List<Historial> getCurrHistorialList() {
@@ -117,174 +114,11 @@ public class ConversationContext implements Believes {
 
     @Override
     public boolean update(InfoData si) {
-        //System.out.println("BEstadoInteraccion update Received: " + si);
-        SensorData infoRecibida = (SensorData) si;
-
-        if (infoRecibida.getDataP().containsKey("endVideo")) {
-            confirmacionRepDisp = (boolean) infoRecibida.getDataP().get("endVideo");
-        }
-        if (infoRecibida.getDataP().containsKey(keyNameConf + "Audio")) {
-            confirmacionRepAud = Boolean.valueOf((String) infoRecibida.getDataP().get(keyNameConf + "Audio"));
-        }
-        if (infoRecibida.getDataP().containsKey("faceDetected")) {
-//            System.out.println("ENTROOOO"+(boolean) infoRecibida.getDataP().get("faceDetected"));
-            detectaPwA = (boolean) infoRecibida.getDataP().get("faceDetected");
-            tiempoInt = System.currentTimeMillis();
-        }
-
-        if (infoRecibida.getDataP().containsKey("humanLost")) {
-            detectaPwA = false;
-            tiempoSinInt = System.currentTimeMillis();
-        }
-
-        if (infoRecibida.getDataP().containsKey("enriq")) {
-            quiereEnriquec = Boolean.valueOf((String) infoRecibida.getDataP().get("enriq"));
-            if (quiereEnriquec && nivelEnriquecimiento < MAXENRIQ) {
-                nivelEnriquecimiento++;
-            } else if (!quiereEnriquec && nivelEnriquecimiento > 0) {
-                nivelEnriquecimiento--;
-            }
-        }
-        if (infoRecibida.getDataP().containsKey("retroValue")) {
-            retroalimentacionValue = (String) infoRecibida.getDataP().get("retroValue");
-        }
-        if (infoRecibida.getDataP().containsKey("wakeUpFinished")) {
-            sistemaSuspendido = Boolean.valueOf((String) infoRecibida.getDataP().get("wakeUpFinished"));
-        }
-        if (infoRecibida.getDataP().containsKey("pausarint")) {
-            pausarInt = Boolean.valueOf((String) infoRecibida.getDataP().get("pausarint"));
-
-        }
-        if (infoRecibida.getDataP().containsKey("cancelarint")) {
-            cancelarInt = Boolean.valueOf((String) infoRecibida.getDataP().get("cancelarint"));
-
-        }
-        if (infoRecibida.getDataP().containsKey("reiniciarint")) {
-            reiniciarInt = Boolean.valueOf((String) infoRecibida.getDataP().get("reiniciarint"));
-
-        }
-        if (infoRecibida.getDataP().containsKey("distanceOfTrackedHuman")) {
-            Double aux = (Double) infoRecibida.getDataP().get("distanceOfTrackedHuman");
-
-            distanciaPwA = aux == null ? -1 : aux;
-            //System.out.println("Distancia de humano detectada..." + distanciaPwA);
-            //if (distanciaPwA != -1)
-
-        }
-        if (infoRecibida.getDataP().containsKey("dialogIsStarted")) {
-            estaHablando = true;
-
-        }
-        if (infoRecibida.getDataP().containsKey("endOfAnimatedSpeech")) {
-            estaHablando = false;
-
-        }
-        if (infoRecibida.getDataP().containsKey("goToSuccess")) {
-            desplazandose = false;
-
-        }
-        if (infoRecibida.getDataP().containsKey("cancelarint")) {
-            cancelarInt = Boolean.valueOf((String) infoRecibida.getDataP().get("cancelarint"));
-
-        }
-        if (infoRecibida.getDataP().containsKey("reiniciarint")) {
-            reiniciarInt = Boolean.valueOf((String) infoRecibida.getDataP().get("reiniciarint"));
-
-        }
-        if (infoRecibida.getDataP().containsKey("distanceOfTrackedHuman")) {
-            Double aux = (Double) infoRecibida.getDataP().get("distanceOfTrackedHuman");
-            //System.out.println("Distancia de humano detectada..." + distanciaPwA);
-            distanciaPwA = aux == null ? -1 : aux;
-
-        }
-        if (infoRecibida.getDataP().containsKey("dialogIsStarted")) {
-            estaHablando = true;
-
-        }
-        if (infoRecibida.getDataP().containsKey("closeObjectDetected")) {
-            System.out.println("Detected nearby obstacle");
-        }
-        if (infoRecibida.getDataP().containsKey("endOfAnimatedSpeech")) {
-            estaHablando = false;
-
-        }
-        if (infoRecibida.getDataP().containsKey("goToSuccess")) {
-            desplazandose = false;
-
-        }
-        if (infoRecibida.getDataP().containsKey("goToFailed")) {
-            desplazandose = false;
-            movError = true;
-
-        }
-
-        if (infoRecibida.getDataP().containsKey("stimulusDetected")) {
-            hayInteraccionFisica = true;
-        }
-        if (infoRecibida.getDataP().containsKey("initServ")) {
-            confirmarActServicios = Boolean.valueOf((String) infoRecibida.getDataP().get("initServ"));
-        }
-        if (infoRecibida.getDataP().containsKey("speechDetected") || infoRecibida.getDataP().containsKey("wordRecognized")) {
-            recibirRespuestaPwA = true;
-
-        }
-        if (infoRecibida.getDataP().containsKey("wavingDetection")) {
-            movManoSaludo = Boolean.valueOf((String) infoRecibida.getDataP().get("wavingDetection"));
-            saludo = Boolean.valueOf((String) infoRecibida.getDataP().get("wavingDetection"));
-        }
-        if (infoRecibida.getDataP().containsKey("detectaPersona")) {
-            detectaPersona = Boolean.valueOf((String) infoRecibida.getDataP().get("detectaPersona"));
-            if (!detectaPersona) {
-                tiempoEmergenciaTrans = System.currentTimeMillis();
-            }
-        }
-        if (infoRecibida.getDataP().containsKey("ayudaValue")) {
-            ayudaActividadSolicitada = Boolean.valueOf((String) infoRecibida.getDataP().get("ayudaValue"));
-        }
-        if ((infoRecibida.getDataP().containsKey("listoValue")) && isPreparacionNegada) {
-            this.estoyListoEmpezarPreparacion = true;
-        }
-        if ((infoRecibida.getDataP().containsKey("preparacionNegacion"))
-                && this.isTopicoActivo(PepperTopicsNames.PREPARACION)) {
-            isPreparacionNegada = true;
-        }
-        if (infoRecibida.getDataP().containsKey("DialogInput")) {
-            respuestaPreferencia = (String) infoRecibida.getDataP().get("DialogInput");
-            System.out.println("Recibiiiir:  " + respuestaPreferencia);
-            respuestaResultSet = respuestaPreferencia.split(" ");
-            if (respuestaResultSet.length > 1) {
-                if (respuestaResultSet[1].equals("brightness")
-                        || respuestaResultSet[1].equals("volume")) {
-                    modificarPreferencias = true;
-                }
-            }
-            if (!respuestaPreferencia.equalsIgnoreCase("")) {
-                recibirRespuestaPwA = true;
-                respuestasPorContexto++;
-            }
-
-        }
-
-        if (infoRecibida.getDataP().containsKey("DeactivateTopic")) {
-            String topic = (String) infoRecibida.getDataP().get("DeactivateTopic");
-            topicos.replace(topic, false);
-        }
-
-        if (infoRecibida.getDataP().containsKey("ActivateTopic")) {
-            String topic = (String) infoRecibida.getDataP().get("ActivateTopic");
-            topicos.replace(topic, true);
-        }
-
-        if (infoRecibida.getDataP().containsKey("speechTextDone")) {
-            Integer done = (Integer) infoRecibida.getDataP().get("speechTextDone");
-            estaHablando = 0 == done;
-        }
-
         return true;
     }
 
-    public boolean isTopicoActivo(PepperTopicsNames topico) {
-        return topicos.get(topico.getTopic());
+    public boolean isTopicoActivo(String topico) {
+        return topicos.get(topico);
     }
 
     public boolean isCambioDificultadVoz() {
@@ -475,10 +309,6 @@ public class ConversationContext implements Believes {
     public Believes clone() throws CloneNotSupportedException {
         super.clone();
         return this;
-    }
-
-    public PepperEmotionRanges getLeds() {
-        return leds;
     }
 
     public boolean isConfirmarActServicios() {

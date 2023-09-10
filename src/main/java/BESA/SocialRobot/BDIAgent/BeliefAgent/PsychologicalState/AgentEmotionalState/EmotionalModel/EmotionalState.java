@@ -1,4 +1,4 @@
-package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.EmotionalModel;
+package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,7 +32,7 @@ public class EmotionalState {
 
     protected EmotionAxis getEmotion(String positiveName, String negativeName) {
         EmotionAxis ea = null;
-        Iterator itr = emotions.iterator();
+        Iterator<EmotionAxis> itr = emotions.iterator();
         if (itr != null) {
             while (itr.hasNext()) {
                 EmotionAxis e = (EmotionAxis) itr.next();
@@ -53,7 +53,7 @@ public class EmotionalState {
 
     protected EmotionAxis getMostActivatedEmotion() throws CloneNotSupportedException {
         EmotionAxis ea = null;
-        Iterator itr = emotions.iterator();
+        Iterator<EmotionAxis> itr = emotions.iterator();
         if (itr != null) {
             while (itr.hasNext()) {
                 EmotionAxis e = (EmotionAxis) itr.next();
@@ -71,7 +71,7 @@ public class EmotionalState {
 
     protected List<EmotionAxis> getEmotionsListCopy() throws CloneNotSupportedException {
         List<EmotionAxis> list = new ArrayList<>();
-        Iterator itr = emotions.iterator();
+        Iterator<EmotionAxis> itr = emotions.iterator();
         if (itr != null) {
             while (itr.hasNext()) {
                 list.add(((EmotionAxis) itr.next()).clone());

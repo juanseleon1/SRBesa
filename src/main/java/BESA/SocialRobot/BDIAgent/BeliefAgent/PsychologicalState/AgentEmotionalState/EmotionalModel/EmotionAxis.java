@@ -1,4 +1,4 @@
-package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.EmotionalModel;
+package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -69,7 +69,7 @@ public class EmotionAxis {
 
     public void setEventInfluences(Map<String, Double> evInfluences) {
         if (evInfluences != null) {
-            Iterator itr = evInfluences.keySet().iterator();
+            Iterator<String> itr = evInfluences.keySet().iterator();
             if (itr != null) {
                 while (itr.hasNext()) {
                     String key = (String) itr.next();
@@ -112,7 +112,7 @@ public class EmotionAxis {
     @Override
     public EmotionAxis clone() throws CloneNotSupportedException {
         EmotionAxis e = new EmotionAxis(this.positiveName, this.negativeName, this.getCurrentValue(), this.baseValue, this.forgetFactor);
-        Iterator itr = eventInfluence.keySet().iterator();
+        Iterator<String> itr = eventInfluence.keySet().iterator();
         if (itr != null) {
             while (itr.hasNext()) {
                 String key = (String) itr.next();

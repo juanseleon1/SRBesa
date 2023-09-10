@@ -16,7 +16,7 @@ public class CalculateEmotionsGuard extends GuardBESA {
 
     @Override
     public void funcExecGuard(EventBESA ebesa) {
-        UserEmotionalData infoRecibida = (UserEmotionalData) ebesa.getData();
+        //UserEmotionalData infoRecibida = (UserEmotionalData) ebesa.getData();
         //TODO: save data and process data. Then send to specific agents.
     }
 
