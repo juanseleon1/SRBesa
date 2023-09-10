@@ -1,10 +1,10 @@
-package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.EmotionalModel;
+package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.EmotionalModel.Personality.EmotionElementType;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Personality.EmotionElementType;
 
 public class SemanticDictionary {
 
@@ -45,7 +45,7 @@ public class SemanticDictionary {
         getList(t).put(s.getName(), s);
     }
 
-    public Collection getSemanticItemList(EmotionElementType t) {
+    public Collection<SemanticValue> getSemanticItemList(EmotionElementType t) {
         return getList(t).values();
     }
 

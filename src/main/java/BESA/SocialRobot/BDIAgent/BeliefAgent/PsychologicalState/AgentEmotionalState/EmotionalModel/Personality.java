@@ -1,4 +1,4 @@
-package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.EmotionalModel;
+package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class Personality {
         eventDesirability = new HashMap<>();
     }
 
-    private Map getList(EmotionElementType t) {
+    private Map<String, String> getList(EmotionElementType t) {
         switch (t) {
             case Object:
                 return this.objectRelationships;

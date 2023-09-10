@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.EmotionalModel;
+package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
 /**
  *

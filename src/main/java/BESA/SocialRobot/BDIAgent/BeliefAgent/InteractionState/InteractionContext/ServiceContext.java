@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState;
+package BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionContext;
 
 import BESA.SocialRobot.DBConnection.SREntities.ActividadPwa;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.ResPwAActivity;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.ResPwAStrategy;
 import BESA.SocialRobot.DBConnection.BDInterface.RESPwABDInterface;
-import BESA.SocialRobot.DBConnection.SREntities.ActXPreferencia;
 import BESA.SocialRobot.DBConnection.SREntities.Baile;
 import BESA.SocialRobot.DBConnection.SREntities.PreferenciaXBaile;
 import BESA.SocialRobot.DBConnection.SREntities.PreferenciaXCancion;
 import BESA.SocialRobot.DBConnection.SREntities.PreferenciaXCuento;
 import BESA.SocialRobot.DBConnection.SREntities.RegistroActividad;
 import BESA.SocialRobot.DBConnection.SREntities.RegistroActividadPK;
-import BESA.SocialRobot.ExplainabilityAgent.guard.RequestData;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -42,39 +40,16 @@ public class ServiceContext implements Believes {
     private List<Baile> bailes;
     private String cedula;
     private Integer indexCuento = 0;
-    private BeliefAgent blvs = null;
     private boolean estaBailando;
     private boolean estaMoviendo;
 
     public ServiceContext(String cedula, BeliefAgent blvs) {
         this.cedula = cedula;
-        this.blvs = blvs;
         this.estaBailando = false;
     }
 
     @Override
     public boolean update(InfoData si) {
-        System.out.println("BEstadoActividad update Received: " + si);
-        RequestData infoRecibida = (RequestData) si;
-        if (infoRecibida.getDataP().containsKey("actividadEnCurso")) {
-            actividadEnCurso = Boolean.valueOf((String) infoRecibida.getDataP().get("actividadEnCurso"));
-            if (actividadEnCurso) {
-                tiempoInicioActividad = System.currentTimeMillis();
-//                estadoInit = blvs.getbEstadoEmocionalRobot().getEm().getState().getDominantEmotion().toString();
-            } else {
-
-                tiempoInicioActividad = 0;
-                createNewInteResgistry();
-            }
-        }
-
-        if (infoRecibida.getDataP().containsKey("finishAnim")) {
-            estaBailando = (boolean) infoRecibida.getDataP().get("finishAnim");
-        }
-        if (infoRecibida.getDataP().containsKey("finishAnim")) {
-            estaMoviendo = (boolean) infoRecibida.getDataP().get("finishAnim");
-
-        }
         return true;
     }
 
@@ -90,15 +65,15 @@ public class ServiceContext implements Believes {
         return actividadActual;
     }
 
-    public double getGustoActividad(ResPwAActivity actividad) {
-        double gusto = 0;
-        for (ActXPreferencia a : blvs.getbPerfilPwA().getPerfil().getPerfilPreferencia().getActXPreferenciaList()) {
-            if (a.getActividadPwa().getNombre().equalsIgnoreCase(actividad.toString())) {
-                gusto = a.getGusto();
-            }
-        }
-        return gusto;
-    }
+    //public double getGustoActividad(ResPwAActivity actividad) {
+    //    double gusto = 0;
+    //    for (ActXPreferencia a : blvs.getbPerfilPwA().getPerfil().getPerfilPreferencia().getActXPreferenciaList()) {
+    //        if (a.getActividadPwa().getNombre().equalsIgnoreCase(actividad.toString())) {
+    //            gusto = a.getGusto();
+    //        }
+    //    }
+    //    return gusto;
+    //}
 
     public void setActividadActual(ResPwAActivity actividadActual) {
         this.actividadActual = actividadActual;
@@ -171,7 +146,7 @@ public class ServiceContext implements Believes {
         });
         ract.setEstadoInicial(cedula);
         ract.setEstadoFinal(cedula);
-        ract.setPerfilPwa(blvs.getbPerfilPwA().getPerfil());
+       // ract.setPerfilPwa(blvs.getbPerfilPwA().getPerfil());
         RESPwABDInterface.createRegistroAct(ract);
     }
 
