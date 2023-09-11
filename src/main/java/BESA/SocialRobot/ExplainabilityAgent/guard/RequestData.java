@@ -12,9 +12,9 @@ import rational.data.InfoData;
  * @author juans
  */
 public class RequestData extends InfoData{
-
-    public RequestData(String message) {
-        super(message);
+    
+    public RequestData() {
+        super(null);
     }
     
 //TODO: Define Data Contents    

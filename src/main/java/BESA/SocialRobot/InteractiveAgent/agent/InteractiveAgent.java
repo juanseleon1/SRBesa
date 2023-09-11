@@ -10,14 +10,8 @@ import BESA.Exception.ExceptionBESA;
  */
 
 import BESA.Kernel.Agent.AgentBESA;
-import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.Agent.KernelAgentExceptionBESA;
 import BESA.Kernel.Agent.StructBESA;
-import BESA.Kernel.Social.ServiceProvider.agent.GuardServiceProviderSuscribe;
-import BESA.Kernel.Social.ServiceProvider.agent.ServiceProviderBESA;
-import BESA.Kernel.Social.ServiceProvider.agent.ServiceProviderDataSuscribe;
-import BESA.Kernel.System.AdmBESA;
-import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventGuard;
 
 import java.util.logging.Level;

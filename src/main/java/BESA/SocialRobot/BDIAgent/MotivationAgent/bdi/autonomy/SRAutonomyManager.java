@@ -2,19 +2,17 @@ package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy;
 
 import BESA.BDI.AgentStructuralModel.GoalBDI;
 import BESA.BDI.AgentStructuralModel.AutonomyManager.AutonomyManager;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.request.RequestHandler;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srgoal.SRGoal;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi.SRGoal;
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import rational.mapping.Believes;
 
 public class SRAutonomyManager extends AutonomyManager {
     private FIS fis;
-    private RequestHandler requests;
 
     public SRAutonomyManager(String fileName) {
         fis = FIS.load(fileName, true);
-        requests = new RequestHandler();
         if (fis == null) {
             System.err.println("Cannot load FCL file: " + fileName);
         }
@@ -50,20 +48,15 @@ public class SRAutonomyManager extends AutonomyManager {
     }
 
     private boolean checkRequestPermission(GoalBDI goalBDI, Believes beliefs) {
+        BeliefAgent srBeliefs = (BeliefAgent) beliefs;
         String requestName = goalBDI.getClass().getName();
-        boolean isGranted = requests.isRequestGranted(requestName);
+        boolean isGranted = srBeliefs.getInteractionState().getRequestHandler().isRequestGranted(requestName);
         if (!isGranted) {
-            requests.addRequest(requestName);
+            srBeliefs.getInteractionState().getRequestHandler().addRequest(requestName);
         }
         return isGranted;
     }
 
-    public RequestHandler getRequests() {
-        return requests;
-    }
 
-    public void setRequests(RequestHandler requests) {
-        this.requests = requests;
-    }
 
 }

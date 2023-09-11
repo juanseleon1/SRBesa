@@ -10,17 +10,13 @@ import BESA.Exception.ExceptionBESA;
  * and open the template in the editor.
  */
 
-import BESA.Kernel.Agent.AgentBESA;
-import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.Agent.KernelAgentExceptionBESA;
 import BESA.Kernel.Agent.StructBESA;
-import BESA.Kernel.Social.ServiceProvider.agent.GuardServiceProviderSuscribe;
-import BESA.Kernel.Social.ServiceProvider.agent.ServiceProviderBESA;
-import BESA.Kernel.Social.ServiceProvider.agent.ServiceProviderDataSuscribe;
-import BESA.Kernel.System.AdmBESA;
-import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventGuard;
+import BESA.SocialRobot.agentUtils.AgentSubscription;
+import BESA.SocialRobot.agentUtils.SRSupportAgent;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author juans
  */
-public class HumanCooperationAgent extends AgentBESA {
+public class HumanCooperationAgent extends SRSupportAgent {
 public static String interactionEventGuard = "InteractionEventGuard";
     public HumanCooperationAgent(String alias) throws KernelAgentExceptionBESA {
         super(alias, new HumanCooperationAgentState(), buildAgentStruct(), 0.96);
@@ -49,7 +45,6 @@ public static String interactionEventGuard = "InteractionEventGuard";
     {
          StructBESA struct=new StructBESA();
         try {
-            //Add new guard implementation.
             struct.addBehavior("interactionEventGuard");
             struct.bindGuard(interactionEventGuard, InteractionEventGuard.class);
         } catch (ExceptionBESA ex) {
@@ -57,23 +52,11 @@ public static String interactionEventGuard = "InteractionEventGuard";
         }
         return struct;
     }
-    
- 
 
-    public void subscribeServices() throws ExceptionBESA {
-        //Todo: Subscribe dynamically
-        //String spAgId = AdmBESA.getInstance().lookupSPServiceInDirectory(ServiceAgentRESPwA.servHumanos);
-        //AgHandlerBESA agH = AdmBESA.getInstance().getHandlerByAid(spAgId);
-        ////Crea el data de suscripcion
-        //ServiceProviderDataSuscribe spDataSuscribe = new ServiceProviderDataSuscribe(
-        //        CalculateEmotionsGuard.class.getName(),
-        //        ServiceProviderBESA.ASYNCHRONIC_SERVICE,
-        //        ServiceAgentRESPwA.servHumanos,
-        //        SensorData.class.getName());
-        ////Crea el evento a enviar
-        //EventBESA evSP = new EventBESA(GuardServiceProviderSuscribe.class.getName(), spDataSuscribe);
-        //evSP.setSenderAgId(this.getAid());
-        ////Env�a el evento
-        //agH.sendEvent(evSP);
+    @Override
+    public List<AgentSubscription> buildConfiguration() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buildConfiguration'");
     }
+    
 }

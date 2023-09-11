@@ -17,7 +17,6 @@ public class InteractionEventGuard extends GuardBESA {
 
     @Override
     public void funcExecGuard(EventBESA ebesa) {
-        InteractionData infoRecibida = (InteractionData) ebesa.getData();
         //TODO: save data and process data. Then send to specific agents.
     }
 
