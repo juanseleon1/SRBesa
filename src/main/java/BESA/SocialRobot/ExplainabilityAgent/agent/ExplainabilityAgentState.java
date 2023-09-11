@@ -1,8 +1,7 @@
 package BESA.SocialRobot.ExplainabilityAgent.agent;
 
-
-
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,12 +10,27 @@ import java.util.Map;
  */
 
 import BESA.Kernel.Agent.StateBESA;
-import BESA.SocialRobot.InteractiveAgent.manager.ConversationManager;
 
 /**
  *
  * @author juans
  */
-public class ExplainabilityAgentState extends StateBESA{
-    private Map<Float, ConversationManager> conversations;
+public class ExplainabilityAgentState extends StateBESA {
+    private List<Record> records;
+
+    public ExplainabilityAgentState() {
+        this.records = new ArrayList<>();
+    }
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public void addRecord(Record record) {
+        this.records.add(record);
+    }
+
+    public void addListOfRecords(List<Record> records) {
+        this.records.addAll(records);
+    }
 }

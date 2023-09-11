@@ -1,7 +1,7 @@
 package BESA.SocialRobot.InteractiveAgent.agent;
 
 
-import java.util.Map;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -10,12 +10,10 @@ import java.util.Map;
  */
 
 import BESA.Kernel.Agent.StateBESA;
-import BESA.SocialRobot.InteractiveAgent.manager.ConversationManager;
 
 /**
  *
  * @author juans
  */
 public class InteractiveAgentState extends StateBESA{
-    private Map<Float, ConversationManager> conversations;
 }
