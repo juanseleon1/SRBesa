@@ -1,5 +1,7 @@
 package BESA.SocialRobot.ServiceProvider.agent;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,12 +25,12 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
 
     private static AgLocalHandlerBESA agh;
 
-    private Adapter adapter;
+    private Map<String,Adapter> adapters;
 
     private ServiceProviderAgent(String alias, Adapter adapter, StateServiceProvider ssp)
             throws KernelAgentExceptionBESA {
         super(alias, ssp, getDefaultStruct(), 0.96);
-        this.adapter = adapter;
+        this.adapters = new HashMap<>();
         //this.adapter.setRpa(this);
         System.out.println("RobotProviderAgent Iniciado");
     }

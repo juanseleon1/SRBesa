@@ -25,7 +25,7 @@ public class AskForPermission extends Task {
         BeliefAgent srBeliefs = (BeliefAgent) beliefs;
         RequestHandler requestHandler = srBeliefs.getInteractionState().getRequestHandler();
         List<Request> requests = requestHandler.getPendingRequests();
-        // TODO: Mandar request
+        // TODO: Mandar request a service provider
     }
 
     @Override

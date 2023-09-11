@@ -10,6 +10,7 @@ public class ProcessActionGuard extends GuardBESA {
         //ActionRequestData infoRecibida = (ActionRequestData) event.getData();
         // TODO: Translate action data to a real action. Send real action data requests
         // to the service providers.
+        //If expropiation or cancel request is sent, check task action and interrupt related service provider actions. 
     }
 
 }
