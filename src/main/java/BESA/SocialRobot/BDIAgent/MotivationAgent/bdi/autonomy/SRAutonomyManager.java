@@ -3,7 +3,7 @@ package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy;
 import BESA.BDI.AgentStructuralModel.GoalBDI;
 import BESA.BDI.AgentStructuralModel.AutonomyManager.AutonomyManager;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srgoal.SRGoal;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi.SRGoal;
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import rational.mapping.Believes;

@@ -1,4 +1,4 @@
-package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srgoal;
+package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi;
 
 import BESA.BDI.AgentStructuralModel.GoalBDI;
 import BESA.BDI.AgentStructuralModel.GoalBDITypes;

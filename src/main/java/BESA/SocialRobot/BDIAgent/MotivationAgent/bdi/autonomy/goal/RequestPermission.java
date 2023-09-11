@@ -6,7 +6,7 @@ import BESA.Kernel.Agent.Event.KernellAgentEventExceptionBESA;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.goal.task.AskForPermission;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srgoal.SRGoal;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi.SRGoal;
 import rational.RationalRole;
 import rational.mapping.Believes;
 import rational.mapping.Plan;
