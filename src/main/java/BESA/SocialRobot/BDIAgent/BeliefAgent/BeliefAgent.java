@@ -8,6 +8,7 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.PsychologicalSta
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.PhysicalState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.UserProfile.UserProfile;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.WorldModel.WorldModel;
+import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalModelImpact;
 import rational.data.InfoData;
 import rational.mapping.Believes;
 
@@ -31,11 +32,13 @@ public class BeliefAgent implements Believes {
         worldModel = new WorldModel();
     }
 
-    // AQUI SE MANDA LO DE INFORMATIONFLOW
-    // Aqui se accede a BD y se pide info de otros believes.
     @Override
     public boolean update(InfoData si) {
-        return true;
+        boolean isUpdated = false;
+        if(si instanceof EmotionalModelImpact){
+            isUpdated = psychologicalState.update(si);
+        }
+        return isUpdated;
     }
     @Override
     public Believes clone() throws CloneNotSupportedException {

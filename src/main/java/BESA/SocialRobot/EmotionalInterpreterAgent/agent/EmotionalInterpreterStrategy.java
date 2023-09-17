@@ -14,8 +14,8 @@ import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalData;
  *
  * @author juans
  */
-public interface EmotionalAnalyzerStrategy {
+public interface EmotionalInterpreterStrategy {
     
-    public List<EmotionalEvent> processEmotion(EmotionalData sd);
+    public List<EmotionalEvent> processEvents(EmotionalData sd);
     
 }

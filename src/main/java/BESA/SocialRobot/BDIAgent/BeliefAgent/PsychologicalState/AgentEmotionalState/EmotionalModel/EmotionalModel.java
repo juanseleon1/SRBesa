@@ -57,6 +57,17 @@ public abstract class EmotionalModel {
         emotionalStateChanged();
     }
 
+    public void processEmotionalEvents(List<EmotionalEvent> evts) {
+        evts.forEach((ev) -> {
+            double i = estimateEmotionIntensity(ev);
+            if (ev.getPerson() != null) {
+                System.out.println("XEREVENTO: " + ev + " Valencia" + i);
+            }
+            emotionalState.updateEmotions(ev.getEvent(), i);
+        });
+        emotionalStateChanged();
+    }
+
     private double estimateEmotionIntensity(EmotionalEvent ev) {
         Double person = personality.getElementSemanticValue(EmotionElementType.Person, ev.getPerson());
         Double event = personality.getElementSemanticValue(EmotionElementType.Event, ev.getEvent());
@@ -70,8 +81,6 @@ public abstract class EmotionalModel {
                 + Utils.Config.EventWeight * Math.abs(event)
                 + Utils.Config.ObjectWeight * Math.abs(object);
         boolean valence = estimateValence(person, event, object);
-        // System.out.println("P:" + person + " E:" + event + " O:" + object);
-        // System.out.println("Val: " + valence);
         intensity = (valence ? 1 : -1) * intensity;
         return intensity;
     }

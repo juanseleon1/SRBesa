@@ -11,7 +11,7 @@ import rational.mapping.Believes;
  *
  * @author juans
  */
-public interface ResPwAStrategy{
+public interface SRStrategy{
     
     public abstract void execStrategy(Believes b);
     public abstract boolean isFinished(Believes b);

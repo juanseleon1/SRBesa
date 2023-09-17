@@ -14,4 +14,5 @@ import BESA.Kernel.Agent.StateBESA;
  */
 public class UserEmotionalInterpreterState extends StateBESA{
     //private Map<Float, UserEmotionalModel> userModels;
+    //TODO: Check what to do with models
 }

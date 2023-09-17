@@ -1,20 +1,26 @@
 package BESA.SocialRobot.ServiceProvider.agent;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.KernelAgentExceptionBESA;
 import BESA.Kernel.Agent.StructBESA;
+import BESA.Kernel.Agent.Event.DataBESA;
+import BESA.Kernel.Agent.Event.EventBESA;
+import BESA.Kernel.Social.ServiceProvider.agent.SPInfoGuard;
 import BESA.Kernel.Social.ServiceProvider.agent.ServiceProviderAgentExceptionBESA;
 import BESA.Kernel.Social.ServiceProvider.agent.ServiceProviderBESA;
 import BESA.Kernel.Social.ServiceProvider.agent.ServiceProviderDescriptor;
-import BESA.Kernel.Social.ServiceProvider.agent.StateServiceProvider;
-import BESA.Local.Directory.AgLocalHandlerBESA;
+import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.Log.ReportBESA;
-import BESA.SocialRobot.ServiceProvider.agent.adapter.Adapter;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.guard.SyncActionGuard;
+import BESA.SocialRobot.ServiceProvider.agent.adapter.SRService;
+import BESA.SocialRobot.ServiceProvider.agent.guard.RobotReplyData;
 import rational.services.ActivateAsynchronousServiceGuard;
 
 /**
@@ -23,16 +29,9 @@ import rational.services.ActivateAsynchronousServiceGuard;
  */
 public class ServiceProviderAgent extends ServiceProviderBESA {
 
-    private static AgLocalHandlerBESA agh;
-
-    private Map<String,Adapter> adapters;
-
-    private ServiceProviderAgent(String alias, Adapter adapter, StateServiceProvider ssp)
+    protected ServiceProviderAgent(String alias, ServiceProviderState ssp)
             throws KernelAgentExceptionBESA {
         super(alias, ssp, getDefaultStruct(), 0.96);
-        this.adapters = new HashMap<>();
-        //this.adapter.setRpa(this);
-        System.out.println("RobotProviderAgent Iniciado");
     }
 
     public static StructBESA getDefaultStruct() {
@@ -47,12 +46,18 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
         }
     }
 
-    private StateServiceProvider prepareServiceProvider(Adapter adapter) {
-        StateServiceProvider estado = null;
+    private static ServiceProviderState prepareServiceProvider(List<SRService<?>> services) {
+        ServiceProviderState estado = null;
         try {
-            estado = new StateServiceProvider(adapter, buildProviderDescriptor());
-        } catch (ServiceProviderAgentExceptionBESA ex) {
-            Logger.getLogger(ServiceProviderAgent.class.getName()).log(Level.SEVERE, null, ex);
+            ServiceProviderDescriptor spd = new ServiceProviderDescriptor();
+            services.forEach(service -> {
+                try {
+                    spd.addSPService(service);
+                } catch (ServiceProviderAgentExceptionBESA e) {
+                    e.printStackTrace();
+                }
+            });
+            estado = new ServiceProviderState(spd);
         } catch (Exception ex) {
             Logger.getLogger(ServiceProviderAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,21 +66,51 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
 
     @Override
     public void setupAgent() {
-        // TODO:If adapter is the receiver, bind to interested guards.
-        // this.getAdmLocal().bindSPServiceInDirectory(this.getAid(), servActividades);
+        ServiceProviderState ssp = (ServiceProviderState) this.getState();
+        ssp.getDescriptor().getServiceAccessTable().forEach((string, service) -> {
+            this.getAdmLocal().bindSPServiceInDirectory(this.getAid(), service.getName());
+        });
     }
 
     @Override
     public void shutdownAgent() {
     }
 
-    private static ServiceProviderDescriptor buildProviderDescriptor() throws ServiceProviderAgentExceptionBESA {
-        ServiceProviderDescriptor spd = new ServiceProviderDescriptor();
-        // TODO: Determine when and how to build the descriptor.
-        // ActivityService as= new ActivityService();
-        // as.setName(servActividades);
-        // spd.addSPService(as);
+    public static ServiceProviderAgent buildServiceProviderAgent(String alias, List<SRService<?>> services)
+            throws KernelAgentExceptionBESA {
+        ServiceProviderAgent spa = new ServiceProviderAgent(alias, prepareServiceProvider(services));
+        return spa;
+    }
 
-        return spd;
+    public void processAsynchEvent(DataBESA data, String serviceName) {
+        ServiceProviderState state = (ServiceProviderState) this.getState();
+        Set<String> mySet = state.getAgentsGuardsTableAsync().keySet();
+        for (String key : mySet) {
+            ArrayList<SPInfoGuard> res = state.getAgentsGuardsTableAsync().get(key);
+            for (int i = 0; i < res.size(); i++) {
+                SPInfoGuard tmp = (SPInfoGuard) res.get(i);
+                if (tmp.getServiceName().equals(serviceName) && tmp.getDataType().equals(data.getClass().getName())) {
+                    //Devuelve el resultado de la ejeuciï¿½n al agente solicitante
+                    EventBESA evento = new EventBESA(tmp.getIdGuard(), data);
+                    try {
+                        this.getAdmLocal().getHandlerByAid(key).sendEvent(evento);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ReportBESA.error(e.toString());
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    public void sendActionConfirmation(RobotReplyData data) {
+        try {
+            AgHandlerBESA handler = this.getAdmLocal().getHandlerByAlias(ActionAgent.name);
+            EventBESA event = new EventBESA(SyncActionGuard.class.getName(), data);
+            handler.sendEvent(event);
+        } catch (ExceptionBESA e) {
+            e.printStackTrace();
+        }
     }
 }

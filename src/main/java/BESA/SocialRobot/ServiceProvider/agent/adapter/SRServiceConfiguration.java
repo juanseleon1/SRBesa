@@ -1,0 +1,11 @@
+package BESA.SocialRobot.ServiceProvider.agent.adapter;
+
+import BESA.Kernel.Agent.Event.DataBESA;
+import BESA.SocialRobot.agentUtils.ServiceDataRequest;
+
+public interface SRServiceConfiguration {
+    public RobotData convertServiceDataToRobotData(ServiceDataRequest dataRequest);
+
+    public DataBESA convertRobotDataToDataBESA(RobotData data);
+
+}

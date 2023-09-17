@@ -11,9 +11,9 @@ import rational.data.InfoData;
  *
  * @author juans
  */
-public class InteractionData extends InfoData{
+public class InteractionEventData extends InfoData{
 
-    public InteractionData(String message) {
+    public InteractionEventData(String message) {
         super(message);
     }
     

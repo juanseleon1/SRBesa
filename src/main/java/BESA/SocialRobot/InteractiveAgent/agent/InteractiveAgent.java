@@ -9,11 +9,16 @@ import BESA.Exception.ExceptionBESA;
  * and open the template in the editor.
  */
 
-import BESA.Kernel.Agent.AgentBESA;
 import BESA.Kernel.Agent.KernelAgentExceptionBESA;
 import BESA.Kernel.Agent.StructBESA;
+import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventData;
 import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventGuard;
+import BESA.SocialRobot.ServiceProvider.services.ServiceNames;
+import BESA.SocialRobot.agentUtils.AgentSubscription;
+import BESA.SocialRobot.agentUtils.SRSupportAgent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,23 +26,13 @@ import java.util.logging.Logger;
  *
  * @author juans
  */
-public class InteractiveAgent extends AgentBESA {
+public class InteractiveAgent extends SRSupportAgent {
 public static String interactionEventGuard = "InteractionEventGuard";
     public InteractiveAgent(String alias) throws KernelAgentExceptionBESA {
         super(alias, new InteractiveAgentState(), buildAgentStruct(), 0.96);
         System.out.println("SensorHandlerAgent Iniciado");
     }
 
-    @Override
-    public void setupAgent() {
-        
-    }
-
-    @Override
-    public void shutdownAgent() {
-
-    }
-    
     private static StructBESA buildAgentStruct()
     {
          StructBESA struct=new StructBESA();
@@ -51,21 +46,11 @@ public static String interactionEventGuard = "InteractionEventGuard";
     }
     
  
-
-    public void subscribeServices() throws ExceptionBESA {
-        //Todo: Subscribe dynamically
-        //String spAgId = AdmBESA.getInstance().lookupSPServiceInDirectory(ServiceAgentRESPwA.servHumanos);
-        //AgHandlerBESA agH = AdmBESA.getInstance().getHandlerByAid(spAgId);
-        ////Crea el data de suscripcion
-        //ServiceProviderDataSuscribe spDataSuscribe = new ServiceProviderDataSuscribe(
-        //        CalculateEmotionsGuard.class.getName(),
-        //        ServiceProviderBESA.ASYNCHRONIC_SERVICE,
-        //        ServiceAgentRESPwA.servHumanos,
-        //        SensorData.class.getName());
-        ////Crea el evento a enviar
-        //EventBESA evSP = new EventBESA(GuardServiceProviderSuscribe.class.getName(), spDataSuscribe);
-        //evSP.setSenderAgId(this.getAid());
-        ////Env�a el evento
-        //agH.sendEvent(evSP);
+    @Override
+    public List<AgentSubscription<?, ?>> buildConfiguration() {
+        AgentSubscription<InteractionEventData, InteractionEventGuard> interactionSubscription = new AgentSubscription<>(ServiceNames.SPEECHENGINE);
+        List<AgentSubscription<?, ?>> agSubscriptions = new ArrayList<>();
+        agSubscriptions.add(interactionSubscription);
+        return agSubscriptions;
     }
 }

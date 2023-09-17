@@ -20,11 +20,11 @@ public abstract class SRSupportAgent extends AgentBESA {
         super(alias, state, structAgent, passwd);
     }
 
-    public abstract List<AgentSubscription> buildConfiguration();
+    public abstract List<AgentSubscription<?, ?>> buildConfiguration();
 
     @Override
     public void setupAgent() {
-        List<AgentSubscription> subs = this.buildConfiguration();
+        List<AgentSubscription<?, ?>> subs = this.buildConfiguration();
         this.subscribeServices(subs);
     }
 
@@ -33,7 +33,7 @@ public abstract class SRSupportAgent extends AgentBESA {
 
     }
 
-    private void subscribeServices(List<AgentSubscription> subscriptions){
+    private void subscribeServices(List<AgentSubscription<?, ?>> subscriptions){
         subscriptions.forEach(suscription -> {
 
             try {
