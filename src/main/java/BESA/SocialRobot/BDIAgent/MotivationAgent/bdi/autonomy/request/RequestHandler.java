@@ -107,4 +107,8 @@ public class RequestHandler {
             requests.remove(name);
         }
     }
+
+    public void setCleanUpTime(long cleanUpTime) {
+        this.cleanUpTime = cleanUpTime;
+    }
 }

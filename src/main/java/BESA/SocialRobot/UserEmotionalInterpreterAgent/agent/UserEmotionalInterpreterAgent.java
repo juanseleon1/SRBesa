@@ -28,8 +28,8 @@ import java.util.logging.Logger;
 public class UserEmotionalInterpreterAgent extends SRSupportAgent {
     public static String calculateEmotionsGuard = "CalculateEmotionsGuard";
 
-    public UserEmotionalInterpreterAgent(String alias) throws KernelAgentExceptionBESA {
-        super(alias, new UserEmotionalInterpreterState(), buildAgentStruct(), 0.96);
+    public UserEmotionalInterpreterAgent(String alias, UserEmotionalInterpreterState state) throws KernelAgentExceptionBESA {
+        super(alias, state , buildAgentStruct(), 0.96);
         System.out.println("SensorHandlerAgent Iniciado");
     }
 
