@@ -8,4 +8,8 @@ public interface SRServiceConfiguration {
 
     public DataBESA convertRobotDataToDataBESA(RobotData data);
 
+    public RobotData translateOtherActionsToRobotData(ServiceDataRequest dataRequest);
+    
+    public DataBESA translateOtherActionsToDataBesa(RobotData data);
+
 }

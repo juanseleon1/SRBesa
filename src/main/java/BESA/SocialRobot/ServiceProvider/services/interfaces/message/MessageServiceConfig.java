@@ -5,18 +5,38 @@ import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.SRServiceConfiguration;
 import BESA.SocialRobot.agentUtils.ServiceDataRequest;
 
-public abstract class MessageServiceConfig implements SRServiceConfiguration{
-
+public abstract class MessageServiceConfig implements SRServiceConfiguration {
     @Override
     public RobotData convertServiceDataToRobotData(ServiceDataRequest dataRequest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertServiceDataToRobotData'");
+        RobotData rd = null;
+        String function = dataRequest.getFunction();
+        switch(function){
+            case "sendMessageAction":
+                rd = translateSendMessageAction(dataRequest);
+                break;
+            default:
+                rd = translateOtherActionsToRobotData(dataRequest);
+                break;
+        }
+        return rd;
     }
 
     @Override
     public DataBESA convertRobotDataToDataBESA(RobotData data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertRobotDataToDataBESA'");
+        DataBESA db = null;
+        String function = data.getFunction();
+        switch(function){
+            case "sendMessageResponse":
+                db = translateSendMessageResponse(data);
+                break;
+            default:
+                db = translateOtherActionsToDataBesa(data);
+                break;
+        }
+        return db;
     }
+    public abstract RobotData translateSendMessageAction(ServiceDataRequest dataRequest);
+    public abstract ServiceDataRequest translateSendMessageResponse(RobotData robotData);
+
 
 }

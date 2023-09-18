@@ -1,4 +1,4 @@
-package BESA.SocialRobot.ServiceProvider.services.sensing.interfaceevent;
+package BESA.SocialRobot.ServiceProvider.services.interfaces.interfaceevent;
 
 import BESA.Adapter.AdapterBESA;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.SRService;
