@@ -1,9 +1,10 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionState;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionContext.ServiceContext;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.PsychologicalState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.PhysicalState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
@@ -23,14 +24,14 @@ public class BeliefAgent implements Believes {
     private InteractionState interactionState;
     private PsychologicalState psychologicalState;
     private PhysicalState physicalState;
-    private List<UserProfile> userProfiles;
+    private Map<Double,UserProfile> userProfiles;
     private WorldModel worldModel;
 
     public BeliefAgent(RobotResources resources, RobotEmotionalConfig emotionalConfig) {
         interactionState = new InteractionState();
         psychologicalState = new PsychologicalState();
         physicalState = new PhysicalState(resources, emotionalConfig);
-        userProfiles = new ArrayList<>();
+        userProfiles = new HashMap<>();
         worldModel = new WorldModel();
     }
 
@@ -72,11 +73,11 @@ public class BeliefAgent implements Believes {
         this.physicalState = physicalState;
     }
 
-    public List<UserProfile> getUserProfiles() {
+    public Map<Double,UserProfile> getUserProfiles() {
         return userProfiles;
     }
 
-    public void setUserProfiles(List<UserProfile> userProfiles) {
+    public void setUserProfiles(Map<Double,UserProfile> userProfiles) {
         this.userProfiles = userProfiles;
     }
 
@@ -86,6 +87,20 @@ public class BeliefAgent implements Believes {
 
     public void setWorldModel(WorldModel worldModel) {
         this.worldModel = worldModel;
+    }
+
+    public UserProfile getUserProfile(double id) {
+        //TODO: how to do this
+        return userProfiles.get(id);
+    }
+
+    public void registerServiceContext(Class<?> service, ServiceContext context) {
+        
+        interactionState.getServiceContexts().put(service.getName(), context);
+    }
+
+    public ServiceContext getServiceContext(Class<?> service) {
+        return interactionState.getServiceContexts().get(service.getName());
     }
 
 }

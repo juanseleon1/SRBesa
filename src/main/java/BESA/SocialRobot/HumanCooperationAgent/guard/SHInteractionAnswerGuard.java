@@ -14,7 +14,7 @@ import BESA.Kernel.Agent.GuardBESA;
  *
  * @author juans
  */
-public class InteractionAnswerGuard extends GuardBESA {
+public class SHInteractionAnswerGuard extends GuardBESA {
 
     @Override
     public void funcExecGuard(EventBESA ebesa) {

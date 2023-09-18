@@ -1,9 +1,13 @@
 package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy;
 
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import BESA.BDI.AgentStructuralModel.GoalBDI;
 import BESA.BDI.AgentStructuralModel.AutonomyManager.AutonomyManager;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi.SRGoal;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.UserProfile.UserProfile;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi.ServiceGoal;
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import rational.mapping.Believes;
@@ -25,9 +29,9 @@ public class SRAutonomyManager extends AutonomyManager {
 
     private boolean checkAutonomyFrameworkValues(GoalBDI goalBDI, Believes beliefs) {
         boolean checkIsPassed = true;
-        if (goalBDI instanceof SRGoal) {
+        if (goalBDI instanceof ServiceGoal) {
             checkIsPassed = false;
-            SRGoal srGoal = (SRGoal) goalBDI;
+            ServiceGoal<?> srGoal = (ServiceGoal<?>) goalBDI;
             // Set input values
             fis.setVariable("Criticality", srGoal.calculateCriticality());
             fis.setVariable("Accountability", srGoal.getAccountability());
@@ -50,13 +54,19 @@ public class SRAutonomyManager extends AutonomyManager {
     private boolean checkRequestPermission(GoalBDI goalBDI, Believes beliefs) {
         BeliefAgent srBeliefs = (BeliefAgent) beliefs;
         String requestName = goalBDI.getClass().getName();
-        boolean isGranted = srBeliefs.getInteractionState().getRequestHandler().isRequestGranted(requestName);
-        if (!isGranted) {
-            srBeliefs.getInteractionState().getRequestHandler().addRequest(requestName);
-        }
-        return isGranted;
+        List<Double> userIDs = srBeliefs.getInteractionState().getCurrentServiceContext().getUserIDs();
+        AtomicBoolean grantedForAll = new AtomicBoolean(true);
+        userIDs.forEach(userID -> {
+            UserProfile userProfile = srBeliefs.getUserProfile(userID);
+            boolean isGranted = srBeliefs.getInteractionState().getRequestHandler().isRequestGranted(requestName);
+            if (!isGranted) {
+                srBeliefs.getInteractionState().getRequestHandler().addRequest(
+                        userProfile.getUserContext().getSocioDemoContext().getName(),
+                        userProfile.getUserContext().getSocioDemoContext().getId(), requestName);
+            }
+            grantedForAll.set(grantedForAll.get() && isGranted);
+        });
+        return grantedForAll.get();
     }
-
-
 
 }

@@ -21,8 +21,8 @@ public class EmotionalInterpreterAgent extends SRSupportAgent {
     public static String name = "EmotionalInterpreterAgent";
     public static String ProcessEmotionGuard = "ProcessEmotionGuard";
 
-    public EmotionalInterpreterAgent(String alias, EmotionalInterpreterStrategy eas) throws KernelAgentExceptionBESA {
-        super(alias, new EmotionalInterpreterState(eas), buildEAStruct(), 0.96);
+    public EmotionalInterpreterAgent(EmotionalInterpreterStrategy eas) throws KernelAgentExceptionBESA {
+        super(name, new EmotionalInterpreterState(eas), buildEAStruct(), 0.96);
     }
 
     private static StructBESA buildEAStruct() {

@@ -1,6 +1,7 @@
 package BESA.SocialRobot.ServiceProvider.services.speech.speechengine;
 
 import BESA.Kernel.Agent.Event.DataBESA;
+import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.SRServiceConfiguration;
 import BESA.SocialRobot.agentUtils.ServiceDataRequest;
@@ -63,7 +64,7 @@ public abstract class SpeechEngineServiceConfig implements SRServiceConfiguratio
 
     public abstract RobotData translatePauseSoundAction(ServiceDataRequest dataRequest);
 
-    public abstract ServiceDataRequest translateTalkResponse(RobotData robotData);
+    public abstract InteractionEventData translateTalkResponse(RobotData robotData);
 
     public abstract ServiceDataRequest translateTalkVolumeResponse(RobotData robotData);
 

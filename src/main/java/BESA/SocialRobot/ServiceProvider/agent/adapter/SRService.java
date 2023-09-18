@@ -1,19 +1,22 @@
 package BESA.SocialRobot.ServiceProvider.agent.adapter;
 
-import BESA.Adapter.AdapterBESA;
 import BESA.Kernel.Social.ServiceProvider.agent.SPServiceDataRequest;
 import BESA.Kernel.Social.ServiceProvider.agent.StateServiceProvider;
 import BESA.SocialRobot.ServiceProvider.agent.ServiceProviderState;
+import BESA.SocialRobot.ServiceProvider.services.ServiceNames;
 import BESA.SocialRobot.agentUtils.ServiceDataRequest;
 import rational.services.AsynchronousService;
 
 public abstract class SRService<T extends SRServiceConfiguration> extends AsynchronousService {
 
     private T config;
-
-    public SRService(String name, AdapterBESA adapter, T config) {
-        super(name, adapter);
+    private SRAdapterReceiver receiver;
+    public SRService(ServiceNames name, SRAdapter adapter, SRAdapterReceiver receiver, T config) {
+        super(name.name(), adapter);
         this.config = config;
+        this.receiver = receiver;
+        adapter.startAdapter();
+        receiver.startReceiver();
     }
 
     @Override
@@ -34,4 +37,11 @@ public abstract class SRService<T extends SRServiceConfiguration> extends Asynch
         this.config = config;
     }
 
+    public SRAdapterReceiver getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(SRAdapterReceiver receiver) {
+        this.receiver = receiver;
+    }
 }

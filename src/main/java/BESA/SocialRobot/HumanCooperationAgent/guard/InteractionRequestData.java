@@ -4,13 +4,6 @@ import java.util.List;
 
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.request.Request;
 
-//TODO: Check angela thesis to implement this
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import rational.data.InfoData;
 
 /**
@@ -24,6 +17,9 @@ public class InteractionRequestData extends InfoData{
         super(null);
         this.requests = requests;
     }
-    
-//TODO: Define Data Contents. who uses this? 
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
 }

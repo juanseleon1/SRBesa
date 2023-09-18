@@ -20,6 +20,7 @@ import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.guard.SyncActionGuard;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.SRService;
+import BESA.SocialRobot.ServiceProvider.agent.guard.ProcessRobotReplyGuard;
 import BESA.SocialRobot.ServiceProvider.agent.guard.RobotReplyData;
 import rational.services.ActivateAsynchronousServiceGuard;
 
@@ -39,6 +40,8 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
             StructBESA struct = ServiceProviderBESA.getDefaultStruct();
             struct.addBehavior("BehaviorAsyncServiceProvider");
             struct.bindGuard("BehaviorAsyncServiceProvider", ActivateAsynchronousServiceGuard.class);
+            struct.addBehavior("ProcessRobotReplyGuard");
+            struct.bindGuard("ProcessRobotReplyGuard", ProcessRobotReplyGuard.class);
             return struct;
         } catch (ExceptionBESA ex) {
             ReportBESA.error(ex);
@@ -90,7 +93,7 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
             for (int i = 0; i < res.size(); i++) {
                 SPInfoGuard tmp = (SPInfoGuard) res.get(i);
                 if (tmp.getServiceName().equals(serviceName) && tmp.getDataType().equals(data.getClass().getName())) {
-                    //Devuelve el resultado de la ejeuciï¿½n al agente solicitante
+                    // Devuelve el resultado de la ejeuciï¿½n al agente solicitante
                     EventBESA evento = new EventBESA(tmp.getIdGuard(), data);
                     try {
                         this.getAdmLocal().getHandlerByAid(key).sendEvent(evento);

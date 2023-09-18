@@ -2,8 +2,6 @@ package BESA.SocialRobot.UserEmotionalInterpreterAgent.agent;
 
 import BESA.Exception.ExceptionBESA;
 
-
-
 import BESA.Kernel.Agent.KernelAgentExceptionBESA;
 import BESA.Kernel.Agent.StructBESA;
 import BESA.SocialRobot.ServiceProvider.services.ServiceNames;
@@ -25,8 +23,8 @@ public class UserEmotionalInterpreterAgent extends SRSupportAgent {
     public static String name = "UserEmotionalInterpreterAgent";
     public static String calculateEmotionsGuard = "CalculateEmotionsGuard";
 
-    public UserEmotionalInterpreterAgent(String alias, UserEmotionalInterpreterState state) throws KernelAgentExceptionBESA {
-        super(alias, state , buildAgentStruct(), 0.96);
+    public UserEmotionalInterpreterAgent(UserEmotionalInterpreterState state) throws KernelAgentExceptionBESA {
+        super(name, state, buildAgentStruct(), 0.96);
         System.out.println("SensorHandlerAgent Iniciado");
     }
 

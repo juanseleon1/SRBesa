@@ -4,7 +4,7 @@ import BESA.Exception.ExceptionBESA;
 
 import BESA.Kernel.Agent.KernelAgentExceptionBESA;
 import BESA.Kernel.Agent.StructBESA;
-import BESA.SocialRobot.HumanCooperationAgent.guard.InteractionRequestGuard;
+import BESA.SocialRobot.InteractiveAgent.guard.HumanInteractionRequestGuard;
 import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventData;
 import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventGuard;
 import BESA.SocialRobot.ServiceProvider.services.ServiceNames;
@@ -21,11 +21,12 @@ import java.util.logging.Logger;
  * @author juans
  */
 public class InteractiveAgent extends SRSupportAgent {
+    public static String name = "InteractiveAgent";
     public static String interactionEventGuard = "InteractionEventGuard";
     public static String interactionRequestGuard = "interactionRequestGuard";
 
-    public InteractiveAgent(String alias, InteractiveAgentState<?, ?> state) throws KernelAgentExceptionBESA {
-        super(alias, state, buildAgentStruct(), 0.96);
+    public InteractiveAgent(InteractiveAgentState<?, ?> state) throws KernelAgentExceptionBESA {
+        super(name, state, buildAgentStruct(), 0.96);
         System.out.println("SensorHandlerAgent Iniciado");
     }
 
@@ -35,7 +36,7 @@ public class InteractiveAgent extends SRSupportAgent {
             struct.addBehavior("interactionEventGuard");
             struct.bindGuard(interactionEventGuard, InteractionEventGuard.class);
             struct.addBehavior("interactionRequestGuard");
-            struct.bindGuard(interactionRequestGuard, InteractionRequestGuard.class);
+            struct.bindGuard(interactionRequestGuard, HumanInteractionRequestGuard.class);
         } catch (ExceptionBESA ex) {
             Logger.getLogger(InteractiveAgent.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -31,15 +31,15 @@ public class RequestHandler {
         }, cleanUpTime);
     }
 
-    public boolean addRequest(String name) {
+    public boolean addRequest(String name, String userId, String userName) {
         boolean isAdded = false;
         Request existingRequest = requests.get(name);
         if (existingRequest != null) {
             existingRequest.renew(); // Renew the existing request
         } else {
             // If not found, add a new request
-            if (!approvedRequests.containsKey(name) && !rejectedRequests.containsKey(name)) {
-                requests.put(name, new Request(name));
+            if (!approvedRequests.containsKey(name+userId) && !rejectedRequests.containsKey(name)) {
+                requests.put(name, new Request(name, userName, userId));
             }
         }
         return isAdded;
@@ -52,6 +52,15 @@ public class RequestHandler {
             approvedRequests.put(name, request);
             // Remove the approved request from the requests map
             requests.remove(name);
+        }
+    }
+
+    public void setRequestsToProcessed(List<Request> toProcess) {
+        for (Request processedReq : toProcess) {
+            Request request = requests.get(processedReq.getName());
+            if (request != null) {
+                request.setStatus(RequestStatus.PROCESSED);
+            }
         }
     }
 
@@ -92,7 +101,6 @@ public class RequestHandler {
     }
 
     public List<Request> getPendingRequests() {
-        // return a list with all the requests that are pending in the request map
         return (List<Request>) requests.values().stream().filter(e -> e.getStatus() == RequestStatus.SOLICITED)
                 .collect(Collectors.toList());
     }

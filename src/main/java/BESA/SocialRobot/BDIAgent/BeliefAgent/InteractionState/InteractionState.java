@@ -11,7 +11,7 @@ import rational.data.InfoData;
 import rational.mapping.Believes;
 
 public class InteractionState implements Believes{
-
+    private String activeService;
     private ConversationContext conversation;
     private Map<String, ServiceContext> serviceContexts;
     private Map<String, UserInteractionState> interactions;
@@ -63,6 +63,18 @@ public class InteractionState implements Believes{
 
     public void setRequestHandler(RequestHandler requestHandler) {
         this.requestHandler = requestHandler;
+    }
+
+    public ServiceContext getCurrentServiceContext() {
+        return serviceContexts.get(activeService);
+    }
+
+    public void setActiveService(String activeService) {
+        this.activeService = activeService;
+    }
+
+    public String getActiveService() {
+        return activeService;
     }
 
 }

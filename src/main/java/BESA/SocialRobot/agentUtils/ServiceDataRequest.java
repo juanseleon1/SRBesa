@@ -10,17 +10,18 @@ import rational.services.ActivateServiceData;
  */
 public class ServiceDataRequest extends ActivateServiceData {
 
-    private int id;
+    private double id;
     private String function;
     private Map<String, ?> params;
+    private boolean isFromInteractionAgent;
 
-    public ServiceDataRequest(int id, String service, String function, Map<String, ?> params) {
+    public ServiceDataRequest(double id, String service, String function, Map<String, ?> params) {
 
         super(service);
         this.id = id;
         this.function = function;
         this.params = params;
-
+        isFromInteractionAgent = false;
     }
 
     public Map<String, ?> getParams() {
@@ -40,7 +41,19 @@ public class ServiceDataRequest extends ActivateServiceData {
     }
 
 
-    public int getId() {
+    public double getId() {
         return id;
+    }
+
+    public void setId(double id) {
+        this.id = id;
+    }
+
+    public boolean isFromInteractionAgent() {
+        return isFromInteractionAgent;
+    }
+
+    public void setFromInteractionAgent(boolean fromInteractionAgent) {
+        isFromInteractionAgent = fromInteractionAgent;
     }
 }

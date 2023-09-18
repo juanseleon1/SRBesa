@@ -1,17 +1,17 @@
 package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.goal;
 
+import BESA.BDI.AgentStructuralModel.GoalBDI;
 import BESA.BDI.AgentStructuralModel.GoalBDITypes;
 import BESA.BDI.AgentStructuralModel.StateBDI;
 import BESA.Kernel.Agent.Event.KernellAgentEventExceptionBESA;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.goal.task.AskForPermission;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi.SRGoal;
 import rational.RationalRole;
 import rational.mapping.Believes;
 import rational.mapping.Plan;
 
-public class RequestPermission extends SRGoal {
+public class RequestPermission extends GoalBDI {
 
     public static RequestPermission buildGoal() {
         AskForPermission permission = new AskForPermission();
@@ -27,7 +27,7 @@ public class RequestPermission extends SRGoal {
     }
 
     public RequestPermission(long id, RationalRole role, String description, GoalBDITypes type) {
-        super(id, role, description, type, 0);
+        super(id, role, description, type);
     }
 
     @Override
@@ -60,11 +60,6 @@ public class RequestPermission extends SRGoal {
     @Override
     public boolean predictResultUnlegality(StateBDI state) throws KernellAgentEventExceptionBESA {
         return true;
-    }
-
-    @Override
-    public double calculateCriticality() {
-        return 0;
     }
 
 }

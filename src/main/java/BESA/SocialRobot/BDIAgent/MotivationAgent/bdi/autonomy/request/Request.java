@@ -5,15 +5,17 @@ import java.util.Objects;
 
 public class Request {
     private String name;
+    private String userName;
+    private String userId;
     private LocalDateTime originalTime;
     private LocalDateTime timestamp;
     private RequestStatus status;
 
-    public Request(String name) {
+    public Request(String name, String userName, String userId) {
         this.name = name;
         this.timestamp = LocalDateTime.now();
         this.originalTime = LocalDateTime.now();
-        this.status = RequestStatus.SOLICITED; // Default status when added to the set
+        this.status = RequestStatus.SOLICITED;
     }
 
     public String getName() {
@@ -51,4 +53,11 @@ public class Request {
         return Objects.hash(name, originalTime);
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
 }

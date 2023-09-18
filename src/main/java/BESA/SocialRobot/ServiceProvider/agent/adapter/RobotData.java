@@ -2,7 +2,9 @@ package BESA.SocialRobot.ServiceProvider.agent.adapter;
 
 import java.util.Map;
 
-public class RobotData {
+import BESA.Kernel.Agent.Event.DataBESA;
+
+public class RobotData extends DataBESA{
     private int id;
     private String service;
     private String function;
