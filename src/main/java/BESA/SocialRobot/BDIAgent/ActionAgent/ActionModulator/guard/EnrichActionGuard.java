@@ -15,7 +15,7 @@ public class EnrichActionGuard extends GuardBESA {
     public void funcExecGuard(EventBESA event) {
         ActionRequestData infoRecibida = (ActionRequestData) event.getData();
         try {
-            // TODO: ProcessData and enrich data.
+            // TODO: ProcessData and enrich data. Get Action Modulator from state and enrich data.
             EventBESA eventBesa = new EventBESA(ProcessActionGuard.class.getName(), infoRecibida);
             AgHandlerBESA agHandlerBESA;
             agHandlerBESA = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);

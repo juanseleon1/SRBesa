@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package BESA.SocialRobot.EmotionalInterpreterAgent.agent;
 
 import BESA.Exception.ExceptionBESA;
@@ -22,7 +18,7 @@ import java.util.logging.Logger;
  * @author juans
  */
 public class EmotionalInterpreterAgent extends SRSupportAgent {
-
+    public static String name = "EmotionalInterpreterAgent";
     public static String ProcessEmotionGuard = "ProcessEmotionGuard";
 
     public EmotionalInterpreterAgent(String alias, EmotionalInterpreterStrategy eas) throws KernelAgentExceptionBESA {

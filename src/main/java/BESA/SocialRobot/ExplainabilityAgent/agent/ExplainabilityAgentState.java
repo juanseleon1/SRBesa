@@ -3,11 +3,7 @@ package BESA.SocialRobot.ExplainabilityAgent.agent;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 import BESA.Kernel.Agent.StateBESA;
 
@@ -32,5 +28,6 @@ public class ExplainabilityAgentState extends StateBESA {
 
     public void addListOfRecords(List<Record> records) {
         this.records.addAll(records);
+        //TODO: set up a job to persist records.
     }
 }

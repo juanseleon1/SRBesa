@@ -3,6 +3,7 @@ package BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.AccidentMgmt.ErrorState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.AccidentMgmt.ExceptionState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.InternalState;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.Resources.ComputationalResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.Resources.ExternalResourcesState;
@@ -10,17 +11,23 @@ import rational.data.InfoData;
 import rational.mapping.Believes;
 
 public class PhysicalState implements Believes {
-    private ErrorState errorState = new ErrorState();
-    private ExceptionState exceptionState = new ExceptionState();
-    private InternalState internalState = new InternalState();
-    private RobotResources robotResources = new RobotResources();
-    private ComputationalResources computationalResources = new ComputationalResources();
-    private ExternalResourcesState externalResourcesState = new ExternalResourcesState();
+    private ErrorState errorState;
+    private ExceptionState exceptionState;
+    private InternalState internalState;
+    private ComputationalResources computationalResources;
+    private ExternalResourcesState externalResourcesState;
+
+    public PhysicalState(RobotResources robotResources, RobotEmotionalConfig robotEmotionalConfig) {
+        errorState = new ErrorState();
+        exceptionState = new ExceptionState();
+        internalState = new InternalState(robotResources,robotEmotionalConfig);
+        computationalResources = new ComputationalResources();
+        externalResourcesState = new ExternalResourcesState();
+    }
 
     @Override
     public boolean update(InfoData arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        return true;
     }
 
     @Override
@@ -52,14 +59,6 @@ public class PhysicalState implements Believes {
         this.internalState = internalState;
     }
 
-    public RobotResources getRobotResources() {
-        return robotResources;
-    }
-
-    public void setRobotResources(RobotResources robotResources) {
-        this.robotResources = robotResources;
-    }
-
     public ComputationalResources getComputationalResources() {
         return computationalResources;
     }
@@ -75,6 +74,5 @@ public class PhysicalState implements Believes {
     public void setExternalResourcesState(ExternalResourcesState externalResourcesState) {
         this.externalResourcesState = externalResourcesState;
     }
-
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.PsychologicalState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.PhysicalState;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.UserProfile.UserProfile;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.WorldModel.WorldModel;
 import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalModelImpact;
@@ -24,10 +26,10 @@ public class BeliefAgent implements Believes {
     private List<UserProfile> userProfiles;
     private WorldModel worldModel;
 
-    public BeliefAgent() {
+    public BeliefAgent(RobotResources resources, RobotEmotionalConfig emotionalConfig) {
         interactionState = new InteractionState();
         psychologicalState = new PsychologicalState();
-        physicalState = new PhysicalState();
+        physicalState = new PhysicalState(resources, emotionalConfig);
         userProfiles = new ArrayList<>();
         worldModel = new WorldModel();
     }
@@ -35,11 +37,12 @@ public class BeliefAgent implements Believes {
     @Override
     public boolean update(InfoData si) {
         boolean isUpdated = false;
-        if(si instanceof EmotionalModelImpact){
+        if (si instanceof EmotionalModelImpact) {
             isUpdated = psychologicalState.update(si);
         }
         return isUpdated;
     }
+
     @Override
     public Believes clone() throws CloneNotSupportedException {
         return this;

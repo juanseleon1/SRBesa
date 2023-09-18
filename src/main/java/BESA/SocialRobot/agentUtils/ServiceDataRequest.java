@@ -1,49 +1,46 @@
 package BESA.SocialRobot.agentUtils;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.util.Map;
 
-import java.util.HashMap;
 import rational.services.ActivateServiceData;
 
 /**
  *
  * @author juans
  */
-public class ServiceDataRequest extends ActivateServiceData{
-    
-    private String subservice;
-    private HashMap<String,Object> params;
-    
-    
-    public ServiceDataRequest(String service,String subservice, HashMap<String,Object> params)
-    {    
-        
-       super(service);
-       this.subservice=subservice;
-       this.params=params;
-        
+public class ServiceDataRequest extends ActivateServiceData {
+
+    private int id;
+    private String function;
+    private Map<String, ?> params;
+
+    public ServiceDataRequest(int id, String service, String function, Map<String, ?> params) {
+
+        super(service);
+        this.id = id;
+        this.function = function;
+        this.params = params;
+
     }
 
-    public HashMap<String, Object> getParams() {
+    public Map<String, ?> getParams() {
         return params;
     }
 
-    public void setParams(HashMap<String, Object> params) {
+    public void setParams(Map<String, ?> params) {
         this.params = params;
     }
 
-    public String getSubservice() {
-        return subservice;
+    public String getFunction() {
+        return function;
     }
 
-    public void setSubservice(String subservice) {
-        this.subservice = subservice;
+    public void setFunction(String function) {
+        this.function = function;
     }
-    
 
-    
+
+    public int getId() {
+        return id;
+    }
 }

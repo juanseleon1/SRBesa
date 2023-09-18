@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState;
 
 import java.io.FileNotFoundException;
@@ -17,7 +13,7 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalSt
 public class AgentEmotionalState extends EmotionalModel {
 
     private List<Mask> availableMasks;
-    private String semanticDictPath = "";
+    private String semanticDictPath = ""; //TODO determine paths
     private String characterDescPath = "";
 
     public AgentEmotionalState() {

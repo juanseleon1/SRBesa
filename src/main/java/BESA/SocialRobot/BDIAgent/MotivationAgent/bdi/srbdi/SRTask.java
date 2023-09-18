@@ -26,7 +26,7 @@ public abstract class SRTask extends Task {
 
     @Override
     public void cancelTask(Believes beliefs) {
-        sendTaskUpdateRequest(TaskRequestType.CANCEL);
+        sendTaskStatusUpdateRequest(TaskRequestType.CANCEL);
     }
 
     @Override
@@ -36,12 +36,13 @@ public abstract class SRTask extends Task {
 
     @Override
     public void interruptTask(Believes beliefs) {
-        sendTaskUpdateRequest(TaskRequestType.INTERRUPT);
+        sendTaskStatusUpdateRequest(TaskRequestType.INTERRUPT);
     }
 
     protected void sendActionRequest(ParameterBundle params, String name) {
         try {
-            ActionRequestData action = ActionRequestBuilder.getActionRequestData(params, name, this.getClass().getName());
+            ActionRequestData action = ActionRequestBuilder.getActionRequestData(params, name,
+                    this.getClass().getName());
             context.addAction(action);
             AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
             EventBESA sensorEvtA = new EventBESA(EnrichActionGuard.class.getName(), action);
@@ -51,9 +52,10 @@ public abstract class SRTask extends Task {
         }
     }
 
-        protected void sendTaskUpdateRequest(TaskRequestType status) {
+    protected void sendTaskStatusUpdateRequest(TaskRequestType status) {
         try {
-            ActionRequestData action = ActionRequestBuilder.getActionRequestData(status.name(), this.getClass().getName());
+            ActionRequestData action = ActionRequestBuilder.getActionRequestData(status.name(),
+                    this.getClass().getName());
             AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
             EventBESA sensorEvtA = new EventBESA(SyncActionGuard.class.getName(), action);
             handler.sendEvent(sensorEvtA);

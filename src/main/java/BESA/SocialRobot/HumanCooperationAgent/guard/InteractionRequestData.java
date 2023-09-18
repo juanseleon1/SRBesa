@@ -25,5 +25,5 @@ public class InteractionRequestData extends InfoData{
         this.requests = requests;
     }
     
-//TODO: Define Data Contents    
+//TODO: Define Data Contents. who uses this? 
 }

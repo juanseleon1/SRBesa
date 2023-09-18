@@ -27,7 +27,7 @@ public class InteractionState implements Believes{
     }
     @Override
     public boolean update(InfoData data) {
-        // TODO Auto-generated method stub
+        // TODO Add update method logic here. Conversation context logic and emotional update too.
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 

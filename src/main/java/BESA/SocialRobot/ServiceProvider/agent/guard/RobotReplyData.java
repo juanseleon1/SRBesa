@@ -14,5 +14,13 @@ public class RobotReplyData extends DataBESA{
     public int getId() {
         return id;
     }
+
+    public void setRobotData(RobotData robotData) {
+        this.robotData = robotData;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
 }

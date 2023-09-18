@@ -1,19 +1,8 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState;
 
-import rational.data.InfoData;
-import rational.mapping.Believes;
+public interface RobotResources {
 
-public class RobotResources implements Believes{
+    void loadConfig();
 
-    @Override
-    public boolean update(InfoData arg0) {
-        // TODO Auto-generated method stub
-        return true;
-    }
-
-    @Override
-    public Believes clone() throws CloneNotSupportedException {
-        super.clone();
-        return this;
-    }
+    // TODO: Define resource config and creation when load is done.
 }

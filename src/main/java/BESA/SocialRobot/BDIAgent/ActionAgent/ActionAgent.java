@@ -1,12 +1,25 @@
 package BESA.SocialRobot.BDIAgent.ActionAgent;
 
-import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.ActionExecutor;
-import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.ActionModulator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ActionAgent {
-    public static String name = "actionAgent";
-    private ActionModulator actionModulator;
-    private ActionExecutor actionExecutor;
+import BESA.Exception.ExceptionBESA;
+import BESA.Kernel.Agent.AgentBESA;
+import BESA.Kernel.Agent.KernelAgentExceptionBESA;
+import BESA.Kernel.Agent.StructBESA;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.guard.ProcessActionGuard;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EnrichActionGuard;
+import BESA.SocialRobot.ExplainabilityAgent.agent.ExplainabilityAgent;
+
+public class ActionAgent extends AgentBESA {
+    public static String name = "ActionAgent";
+    public static String processActionGuard = "processActionGuard";
+    public static String enrichActionGuard = "enrichActionGuard";
+
+    public ActionAgent(String alias, ActionAgentState state)
+            throws KernelAgentExceptionBESA {
+        super(alias, state, buildAgentStruct(), 0.96);
+    }
 
     public static String getName() {
         return name;
@@ -16,20 +29,27 @@ public class ActionAgent {
         ActionAgent.name = name;
     }
 
-    public ActionModulator getActionModulator() {
-        return actionModulator;
+    @Override
+    public void setupAgent() {
     }
 
-    public void setActionModulator(ActionModulator actionModulator) {
-        this.actionModulator = actionModulator;
+    @Override
+    public void shutdownAgent() {
     }
 
-    public ActionExecutor getActionExecutor() {
-        return actionExecutor;
-    }
+    private static StructBESA buildAgentStruct() {
+        StructBESA struct = new StructBESA();
+        try {
+            struct.addBehavior(processActionGuard);
+            struct.bindGuard(processActionGuard, ProcessActionGuard.class);
+            struct.addBehavior(enrichActionGuard);
+            struct.bindGuard(enrichActionGuard, EnrichActionGuard.class);
 
-    public void setActionExecutor(ActionExecutor actionExecutor) {
-        this.actionExecutor = actionExecutor;
+        } catch (ExceptionBESA ex) {
+            Logger.getLogger(ExplainabilityAgent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return struct;
+
     }
 
 }

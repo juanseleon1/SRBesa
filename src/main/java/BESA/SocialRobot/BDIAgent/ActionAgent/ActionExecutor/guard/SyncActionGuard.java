@@ -8,6 +8,7 @@ import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.sync.SyncActionData;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.sync.SyncTaskGuard;
+import BESA.SocialRobot.ServiceProvider.agent.guard.RobotReplyData;
 
 public class SyncActionGuard extends GuardBESA {
     //It is consumed by the serviceproviders 
@@ -16,11 +17,10 @@ public class SyncActionGuard extends GuardBESA {
     @Override
     public void funcExecGuard(EventBESA event) {
         try {
-        //ActionRequestData infoRecibida = (ActionRequestData) event.getData();
-        // TODO: Coordinate Action according to state
-            // TODO: ProcessData and enrich data.
-            SyncActionData data = new SyncActionData();
-            EventBESA eventBesa = new EventBESA(SyncTaskGuard.class.getName(), data);
+            RobotReplyData data = (RobotReplyData)event.getData();
+            //TODO: add coordination and task checking
+            SyncActionData syncData = new SyncActionData();
+            EventBESA eventBesa = new EventBESA(SyncTaskGuard.class.getName(), syncData);
             AgHandlerBESA agHandlerBESA;
             agHandlerBESA = AdmBESA.getInstance().getHandlerByAlias(MotivationAgent.name);
             agHandlerBESA.sendEvent(eventBesa);

@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionContext;
 
-/**
- *
- * @author mafegarces
- */
 public class ConversationContext {
 
-  
+    //TODO: Include conversation info, requests and responses.
     public ConversationContext() {
 
     }
