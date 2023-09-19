@@ -12,6 +12,7 @@ import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import rational.mapping.Believes;
 
+//TODO: update configuration file
 public class SRAutonomyManager extends AutonomyManager {
     private FIS fis;
 
