@@ -54,7 +54,7 @@ public class SRAutonomyManager extends AutonomyManager {
     private boolean checkRequestPermission(GoalBDI goalBDI, Believes beliefs) {
         BeliefAgent srBeliefs = (BeliefAgent) beliefs;
         String requestName = goalBDI.getClass().getName();
-        List<Double> userIDs = srBeliefs.getInteractionState().getCurrentServiceContext().getUserIDs();
+        List<String> userIDs = srBeliefs.getInteractionState().getCurrentServiceContext().getUserIDs();
         AtomicBoolean grantedForAll = new AtomicBoolean(true);
         userIDs.forEach(userID -> {
             UserProfile userProfile = srBeliefs.getUserProfile(userID);

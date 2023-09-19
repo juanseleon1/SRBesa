@@ -4,14 +4,14 @@ import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EnrichActionGuard;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Personality.EmotionElementType;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalData;
 
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import rational.guards.InformationFlowGuard;
 
 public abstract class EmotionalModel {
 
@@ -98,7 +98,7 @@ public abstract class EmotionalModel {
 
         // System.out.println("Valence P:" + person + " E:" + event + " O:" + object);
         if ((person.equals(event) && event.equals(object))
-                || (person.equals(1f) && event.equals(-1f) && object.equals(-1f))) {
+                || (person.equals(1d) && event.equals(-1d) && object.equals(-1d))) {
             v = true;
         }
 
@@ -135,10 +135,10 @@ public abstract class EmotionalModel {
             Logger.getLogger(EmotionalModel.class.getName()).log(Level.WARNING, msg);
         }
     }
-
-    protected void sendAct(EmotionalData ed) throws ExceptionBESA {
-        AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(MotivationAgent.name);
-        EventBESA sensorEvtA = new EventBESA(InformationFlowGuard.class.getName(), ed);
+    //TODO: Do this in emotionalStateChanged
+    protected void sendToActionModulator(EmotionalData ed) throws ExceptionBESA {
+        AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
+        EventBESA sensorEvtA = new EventBESA(EnrichActionGuard.class.getName(), ed);
         handler.sendEvent(sensorEvtA);
     }
 

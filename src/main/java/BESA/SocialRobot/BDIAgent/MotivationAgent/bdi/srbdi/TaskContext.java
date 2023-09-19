@@ -6,7 +6,7 @@ import java.util.Map;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
 
 public class TaskContext {
-    private Map<Integer,ActionRequestData> actions;
+    private Map<String,ActionRequestData> actions;
 
     public TaskContext() {
         actions = new HashMap<>();
@@ -18,6 +18,10 @@ public class TaskContext {
 
     public void addAction(ActionRequestData action) {
         actions.put(action.getId(), action);
+    }
+
+    public void removeAction(String actionId) {
+        actions.remove(actionId);
     }
 
 }

@@ -1,21 +1,24 @@
 package BESA.SocialRobot.BDIAgent.ActionAgent;
 
+import java.util.Map;
+
 import BESA.Kernel.Agent.Event.DataBESA;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.ParameterBundle;
+
 
 public class ActionRequestData extends DataBESA {
-    private int id;
+    private String actionId;
     private String action;
     private String task;
-    private ParameterBundle parameters;
+    private Map<String, ?> parameters;
 
-    public ActionRequestData(ParameterBundle parameters, String action, String task) {
+    public ActionRequestData(String id, Map<String, ?> parameters, String action, String task) {
+        this.actionId = id;
         this.parameters = parameters;
         this.action = action;
         this.task = task;
     }
 
-    public void setParameters(ParameterBundle parameters) {
+    public void setParameters(Map<String, ?> parameters) {
         this.parameters = parameters;
     }
 
@@ -23,7 +26,7 @@ public class ActionRequestData extends DataBESA {
         this.action = action;
     }
 
-    public ParameterBundle getParameters() {
+    public Map<String, ?> getParameters() {
         return parameters;
     }
 
@@ -31,12 +34,12 @@ public class ActionRequestData extends DataBESA {
         return action;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return actionId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String actionId) {
+        this.actionId = actionId;
     }
 
     public void setTaskName(String task) {

@@ -39,5 +39,5 @@ public abstract class RawVideoServiceConfig implements SRServiceConfiguration {
 
     public abstract RobotData translateGetRawVideoAction(ServiceDataRequest dataRequest);
 
-    public abstract ServiceDataRequest translateGetRawVideoResponse(RobotData robotData);
+    public abstract DataBESA translateGetRawVideoResponse(RobotData robotData);
 }

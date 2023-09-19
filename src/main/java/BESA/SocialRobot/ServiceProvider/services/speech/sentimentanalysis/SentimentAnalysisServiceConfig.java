@@ -47,8 +47,8 @@ public abstract class SentimentAnalysisServiceConfig implements SRServiceConfigu
 
     public abstract RobotData translateDeactivateSentimentAnalysisAction(ServiceDataRequest dataRequest);
 
-    public abstract ServiceDataRequest translateActivateSentimentAnalysisResponse(RobotData robotData);
+    public abstract DataBESA translateActivateSentimentAnalysisResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateDeactivateSentimentAnalysisResponse(RobotData robotData);
+    public abstract DataBESA translateDeactivateSentimentAnalysisResponse(RobotData robotData);
 
 }

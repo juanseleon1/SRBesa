@@ -66,9 +66,9 @@ public abstract class SpeechEngineServiceConfig implements SRServiceConfiguratio
 
     public abstract InteractionEventData translateTalkResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateTalkVolumeResponse(RobotData robotData);
+    public abstract DataBESA translateTalkVolumeResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translatePlaySoundResponse(RobotData robotData);
+    public abstract DataBESA translatePlaySoundResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translatePauseSoundResponse(RobotData robotData);
+    public abstract DataBESA translatePauseSoundResponse(RobotData robotData);
 }

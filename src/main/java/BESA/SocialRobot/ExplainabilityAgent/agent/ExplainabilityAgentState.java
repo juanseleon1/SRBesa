@@ -6,28 +6,35 @@ import java.util.List;
 
 
 import BESA.Kernel.Agent.StateBESA;
+import BESA.SocialRobot.ExplainabilityAgent.model.EventRecord;
 
 /**
  *
  * @author juans
  */
 public class ExplainabilityAgentState extends StateBESA {
-    private List<Record> records;
+    private List<EventRecord> records;
 
     public ExplainabilityAgentState() {
         this.records = new ArrayList<>();
     }
 
-    public List<Record> getRecords() {
+    public List<EventRecord> getRecords() {
         return records;
     }
 
-    public void addRecord(Record record) {
+    public void addRecord(EventRecord record) {
         this.records.add(record);
     }
 
-    public void addListOfRecords(List<Record> records) {
+    public void addListOfRecords(List<EventRecord> records) {
         this.records.addAll(records);
-        //TODO: set up a job to persist records.
     }
+
+    public void saveRecords() {
+        for (EventRecord record : records) {
+            record.save();
+        }
+    }
+
 }

@@ -5,10 +5,6 @@ package BESA.SocialRobot.ExplainabilityAgent.guard;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.Agent.GuardBESA;
 
-/**
- *
- * @author juans
- */
 public class RequestReasoningGuard extends GuardBESA {
 
     @Override

@@ -1,16 +1,15 @@
 package BESA.SocialRobot.ExplainabilityAgent.guard;
 
 
-import rational.data.InfoData;
+import BESA.Kernel.Agent.Event.DataBESA;
 
 /**
  *
  * @author juans
  */
-public class RequestData extends InfoData{
+public class RequestReasoningData extends DataBESA{
     
-    public RequestData() {
-        super(null);
+    public RequestReasoningData() {
     }
     
 //TODO: Define Data Contents    

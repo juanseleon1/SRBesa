@@ -4,9 +4,9 @@ import BESA.Exception.ExceptionBESA;
 
 import BESA.Kernel.Agent.KernelAgentExceptionBESA;
 import BESA.Kernel.Agent.StructBESA;
+import BESA.SocialRobot.InteractiveAgent.guard.HumanInteractionEventGuard;
 import BESA.SocialRobot.InteractiveAgent.guard.HumanInteractionRequestGuard;
 import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventData;
-import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventGuard;
 import BESA.SocialRobot.ServiceProvider.services.ServiceNames;
 import BESA.SocialRobot.agentUtils.AgentSubscription;
 import BESA.SocialRobot.agentUtils.SRSupportAgent;
@@ -34,7 +34,7 @@ public class InteractiveAgent extends SRSupportAgent {
         StructBESA struct = new StructBESA();
         try {
             struct.addBehavior("interactionEventGuard");
-            struct.bindGuard(interactionEventGuard, InteractionEventGuard.class);
+            struct.bindGuard(interactionEventGuard, HumanInteractionEventGuard.class);
             struct.addBehavior("interactionRequestGuard");
             struct.bindGuard(interactionRequestGuard, HumanInteractionRequestGuard.class);
         } catch (ExceptionBESA ex) {
@@ -45,7 +45,7 @@ public class InteractiveAgent extends SRSupportAgent {
 
     @Override
     public List<AgentSubscription<?, ?>> buildConfiguration() {
-        AgentSubscription<InteractionEventData, InteractionEventGuard> interactionSubscription = new AgentSubscription<>(
+        AgentSubscription<InteractionEventData, HumanInteractionEventGuard> interactionSubscription = new AgentSubscription<>(
                 ServiceNames.SPEECHENGINE);
         List<AgentSubscription<?, ?>> agSubscriptions = new ArrayList<>();
         agSubscriptions.add(interactionSubscription);

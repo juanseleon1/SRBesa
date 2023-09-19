@@ -1,5 +1,6 @@
 package BESA.SocialRobot.ServiceProvider.services.robotresources;
 
+
 import BESA.Kernel.Agent.Event.DataBESA;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.SRServiceConfiguration;
@@ -71,14 +72,14 @@ public abstract class ResourceServiceConfig implements SRServiceConfiguration {
 
     public abstract RobotData translateLedColorAction(ServiceDataRequest data);
 
-    public abstract ServiceDataRequest translateLedsOnActionResponse(RobotData robotData);
+    public abstract DataBESA translateLedsOnActionResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateLedsOffActionResponse(RobotData robotData);
+    public abstract DataBESA translateLedsOffActionResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateSuspendActionResponse(RobotData robotData);
+    public abstract DataBESA translateSuspendActionResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateWakeUpActionResponse(RobotData robotData);
+    public abstract DataBESA translateWakeUpActionResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateLedColorActionResponse(RobotData robotData);
+    public abstract DataBESA translateLedColorActionResponse(RobotData robotData);
 
 }

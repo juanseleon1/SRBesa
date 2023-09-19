@@ -1,6 +1,34 @@
 package BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator;
 
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EmotionalStateData;
+
 public class ActionModulator {
-    //TODO: Get EmotionalDataPacket whenever it changes. 
-    //TODO: Add logic for action enrichment. It can be interfaced
+    private EmotionalStateData lastEmotionalStateData;
+    private EnrichmentStrategy enrichmentStrategy;
+
+    public ActionModulator(EnrichmentStrategy enrichmentStrategy) {
+        this.enrichmentStrategy = enrichmentStrategy;
+    }
+
+    public EmotionalStateData getLastEmotionalStateData() {
+        return lastEmotionalStateData;
+    }
+
+    public void setLastEmotionalStateData(EmotionalStateData lastEmotionalStateData) {
+        this.lastEmotionalStateData = lastEmotionalStateData;
+    }
+
+    public EnrichmentStrategy getEnrichmentStrategy() {
+        return enrichmentStrategy;
+    }
+
+    public void setEnrichmentStrategy(EnrichmentStrategy enrichmentStrategy) {
+        this.enrichmentStrategy = enrichmentStrategy;
+    }
+
+    public ActionRequestData enrichActionRequestData(ActionRequestData actionRequestData) {
+        return enrichmentStrategy.enrichActionRequestData(actionRequestData, lastEmotionalStateData);
+    }
+
 }

@@ -1,5 +1,7 @@
 package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi;
 
+import java.util.Map;
+
 import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
@@ -9,7 +11,6 @@ import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.guard.SyncActionGuard;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EnrichActionGuard;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.ActionRequestBuilder;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.ParameterBundle;
 import rational.mapping.Believes;
 import rational.mapping.Task;
 
@@ -39,9 +40,13 @@ public abstract class SRTask extends Task {
         sendTaskStatusUpdateRequest(TaskRequestType.INTERRUPT);
     }
 
-    protected void sendActionRequest(ParameterBundle params, String name) {
+    public void removeAction(String actionId) {
+        context.removeAction(actionId);
+    }
+
+    protected void sendActionRequest(Map<String, ?> params, String name) {
         try {
-            ActionRequestData action = ActionRequestBuilder.getActionRequestData(params, name,
+            ActionRequestData action = ActionRequestBuilder.buildActionRequest(params, name,
                     this.getClass().getName());
             context.addAction(action);
             AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
@@ -53,8 +58,9 @@ public abstract class SRTask extends Task {
     }
 
     protected void sendTaskStatusUpdateRequest(TaskRequestType status) {
+        //TODO: Exception and cancel flow.
         try {
-            ActionRequestData action = ActionRequestBuilder.getActionRequestData(status.name(),
+            ActionRequestData action = ActionRequestBuilder.buildActionRequest(status.name(),
                     this.getClass().getName());
             AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
             EventBESA sensorEvtA = new EventBESA(SyncActionGuard.class.getName(), action);

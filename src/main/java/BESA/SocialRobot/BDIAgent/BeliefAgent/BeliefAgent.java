@@ -24,7 +24,7 @@ public class BeliefAgent implements Believes {
     private InteractionState interactionState;
     private PsychologicalState psychologicalState;
     private PhysicalState physicalState;
-    private Map<Double,UserProfile> userProfiles;
+    private Map<String, UserProfile> userProfiles;
     private WorldModel worldModel;
 
     public BeliefAgent(RobotResources resources, RobotEmotionalConfig emotionalConfig) {
@@ -73,11 +73,11 @@ public class BeliefAgent implements Believes {
         this.physicalState = physicalState;
     }
 
-    public Map<Double,UserProfile> getUserProfiles() {
+    public Map<String,UserProfile> getUserProfiles() {
         return userProfiles;
     }
 
-    public void setUserProfiles(Map<Double,UserProfile> userProfiles) {
+    public void setUserProfiles(Map<String,UserProfile> userProfiles) {
         this.userProfiles = userProfiles;
     }
 
@@ -89,9 +89,12 @@ public class BeliefAgent implements Believes {
         this.worldModel = worldModel;
     }
 
-    public UserProfile getUserProfile(double id) {
-        //TODO: how to do this
+    public UserProfile getUserProfile(String id) {
         return userProfiles.get(id);
+    }
+
+    public void addUserProfile(String id, UserProfile userProfile) {
+        userProfiles.put(id, userProfile);
     }
 
     public void registerServiceContext(Class<?> service, ServiceContext context) {

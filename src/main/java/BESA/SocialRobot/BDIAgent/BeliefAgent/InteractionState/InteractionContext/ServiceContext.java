@@ -7,9 +7,8 @@ import java.util.List;
 
 public abstract class ServiceContext{
     private boolean isActive;
-    private List<Double> relatedUsers;
+    private List<String> relatedUsers;
 
-    //TODO: This should be interfaced so it can be created once by service when executed.
     public ServiceContext() {
         relatedUsers = new ArrayList<>();
     }
@@ -22,15 +21,15 @@ public abstract class ServiceContext{
         isActive = active;
     }
 
-    public List<Double> getUserIDs() {
+    public List<String> getUserIDs() {
         return relatedUsers;
     }
 
-    public void registerUser(double userID) {
+    public void registerUser(String userID) {
         relatedUsers.add(userID);
     }
 
-    public void unregisterUser(double userID) {
+    public void unregisterUser(String userID) {
         relatedUsers.remove(userID);
     }
 

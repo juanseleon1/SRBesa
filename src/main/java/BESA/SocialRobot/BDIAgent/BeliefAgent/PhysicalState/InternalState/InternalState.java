@@ -26,4 +26,21 @@ public class InternalState implements Believes {
         super.clone();
         return this;
     }
+
+    public RobotResources getRobotResources() {
+        return robotResources;
+    }
+
+    public void setRobotResources(RobotResources robotResources) {
+        this.robotResources = robotResources;
+    }
+
+    public RobotEmotionalConfig getRobotEmotionalConfig() {
+        return robotEmotionalConfig;
+    }
+
+    public void setRobotEmotionalConfig(RobotEmotionalConfig robotEmotionalConfig) {
+        this.robotEmotionalConfig = robotEmotionalConfig;
+    }
+    
 }

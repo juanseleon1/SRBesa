@@ -10,6 +10,7 @@ import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.SocialRobot.ExplainabilityAgent.agent.ExplainabilityAgent;
 import BESA.SocialRobot.ExplainabilityAgent.guard.RecordData;
 import BESA.SocialRobot.ExplainabilityAgent.guard.SaveRecordsGuard;
+import BESA.SocialRobot.ExplainabilityAgent.model.EventRecord;
 import rational.RationalState;
 import rational.explainability.HistoryCollector;
 import rational.mapping.Believes;
@@ -19,19 +20,19 @@ public class SRHistoryCollector implements HistoryCollector {
     @Override
     public void collectHistoryFromBeliefs(Believes beliefs) {
         // TODO Generate Belief Snapshot
-        List<Record> records = new ArrayList<>();
+        List<EventRecord> records = new ArrayList<>();
         sendToExplainer(records);
 
     }
 
     @Override
     public void collectHistoryFromReasoning(RationalState state) {
-        List<Record> records = new ArrayList<>();
+        List<EventRecord> records = new ArrayList<>();
         // TODO Generate History from pyramid
         sendToExplainer(records);
     }
 
-    private void sendToExplainer(List<Record> records) {
+    private void sendToExplainer(List<EventRecord> records) {
         try {
             AgHandlerBESA agHandlerBESA;
             RecordData recordData = new RecordData(records);

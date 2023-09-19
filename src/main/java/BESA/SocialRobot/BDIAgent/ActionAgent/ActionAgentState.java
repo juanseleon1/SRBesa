@@ -3,6 +3,7 @@ package BESA.SocialRobot.BDIAgent.ActionAgent;
 import BESA.Kernel.Agent.StateBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.ActionExecutor;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.ActionModulator;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EmotionalStateData;
 
 public class ActionAgentState extends StateBESA {
     private ActionModulator actionModulator;
@@ -22,6 +23,10 @@ public class ActionAgentState extends StateBESA {
 
     public void setActionExecutor(ActionExecutor actionExecutor) {
         this.actionExecutor = actionExecutor;
+    }
+
+    public void setEmotionalStateData(EmotionalStateData emotionalStateData) {
+        actionModulator.setLastEmotionalStateData(emotionalStateData);
     }
 
 }

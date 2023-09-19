@@ -20,8 +20,8 @@ public class ProcessRobotReplyGuard extends GuardBESA {
         SRServiceConfiguration config = service.getConfig();
         DataBESA dataBesa = config.convertRobotDataToDataBESA(data.getRobotData());
         ServiceProviderAgent agent = (ServiceProviderAgent) this.getAgent();
-        if (spState.hasRequestPending(data.getId())) {
-            spState.requestCompleted(data.getId());
+        if (spState.hasRequestPending(data.getPrimitiveId())) {
+            spState.requestCompleted(data.getPrimitiveId());
             agent.sendActionConfirmation(data);
         }
         agent.processAsynchEvent(dataBesa, serviceName);

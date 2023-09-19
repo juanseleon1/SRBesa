@@ -98,22 +98,22 @@ public abstract class InterfaceEventServiceConfig implements SRServiceConfigurat
 
     public abstract RobotData translateChangeInterfaceProperties(ServiceDataRequest dataRequest);
 
-    public abstract ServiceDataRequest translateActivateInterfaceResponse(RobotData robotData);
+    public abstract DataBESA translateActivateInterfaceResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateDeactivateInterfaceResponse(RobotData robotData);
+    public abstract DataBESA translateDeactivateInterfaceResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateShowVideoResponse(RobotData robotData);
+    public abstract DataBESA translateShowVideoResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translatePauseVideoResponse(RobotData robotData);
+    public abstract DataBESA translatePauseVideoResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateResumeVideoResponse(RobotData robotData);
+    public abstract DataBESA translateResumeVideoResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateShowImageResponse(RobotData robotData);
+    public abstract DataBESA translateShowImageResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateHideImageResponse(RobotData robotData);
+    public abstract DataBESA translateHideImageResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateChangeInterfacePropertiesResponse(RobotData robotData);
+    public abstract DataBESA translateChangeInterfacePropertiesResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest handleInterfaceEvent(RobotData robotData);
+    public abstract DataBESA handleInterfaceEvent(RobotData robotData);
 
 }

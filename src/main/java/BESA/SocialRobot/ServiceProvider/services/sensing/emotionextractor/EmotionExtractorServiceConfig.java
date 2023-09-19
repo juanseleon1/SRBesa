@@ -39,6 +39,6 @@ public abstract class EmotionExtractorServiceConfig implements SRServiceConfigur
 
     public abstract RobotData translateGetUserEmotionsAction(ServiceDataRequest dataRequest);
 
-    public abstract ServiceDataRequest translateGetUserEmotionsResponse(RobotData robotData);
+    public abstract DataBESA translateGetUserEmotionsResponse(RobotData robotData);
 
 }

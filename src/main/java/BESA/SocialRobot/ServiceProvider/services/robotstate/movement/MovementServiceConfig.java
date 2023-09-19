@@ -71,14 +71,14 @@ public abstract class MovementServiceConfig implements SRServiceConfiguration {
 
     public abstract RobotData translateDetectWorldModelAction(ServiceDataRequest data);
 
-    public abstract ServiceDataRequest translateMovementResponse(RobotData robotData);
+    public abstract DataBESA translateMovementResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateStopMovementResponse(RobotData robotData);
+    public abstract DataBESA translateStopMovementResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateRunAnimationResponse(RobotData robotData);
+    public abstract DataBESA translateRunAnimationResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateStopAnimationResponse(RobotData robotData);
+    public abstract DataBESA translateStopAnimationResponse(RobotData robotData);
 
-    public abstract ServiceDataRequest translateDetectWorldModelResponse(RobotData robotData);
+    public abstract DataBESA translateDetectWorldModelResponse(RobotData robotData);
 
 }

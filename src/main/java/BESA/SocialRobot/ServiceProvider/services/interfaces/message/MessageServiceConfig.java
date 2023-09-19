@@ -36,7 +36,7 @@ public abstract class MessageServiceConfig implements SRServiceConfiguration {
         return db;
     }
     public abstract RobotData translateSendMessageAction(ServiceDataRequest dataRequest);
-    public abstract ServiceDataRequest translateSendMessageResponse(RobotData robotData);
+    public abstract DataBESA translateSendMessageResponse(RobotData robotData);
 
 
 }

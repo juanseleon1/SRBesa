@@ -1,5 +1,7 @@
 package BESA.SocialRobot.BDIAgent.MotivationAgent.utils;
 
+import java.util.Map;
+
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
 
 
@@ -9,14 +11,16 @@ import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
  * @author juans
  */
 public class ActionRequestBuilder {
-    
-    public static ActionRequestData getActionRequestData(ParameterBundle params, String actionName, String taskName){
-        ActionRequestData actionRequestData = new ActionRequestData(params, actionName, taskName);
+    private static double actionId = 0;
+    public static ActionRequestData buildActionRequest(Map<String, ?> params, String actionName, String taskName){
+        double newId = ++actionId;
+        ActionRequestData actionRequestData = new ActionRequestData(actionName+newId,params, actionName, taskName);
         return actionRequestData;
     }
 
-        public static ActionRequestData getActionRequestData(String actionName, String taskName){
-        ActionRequestData actionRequestData = new ActionRequestData(null, actionName, taskName);
+        public static ActionRequestData buildActionRequest(String actionName, String taskName){
+        double newId = ++actionId;
+        ActionRequestData actionRequestData = new ActionRequestData(actionName+newId, null, actionName, taskName);
         return actionRequestData;
     }
 }
