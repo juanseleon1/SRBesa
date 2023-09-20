@@ -16,6 +16,9 @@ public abstract class SpeechEngineServiceConfig implements SRServiceConfiguratio
             case "talk":
                 rd = translateTalkAction(dataRequest);
                 break;
+            case "noTalk":
+                rd = translateNoTalkAction(dataRequest);
+                break;
             case "talkVolume":
                 rd = translateTalkVolumeAction(dataRequest);
                 break;
@@ -56,6 +59,24 @@ public abstract class SpeechEngineServiceConfig implements SRServiceConfiguratio
         return db;
     }
 
+    @Override
+    public RobotData convertCancelActionToRobotData(ServiceDataRequest dataRequest) {
+        RobotData rd = null;
+        String function = dataRequest.getFunction();
+        switch (function) {
+            case "talk":
+                rd = translateNoTalkAction(dataRequest);
+                break;
+            case "playSound":
+                rd = translatePauseSoundAction(dataRequest);
+                break;
+            default:
+                rd = translateOtherCancelActionsToRobotData(dataRequest);
+                break;
+        }
+        return rd;
+    }
+
     public abstract RobotData translateTalkAction(ServiceDataRequest dataRequest);
 
     public abstract RobotData translateTalkVolumeAction(ServiceDataRequest dataRequest);
@@ -64,7 +85,11 @@ public abstract class SpeechEngineServiceConfig implements SRServiceConfiguratio
 
     public abstract RobotData translatePauseSoundAction(ServiceDataRequest dataRequest);
 
+    public abstract RobotData translateNoTalkAction(ServiceDataRequest dataRequest);
+
     public abstract InteractionEventData translateTalkResponse(RobotData robotData);
+
+    public abstract InteractionEventData translateNoTalkResponse(RobotData robotData);
 
     public abstract DataBESA translateTalkVolumeResponse(RobotData robotData);
 

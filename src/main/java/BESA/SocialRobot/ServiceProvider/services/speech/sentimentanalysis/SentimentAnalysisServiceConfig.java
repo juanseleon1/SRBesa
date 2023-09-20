@@ -43,6 +43,21 @@ public abstract class SentimentAnalysisServiceConfig implements SRServiceConfigu
         return db;
     }
 
+    @Override
+    public RobotData convertCancelActionToRobotData(ServiceDataRequest dataRequest) {
+        RobotData rd = null;
+        String function = dataRequest.getFunction();
+        switch (function) {
+            case "activateSentimentAnalysis":
+                rd = translateDeactivateSentimentAnalysisAction(dataRequest);
+                break;
+            default:
+                rd = translateOtherCancelActionsToRobotData(dataRequest);
+                break;
+        }
+        return rd;
+    }
+
     public abstract RobotData translateActivateSentimentAnalysisAction(ServiceDataRequest dataRequest);
 
     public abstract RobotData translateDeactivateSentimentAnalysisAction(ServiceDataRequest dataRequest);

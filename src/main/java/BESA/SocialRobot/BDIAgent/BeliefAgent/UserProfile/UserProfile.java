@@ -6,7 +6,7 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.UserProfile.Personalization.UserPer
 import rational.mapping.Believes;
 
 public abstract class UserProfile implements Believes {
-    //TODO: define what to do with this class.
+    
     private UserConfiguration userConf;
     private UserContext userContext;
     private UserPersonalization personalization;

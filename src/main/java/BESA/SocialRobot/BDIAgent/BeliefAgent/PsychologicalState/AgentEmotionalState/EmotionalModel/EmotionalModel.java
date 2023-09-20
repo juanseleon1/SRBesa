@@ -5,9 +5,9 @@ import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EmotionalStateData;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EnrichActionGuard;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Personality.EmotionElementType;
-import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalData;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -96,7 +96,6 @@ public abstract class EmotionalModel {
         event = event / Math.abs(event);
         object = object / Math.abs(object);
 
-        // System.out.println("Valence P:" + person + " E:" + event + " O:" + object);
         if ((person.equals(event) && event.equals(object))
                 || (person.equals(1d) && event.equals(-1d) && object.equals(-1d))) {
             v = true;
@@ -135,8 +134,8 @@ public abstract class EmotionalModel {
             Logger.getLogger(EmotionalModel.class.getName()).log(Level.WARNING, msg);
         }
     }
-    //TODO: Do this in emotionalStateChanged
-    protected void sendToActionModulator(EmotionalData ed) throws ExceptionBESA {
+    
+    protected void sendToActionModulator(EmotionalStateData ed) throws ExceptionBESA {
         AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
         EventBESA sensorEvtA = new EventBESA(EnrichActionGuard.class.getName(), ed);
         handler.sendEvent(sensorEvtA);

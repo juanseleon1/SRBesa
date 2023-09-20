@@ -13,28 +13,31 @@ public abstract class InterfaceEventServiceConfig implements SRServiceConfigurat
         String function = dataRequest.getFunction();
         switch (function) {
             case "activateInterface":
-                rd = translateActivateInterface(dataRequest);
+                rd = translateActivateInterfaceAction(dataRequest);
                 break;
             case "deactivateInterface":
-                rd = translateDeactivateInterface(dataRequest);
+                rd = translateDeactivateInterfaceAction(dataRequest);
                 break;
             case "showVideo":
-                rd = translateShowVideo(dataRequest);
+                rd = translateShowVideoAction(dataRequest);
+                break;
+            case "quitVideo":
+                rd = translateQuitVideoAction(dataRequest);
                 break;
             case "pauseVideo":
-                rd = translatePauseVideo(dataRequest);
+                rd = translatePauseVideoAction(dataRequest);
                 break;
             case "resumeVideo":
-                rd = translateResumeVideo(dataRequest);
+                rd = translateResumeVideoAction(dataRequest);
                 break;
             case "showImage":
-                rd = translateShowImage(dataRequest);
+                rd = translateShowImageAction(dataRequest);
                 break;
             case "hideImage":
-                rd = translateHideImage(dataRequest);
+                rd = translateHideImageAction(dataRequest);
                 break;
             case "changeInterfaceProperties":
-                rd = translateChangeInterfaceProperties(dataRequest);
+                rd = translateChangeInterfacePropertiesAction(dataRequest);
                 break;
             default:
                 rd = translateOtherActionsToRobotData(dataRequest);
@@ -56,6 +59,9 @@ public abstract class InterfaceEventServiceConfig implements SRServiceConfigurat
                 break;
             case "showVideo":
                 db = translateShowVideoResponse(data);
+                break;
+             case "quitVideo":
+                db = translateQuitVideoActionResponse(data);
                 break;
             case "pauseVideo":
                 db = translatePauseVideoResponse(data);
@@ -82,38 +88,64 @@ public abstract class InterfaceEventServiceConfig implements SRServiceConfigurat
         return db;
     }
 
-    public abstract RobotData translateActivateInterface(ServiceDataRequest dataRequest);
+    @Override
+    public RobotData convertCancelActionToRobotData(ServiceDataRequest dataRequest) {
+        RobotData rd = null;
+        String function = dataRequest.getFunction();
+        switch (function) {
+            case "activateInterface":
+                rd = translateDeactivateInterfaceAction(dataRequest);
+                break;
+            case "showVideo":
+                rd = translateQuitVideoAction(dataRequest);
+                break;
+            case "showImage":
+                rd = translateHideImageAction(dataRequest);
+                break;
+            default:
+                rd = translateOtherCancelActionsToRobotData(dataRequest);
+                break;
+        }
+        return rd;
+    }
 
-    public abstract RobotData translateDeactivateInterface(ServiceDataRequest dataRequest);
+    protected abstract RobotData translateActivateInterfaceAction(ServiceDataRequest dataRequest);
 
-    public abstract RobotData translateShowVideo(ServiceDataRequest dataRequest);
+    protected abstract RobotData translateDeactivateInterfaceAction(ServiceDataRequest dataRequest);
 
-    public abstract RobotData translatePauseVideo(ServiceDataRequest dataRequest);
+    protected abstract RobotData translateShowVideoAction(ServiceDataRequest dataRequest);
 
-    public abstract RobotData translateResumeVideo(ServiceDataRequest dataRequest);
+    protected abstract RobotData translatePauseVideoAction(ServiceDataRequest dataRequest);
 
-    public abstract RobotData translateShowImage(ServiceDataRequest dataRequest);
+    protected abstract RobotData translateResumeVideoAction(ServiceDataRequest dataRequest);
 
-    public abstract RobotData translateHideImage(ServiceDataRequest dataRequest);
+    protected abstract RobotData translateShowImageAction(ServiceDataRequest dataRequest);
 
-    public abstract RobotData translateChangeInterfaceProperties(ServiceDataRequest dataRequest);
+    protected abstract RobotData translateHideImageAction(ServiceDataRequest dataRequest);
 
-    public abstract DataBESA translateActivateInterfaceResponse(RobotData robotData);
+    protected abstract RobotData translateChangeInterfacePropertiesAction(ServiceDataRequest dataRequest);
 
-    public abstract DataBESA translateDeactivateInterfaceResponse(RobotData robotData);
+    protected abstract RobotData translateQuitVideoAction(ServiceDataRequest dataRequest);
 
-    public abstract DataBESA translateShowVideoResponse(RobotData robotData);
+    protected abstract DataBESA translateActivateInterfaceResponse(RobotData robotData);
 
-    public abstract DataBESA translatePauseVideoResponse(RobotData robotData);
+    protected abstract DataBESA translateDeactivateInterfaceResponse(RobotData robotData);
 
-    public abstract DataBESA translateResumeVideoResponse(RobotData robotData);
+    protected abstract DataBESA translateShowVideoResponse(RobotData robotData);
 
-    public abstract DataBESA translateShowImageResponse(RobotData robotData);
+    protected abstract DataBESA translatePauseVideoResponse(RobotData robotData);
 
-    public abstract DataBESA translateHideImageResponse(RobotData robotData);
+    protected abstract DataBESA translateResumeVideoResponse(RobotData robotData);
 
-    public abstract DataBESA translateChangeInterfacePropertiesResponse(RobotData robotData);
+    protected abstract DataBESA translateShowImageResponse(RobotData robotData);
 
-    public abstract DataBESA handleInterfaceEvent(RobotData robotData);
+    protected abstract DataBESA translateHideImageResponse(RobotData robotData);
+
+    protected abstract DataBESA translateChangeInterfacePropertiesResponse(RobotData robotData);
+
+    protected abstract DataBESA translateQuitVideoActionResponse(RobotData robotData);
+
+    protected abstract DataBESA handleInterfaceEvent(RobotData robotData);
+
 
 }

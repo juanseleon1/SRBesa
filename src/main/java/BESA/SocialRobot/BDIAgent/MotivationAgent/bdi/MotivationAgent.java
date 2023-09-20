@@ -10,27 +10,29 @@ import BESA.Kernel.Agent.StructBESA;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.RobotEmotionalStrategy;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.MotivationAgentConfiguration;
 import BESA.SocialRobot.BDIAgent.explainability.SRHistoryCollector;
 
 public class MotivationAgent extends AgentBDI {
     private static int PLANID = 0;
     public static String name = "MotivationAgent";
-    public static String aliasEAAgent = "EAAgent";
-    public static String aliasSHAAgent = "SHAAgent";
-    public static String aliasSPAgent = "SPAgent";
-    public static String emf = "ResPwAEntitiesPU";
 
     public MotivationAgent(RobotEmotionalConfig emotionalConfig, RobotResources resources,
-            LatentGoalStructure goalStruct, AutonomyManager autonomyManager, int threshold)
+            LatentGoalStructure goalStruct, AutonomyManager autonomyManager, int threshold, String semanticDictPath,
+            String characterDescPath, RobotEmotionalStrategy robotEmotionalConfig)
             throws KernelAgentExceptionBESA, ExceptionBESA {
-        super(name, new BeliefAgent(resources, emotionalConfig), goalStruct, autonomyManager, threshold,
+        super(name, new BeliefAgent(resources, emotionalConfig, semanticDictPath, characterDescPath, robotEmotionalConfig), goalStruct,
+                autonomyManager, threshold,
                 new StructBESA());
         setupRationalAgent();
     }
 
     public MotivationAgent(MotivationAgentConfiguration config) throws KernelAgentExceptionBESA, ExceptionBESA {
-        super(name, new BeliefAgent(config.getResources(), config.getEmotionalConfig()), config.getGoalStructure(),
+        super(name,
+                new BeliefAgent(config.getResources(), config.getEmotionalConfig(), config.getSemanticDictPath(),
+                        config.getCharacterDescPath(), config.getRobotEmotionalStrategy()),
+                config.getGoalStructure(),
                 config.getAutonomyManager(), config.getThreshold(), new StructBESA());
         config.setup(this);
         setupRationalAgent();

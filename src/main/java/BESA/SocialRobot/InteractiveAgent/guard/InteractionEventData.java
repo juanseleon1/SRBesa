@@ -14,18 +14,18 @@ public class InteractionEventData extends InfoData {
 
     private InteractionEventTypes type;
     private Map<String, ?> data;
-    private float id;
+    private String userId;
     private boolean hasEmotionalData;
     private List<UserEmotion> emotions;
 
-    public InteractionEventData(float id, InteractionEventTypes type, Map<String, ?> data) {
+    public InteractionEventData(String userId, InteractionEventTypes type, Map<String, ?> data) {
         super(null);
         this.type = type;
         this.data = data;
         hasEmotionalData = false;
     }
 
-    public InteractionEventData(float id,InteractionEventTypes type, Map<String, ?> data, List<UserEmotion> emotions) {
+    public InteractionEventData(String userId,InteractionEventTypes type, Map<String, ?> data, List<UserEmotion> emotions) {
         super(null);
         this.type = type;
         this.data = data;
@@ -57,11 +57,11 @@ public class InteractionEventData extends InfoData {
         return emotions;
     }
 
-    public float getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(float id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

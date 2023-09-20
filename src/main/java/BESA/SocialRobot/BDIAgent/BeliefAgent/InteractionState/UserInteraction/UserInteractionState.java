@@ -1,36 +1,62 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.UserInteraction;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class UserInteractionState {
+import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotion;
+import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotionalData;
+import rational.data.InfoData;
+import rational.mapping.Believes;
 
-    private Map<String, Float> userEmotion;
+public class UserInteractionState implements Believes{
+
+    private Map<String, Double> userEmotions;
+    private List<HistoricUserEmotions> historicUserEmotions;
 
     public UserInteractionState() {
-        userEmotion = new HashMap<>();
+        userEmotions = new HashMap<>();
+        historicUserEmotions = new ArrayList<>();
     }
 
-    //TODO: Add interface for emotion retrieval.
-
-    public void addUserEmotion(String emotion, float intensity) {
-        userEmotion.put(emotion, intensity);
+    public void addUserEmotion(String emotion, double intensity) {
+        userEmotions.put(emotion, intensity);
     }
 
     public void removeUserEmotion(String emotion) {
-        userEmotion.remove(emotion);
+        userEmotions.remove(emotion);
     }
 
-    public void updateUserEmotion(String emotion, float intensity) {
-        userEmotion.replace(emotion, intensity);
+    public void updateUserEmotion(String emotion, double intensity) {
+        userEmotions.replace(emotion, intensity);
     }
 
-    public Map<String, Float> getUserEmotion() {
-        return userEmotion;
+    public Map<String, Double> getUserEmotions() {
+        return userEmotions;
     }
 
-    public void setUserEmotion(Map<String, Float> userEmotion) {
-        this.userEmotion = userEmotion;
+    public void setUserEmotions(Map<String, Double> userEmotions) {
+        this.userEmotions = userEmotions;
     }
 
+    @Override
+    public boolean update(InfoData data) {
+        boolean isUpdated = false;
+        UserEmotionalData emotionalData = (UserEmotionalData) data;
+        List<UserEmotion> emotions = emotionalData.getEmotions();
+        historicUserEmotions.add(new HistoricUserEmotions(emotions));
+        for (UserEmotion emotion : emotions) {
+            if (emotion.getIntensity() != userEmotions.getOrDefault(emotion.getName(), 0.0d)) {
+                isUpdated = true;
+                addUserEmotion(emotion.getName(), emotion.getIntensity());
+            }
+        }
+        return isUpdated;
+    }
+
+    @Override
+    public Believes clone() throws CloneNotSupportedException {
+        return this;
+    }
 }

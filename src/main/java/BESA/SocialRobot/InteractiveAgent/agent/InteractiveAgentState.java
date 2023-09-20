@@ -10,6 +10,7 @@ import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalData;
+import BESA.SocialRobot.ExplainabilityAgent.model.EventRecord;
 import BESA.SocialRobot.InteractiveAgent.guard.ConversationEventBundle;
 import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventData;
 import BESA.SocialRobot.InteractiveAgent.manager.ConversationManager;
@@ -20,25 +21,34 @@ import BESA.SocialRobot.ServiceProvider.agent.ServiceRequestManager;
  *
  * @author juans
  */
-public class InteractiveAgentState<T extends ConversationManager, G extends InterfaceInterpreter> extends StateBESA {
-    private Map<Float, T> conversations;
+public class InteractiveAgentState extends StateBESA {
+    private Map<String, ConversationManager> conversations;
     private InterfaceInterpreter interpreter;
     private PromptBuilder promptBuilder;
     private ServiceRequestManager<String> manager;
+    private ConversationManagerBuilder builder;
+    private EventRecord latestInnerStateRecord;
+    private EventRecord latestUserStateRecord;
+    private EventRecord latestDecisionRecord;
 
-    public InteractiveAgentState(PromptBuilder promptBuilder, InterfaceInterpreter interpreter) {
+    public InteractiveAgentState(PromptBuilder promptBuilder, InterfaceInterpreter interpreter,
+            ConversationManagerBuilder builder) {
         this.conversations = new HashMap<>();
         this.promptBuilder = promptBuilder;
         this.interpreter = interpreter;
+        this.builder = builder;
         manager = new ServiceRequestManager<>();
     }
 
-    public Map<Float, T> getConversations() {
+    public Map<String, ConversationManager> getConversations() {
         return conversations;
     }
 
     public ConversationEventBundle processConversationEvent(InteractionEventData data) {
-        float id = (float) data.getData().get("id");
+        String id = data.getUserId();
+        if (conversations.containsKey(id)) {
+            conversations.put(id, builder.buildConversationManager());
+        }
         return conversations.get(id).processConversationEvent(promptBuilder, manager, data);
     }
 
@@ -73,4 +83,29 @@ public class InteractiveAgentState<T extends ConversationManager, G extends Inte
             e.printStackTrace();
         }
     }
+
+    public EventRecord getLatestInnerStateRecord() {
+        return latestInnerStateRecord;
+    }
+
+    public void setLatestInnerStateRecord(EventRecord latestInnerStateRecord) {
+        this.latestInnerStateRecord = latestInnerStateRecord;
+    }
+
+    public EventRecord getLatestUserStateRecord() {
+        return latestUserStateRecord;
+    }
+
+    public void setLatestUserStateRecord(EventRecord latestUserStateRecord) {
+        this.latestUserStateRecord = latestUserStateRecord;
+    }
+
+    public EventRecord getLatestDecisionRecord() {
+        return latestDecisionRecord;
+    }
+
+    public void setLatestDecisionRecord(EventRecord latestDecisionRecord) {
+        this.latestDecisionRecord = latestDecisionRecord;
+    }
+
 }

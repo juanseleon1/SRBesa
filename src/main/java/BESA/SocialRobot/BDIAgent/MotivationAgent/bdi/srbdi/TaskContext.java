@@ -24,4 +24,8 @@ public class TaskContext {
         actions.remove(actionId);
     }
 
+    public void removeAllActions() {
+        actions.clear();
+    }
+
 }

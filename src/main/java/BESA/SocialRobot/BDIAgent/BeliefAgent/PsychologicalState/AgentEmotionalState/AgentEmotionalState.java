@@ -4,25 +4,35 @@ package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalS
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import BESA.Exception.ExceptionBESA;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EmotionalStateData;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.EmotionalModel;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Yaml.EmotionalModelDescriptors;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Yaml.LoadEmotionalModelConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Yaml.SemanticDictionaryDescriptor;
 
-
 public class AgentEmotionalState extends EmotionalModel {
 
     private List<Mask> availableMasks;
-    private String semanticDictPath = ""; //TODO determine paths
-    private String characterDescPath = "";
-
-    public AgentEmotionalState() {
-
+    private String semanticDictPath;
+    private String characterDescPath;
+    private RobotEmotionalStrategy emotionalStrategy;
+    private EmotionalStateData latestEmoData;
+    public AgentEmotionalState(String semanticDictPath, String characterDescPath, RobotEmotionalStrategy emotionalStrategy) {
+        this.semanticDictPath = semanticDictPath;
+        this.characterDescPath = characterDescPath;
+        this.emotionalStrategy = emotionalStrategy;
     }
 
     @Override
     public void emotionalStateChanged() {
-        // TODO Get emotion values and send to Action Modulator.
+        try {
+            EmotionalStateData data = emotionalStrategy.processEmotionsForRobot(this);
+            latestEmoData=data;
+            sendToActionModulator(data);
+        } catch (ExceptionBESA e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -51,7 +61,7 @@ public class AgentEmotionalState extends EmotionalModel {
 
     @Override
     public void loadEmotionalAxes() {
-        //Axis are loaded with the characterDescriptor.
+        // Axis are loaded with the characterDescriptor.
     }
 
     public List<Mask> getAvailableMasks() {
@@ -60,6 +70,10 @@ public class AgentEmotionalState extends EmotionalModel {
 
     public void setAvailableMasks(List<Mask> availableMasks) {
         this.availableMasks = availableMasks;
+    }
+
+    public EmotionalStateData getRobotEmotionalState(){
+        return latestEmoData;
     }
 
 }

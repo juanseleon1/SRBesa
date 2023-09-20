@@ -12,4 +12,8 @@ public interface SRServiceConfiguration {
     
     public DataBESA translateOtherActionsToDataBesa(RobotData data);
 
+    public RobotData convertCancelActionToRobotData(ServiceDataRequest dataRequest);
+    
+   public RobotData translateOtherCancelActionsToRobotData(ServiceDataRequest dataRequest);
+
 }

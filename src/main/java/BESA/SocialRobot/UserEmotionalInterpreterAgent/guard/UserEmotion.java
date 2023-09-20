@@ -2,27 +2,27 @@ package BESA.SocialRobot.UserEmotionalInterpreterAgent.guard;
 
 public class UserEmotion {
     private String name;
-    private float degree;
+    private float intensity;
 
-    public UserEmotion(String name, float degree) {
+    public UserEmotion(String name, float intensity) {
         this.name = name;
-        this.degree = degree;
+        this.intensity = intensity;
     }
 
     public String getName() {
         return name;
     }
 
-    public float getDegree() {
-        return degree;
+    public float getIntensity() {
+        return intensity;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setDegree(float degree) {
-        this.degree = degree;
+    public void setIntensity(float intensity) {
+        this.intensity = intensity;
     }
 
 }

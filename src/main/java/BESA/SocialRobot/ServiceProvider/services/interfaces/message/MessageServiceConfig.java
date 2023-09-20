@@ -10,7 +10,7 @@ public abstract class MessageServiceConfig implements SRServiceConfiguration {
     public RobotData convertServiceDataToRobotData(ServiceDataRequest dataRequest) {
         RobotData rd = null;
         String function = dataRequest.getFunction();
-        switch(function){
+        switch (function) {
             case "sendMessageAction":
                 rd = translateSendMessageAction(dataRequest);
                 break;
@@ -25,7 +25,7 @@ public abstract class MessageServiceConfig implements SRServiceConfiguration {
     public DataBESA convertRobotDataToDataBESA(RobotData data) {
         DataBESA db = null;
         String function = data.getFunction();
-        switch(function){
+        switch (function) {
             case "sendMessageResponse":
                 db = translateSendMessageResponse(data);
                 break;
@@ -35,8 +35,21 @@ public abstract class MessageServiceConfig implements SRServiceConfiguration {
         }
         return db;
     }
+
     public abstract RobotData translateSendMessageAction(ServiceDataRequest dataRequest);
+
     public abstract DataBESA translateSendMessageResponse(RobotData robotData);
 
+    @Override
+    public RobotData convertCancelActionToRobotData(ServiceDataRequest dataRequest) {
+        // No expropiable actions
+        return null;
+    }
+
+    @Override
+    public RobotData translateOtherCancelActionsToRobotData(ServiceDataRequest dataRequest) {
+        // No expropiable actions
+        return null;
+    }
 
 }

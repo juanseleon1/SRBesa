@@ -62,6 +62,21 @@ public abstract class ResourceServiceConfig implements SRServiceConfiguration {
         return db;
     }
 
+    @Override
+    public RobotData convertCancelActionToRobotData(ServiceDataRequest dataRequest) {
+        RobotData rd = null;
+        String function = dataRequest.getFunction();
+        switch (function) {
+           case "ledsOn":
+                rd = translateLedsOffAction(dataRequest);
+                break;
+            default:
+                rd = translateOtherCancelActionsToRobotData(dataRequest);
+                break;
+        }
+        return rd;
+    }
+
     public abstract RobotData translateLedsOnAction(ServiceDataRequest dataRequest);
 
     public abstract RobotData translateLedsOffAction(ServiceDataRequest data);

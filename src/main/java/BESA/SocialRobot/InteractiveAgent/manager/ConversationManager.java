@@ -15,7 +15,7 @@ public abstract class ConversationManager {
             ServiceRequestManager<String> manager, InteractionEventData data) {
         UserEmotionalData emotionalData = null;
         ConversationEventData conversationEventData = new ConversationEventData();
-        conversationEventData.setId(data.getId());
+        conversationEventData.setUserId(data.getUserId());
         if (data.getData().containsKey("origin")) {
             String origin = (String) data.getData().get("origin");
             conversationEventData.setOrigin(origin);
@@ -28,7 +28,7 @@ public abstract class ConversationManager {
             conversationEventData.setMessage((String) data.getData().get("text"));
         }
         if (data.hasEmotionalData()) {
-            emotionalData = new UserEmotionalData(data.getId(), EmotionalDataType.VOICE, data.getEmotions());
+            emotionalData = new UserEmotionalData(data.getUserId(), EmotionalDataType.VOICE, data.getEmotions());
         }
         return new ConversationEventBundle(emotionalData, conversationEventData);
     }

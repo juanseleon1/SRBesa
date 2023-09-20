@@ -4,6 +4,7 @@ import BESA.BDI.AgentStructuralModel.Agent.LatentGoalStructure;
 import BESA.BDI.AgentStructuralModel.AutonomyManager.AutonomyManager;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.RobotEmotionalStrategy;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 
 public class MotivationAgentConfiguration {
@@ -36,6 +37,18 @@ public class MotivationAgentConfiguration {
          * 3. Setup Action Provider
          * 4. Setup Motivation Agent
          */
+    }
+
+    public String getSemanticDictPath() {
+        return null;
+    }
+
+    public String getCharacterDescPath() {
+        return null;
+    }
+
+    public RobotEmotionalStrategy getRobotEmotionalStrategy() {
+        return null;
     }
 
 }

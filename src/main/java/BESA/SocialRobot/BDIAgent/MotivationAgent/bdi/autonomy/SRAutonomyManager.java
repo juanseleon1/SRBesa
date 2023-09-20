@@ -12,7 +12,6 @@ import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import rational.mapping.Believes;
 
-//TODO: update configuration file
 public class SRAutonomyManager extends AutonomyManager {
     private FIS fis;
 
@@ -41,7 +40,7 @@ public class SRAutonomyManager extends AutonomyManager {
             fis.evaluate();
             FunctionBlock functionBlock = fis.getFunctionBlock("autonomy_system");
             double autonomyLevelValue = functionBlock.getVariable("AutonomyLevel").getValue();
-            // TODO: Update values
+
             if (autonomyLevelValue > 0.5 && autonomyLevelValue <= 0.75) {
                 checkIsPassed = checkRequestPermission(goalBDI, beliefs);
             } else if (autonomyLevelValue > 0.75) {

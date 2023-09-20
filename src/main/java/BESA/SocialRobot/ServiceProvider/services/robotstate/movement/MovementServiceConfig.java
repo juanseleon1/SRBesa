@@ -61,6 +61,24 @@ public abstract class MovementServiceConfig implements SRServiceConfiguration {
         return db;
     }
 
+    @Override
+    public RobotData convertCancelActionToRobotData(ServiceDataRequest dataRequest) {
+        RobotData rd = null;
+        String function = dataRequest.getFunction();
+        switch (function) {
+            case "movementAction":
+                rd = translateStopMovementAction(dataRequest);
+                break;
+            case "runAnimationAction":
+                rd = translateStopAnimationAction(dataRequest);
+                break;
+            default:
+                rd = translateOtherCancelActionsToRobotData(dataRequest);
+                break;
+        }
+        return rd;
+    }
+
     public abstract RobotData translateMovementAction(ServiceDataRequest dataRequest);
 
     public abstract RobotData translateStopMovementAction(ServiceDataRequest data);

@@ -19,7 +19,7 @@ public class HumanInteractionEventGuard extends GuardBESA {
 
     @Override
     public void funcExecGuard(EventBESA ebesa) {
-        InteractiveAgentState<?, ?> state = (InteractiveAgentState<?, ?>) this.getAgent().getState();
+        InteractiveAgentState state = (InteractiveAgentState) this.getAgent().getState();
         InteractionEventData data = (InteractionEventData) ebesa.getData();
         switch (data.getType()) {
             case TABLET:

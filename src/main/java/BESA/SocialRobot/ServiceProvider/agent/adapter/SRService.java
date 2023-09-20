@@ -11,6 +11,7 @@ public abstract class SRService<T extends SRServiceConfiguration> extends Asynch
 
     private T config;
     private SRAdapterReceiver receiver;
+
     public SRService(ServiceNames name, SRAdapter adapter, SRAdapterReceiver receiver, T config) {
         super(name.name(), adapter);
         this.config = config;
@@ -22,11 +23,18 @@ public abstract class SRService<T extends SRServiceConfiguration> extends Asynch
     @Override
     public void executeAsyncService(SPServiceDataRequest dataRequest, StateServiceProvider state) {
         ServiceDataRequest request = (ServiceDataRequest) dataRequest;
-        ServiceProviderState spState = (ServiceProviderState)state;
+        ServiceProviderState spState = (ServiceProviderState) state;
         spState.addRequest(request.getId());
-        RobotData data = config.convertServiceDataToRobotData(request);
         SRAdapter adapter = (SRAdapter) this.getAdapter();
-        adapter.sendRequest(data);
+        RobotData data = null;
+        if (request.isCancelAction()) {
+            data = config.convertCancelActionToRobotData(request);
+        } else {
+            data = config.convertServiceDataToRobotData(request);
+        }
+        if (data != null) {
+            adapter.sendRequest(data);
+        }
     }
 
     public T getConfig() {

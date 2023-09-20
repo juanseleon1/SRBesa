@@ -36,6 +36,20 @@ public abstract class MailServiceConfig implements SRServiceConfiguration {
         }
         return db;
     }
+
+    @Override
+    public RobotData convertCancelActionToRobotData(ServiceDataRequest dataRequest) {
+        //No expropiable actions
+        return null;
+    }
+
+    
+    @Override
+    public RobotData translateOtherCancelActionsToRobotData(ServiceDataRequest dataRequest) {
+        //No expropiable actions
+        return null;
+    }
+
     public abstract RobotData translateSendMailAction(ServiceDataRequest dataRequest);
     public abstract RobotReplyData translateSendMailResponse(RobotData robotData);
 }

@@ -4,7 +4,7 @@ import rational.data.InfoData;
 
 public class ConversationEventData extends InfoData{
     
-    private float id;
+    private String userId;
     private int queryId;
     private String origin;
     private String answer;
@@ -13,11 +13,11 @@ public class ConversationEventData extends InfoData{
         super("ConversationEventData");
         isQueryAnswer = false;
     }
-    public float getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
-    public void setId(float id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
     public String getOrigin() {
         return origin;

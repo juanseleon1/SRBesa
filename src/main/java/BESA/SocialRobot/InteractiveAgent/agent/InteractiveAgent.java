@@ -25,7 +25,7 @@ public class InteractiveAgent extends SRSupportAgent {
     public static String interactionEventGuard = "InteractionEventGuard";
     public static String interactionRequestGuard = "interactionRequestGuard";
 
-    public InteractiveAgent(InteractiveAgentState<?, ?> state) throws KernelAgentExceptionBESA {
+    public InteractiveAgent(InteractiveAgentState state) throws KernelAgentExceptionBESA {
         super(name, state, buildAgentStruct(), 0.96);
         System.out.println("SensorHandlerAgent Iniciado");
     }

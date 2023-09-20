@@ -1,46 +1,31 @@
-package BESA.SocialRobot.ExplainabilityAgent.agent;
+package BESA.SocialRobot.ExplainabilityAgent.guard;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-
-import BESA.Kernel.Agent.StateBESA;
 import BESA.SocialRobot.ExplainabilityAgent.model.EventRecord;
+import rational.data.InfoData;
 
 /**
  *
  * @author juans
  */
-public class ExplainabilityAgentState extends StateBESA {
-    private List<EventRecord> records;
-    private RecordSaver recordSaver;
-
+public class RequestEventRecordData extends InfoData {
     private EventRecord latestInnerStateRecord;
     private EventRecord latestUserStateRecord;
     private EventRecord latestDecisionRecord;
+    private boolean isRequest;
 
-    public ExplainabilityAgentState(RecordSaver recordSaver) {
-        this.records = new ArrayList<>();
-        this.recordSaver = recordSaver;
+    public RequestEventRecordData(EventRecord latestInnerStateRecord, EventRecord latestUserStateRecord, EventRecord latestDecisionRecord) {
+        super(null);
+        this.latestInnerStateRecord = latestInnerStateRecord;
+        this.latestUserStateRecord = latestUserStateRecord;
+        this.latestDecisionRecord = latestDecisionRecord;
+        this.isRequest = true;
     }
 
-    public List<EventRecord> getRecords() {
-        return records;
+        public RequestEventRecordData() {
+        super(null);
+        this.isRequest = true;
     }
-
-    public void addRecord(EventRecord record) {
-        this.records.add(record);
-    }
-
-    public void addListOfRecords(List<EventRecord> records) {
-        this.records.addAll(records);
-    }
-
-    public void saveRecords() {
-        recordSaver.saveRecords(records);
-    }
-
+    
     public EventRecord getLatestInnerStateRecord() {
         return latestInnerStateRecord;
     }
@@ -65,4 +50,11 @@ public class ExplainabilityAgentState extends StateBESA {
         this.latestDecisionRecord = latestDecisionRecord;
     }
 
+    public boolean isRequest() {
+        return isRequest;
+    }
+
+    public void setIsRequest(boolean isRequest) {
+        this.isRequest = isRequest;
+    }
 }

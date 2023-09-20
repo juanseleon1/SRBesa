@@ -14,9 +14,9 @@ public class UserEmotionalData extends InfoData {
     private EmotionalDataType type;
     private List<UserEmotion> emotions;
     private LocalDateTime timestamp;
-    private float userId;
+    private String userId;
 
-    public UserEmotionalData(float userId, EmotionalDataType type, List<UserEmotion> emotions) {
+    public UserEmotionalData(String userId, EmotionalDataType type, List<UserEmotion> emotions) {
         super("UserEmotionalData");
         this.type = type;
         this.emotions = emotions;
@@ -25,11 +25,11 @@ public class UserEmotionalData extends InfoData {
     }
 
 
-    public float getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(float userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

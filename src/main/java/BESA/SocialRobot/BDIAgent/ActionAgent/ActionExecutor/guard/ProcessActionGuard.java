@@ -6,6 +6,7 @@ import BESA.Kernel.Agent.GuardBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgentState;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi.SRTask.TaskRequestType;
 import BESA.SocialRobot.agentUtils.ServiceDataRequest;
 import BESA.SocialRobot.agentUtils.ServiceUtils;
 
@@ -16,15 +17,23 @@ public class ProcessActionGuard extends GuardBESA {
         ActionAgentState state = (ActionAgentState) this.agent.getState();
         ActionRequestData infoRecibida = (ActionRequestData) event.getData();
         List<ServiceDataRequest> primitives = state.getActionExecutor().getActionPrimitives(infoRecibida);
-        if(!state.getActionExecutor().isActionPresent(infoRecibida.getActionName())){
-            state.getActionExecutor().addTaskForAction(infoRecibida.getTaskName(), infoRecibida.getActionName());
+        if(infoRecibida.getActionName().equals(TaskRequestType.CANCEL.toString()) || infoRecibida.getActionName().equals(TaskRequestType.INTERRUPT.toString())){
+            List<String> actions = state.getActionExecutor().getActionsPerTask(infoRecibida.getTaskName());
+            actions.forEach((action) -> {
+                state.getActionExecutor().getRegisteredPrimitivesPerAction(action).forEach((primitive) -> {
+                    ServiceUtils.requestService(ServiceDataRequest.buildCancelRequest(primitive));
+                });
+            });
+            state.getActionExecutor().removeTaskData(infoRecibida.getTaskName());
+        } else{
+            if(!state.getActionExecutor().isActionPresent(infoRecibida.getActionName())){
+                state.getActionExecutor().addTaskForAction(infoRecibida.getTaskName(), infoRecibida.getActionName());
+                primitives.forEach((primitive) -> {
+                    ServiceUtils.requestService(primitive);
+                    state.getActionExecutor().addPrimitiveToAction(infoRecibida.getActionName(), primitive);
+                });
+            }
         }
-        primitives.forEach((primitive) -> {
-            ServiceUtils.requestService(primitive);
-            state.getActionExecutor().addPrimitiveToAction(infoRecibida.getActionName(), primitive.getId());
-        });
-        // TODO: If expropiation or cancel request is sent, check task action and
-        // interrupt related service provider actions.
     }
 
 }
