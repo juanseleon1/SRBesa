@@ -9,6 +9,11 @@ public class ActionAgentState extends StateBESA {
     private ActionModulator actionModulator;
     private ActionExecutor actionExecutor;
 
+    public ActionAgentState(ActionModulator actionModulator, ActionExecutor actionExecutor) {
+        this.actionModulator = actionModulator;
+        this.actionExecutor = actionExecutor;
+    }
+
     public ActionModulator getActionModulator() {
         return actionModulator;
     }

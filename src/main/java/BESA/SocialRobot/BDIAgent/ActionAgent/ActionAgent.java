@@ -16,9 +16,9 @@ public class ActionAgent extends AgentBESA {
     public static String processActionGuard = "processActionGuard";
     public static String enrichActionGuard = "enrichActionGuard";
 
-    public ActionAgent(String alias, ActionAgentState state)
+    public ActionAgent(ActionAgentState state)
             throws KernelAgentExceptionBESA {
-        super(alias, state, buildAgentStruct(), 0.96);
+        super(name, state, buildAgentStruct(), 0.96);
     }
 
     public static String getName() {

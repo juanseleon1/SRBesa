@@ -21,9 +21,10 @@ public abstract class ActionExecutor {
     Map<String, List<String>> actionsPerTask;
 
 
-    public ActionExecutor(RobotResources resourceDescriptor, RobotEmotionalConfig configDescriptor) {
+    public ActionExecutor(RobotResources resourceDescriptor, RobotEmotionalConfig configDescriptor, ActionDescriptor actionDescriptor) {
         this.resourceDescriptor = resourceDescriptor;
         this.configDescriptor = configDescriptor;
+        this.actionDescriptor = actionDescriptor;
         this.actionPrimitives = new HashMap<>();
         this.taskActions = new HashMap<>();
         this.actionsPerTask = new HashMap<>();

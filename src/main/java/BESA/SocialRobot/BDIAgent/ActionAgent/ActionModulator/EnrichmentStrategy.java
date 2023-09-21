@@ -8,4 +8,6 @@ public interface EnrichmentStrategy {
     ActionRequestData enrichActionRequestData(ActionRequestData actionRequestData,
             EmotionalStateData lastEmotionalStateData);
 
+    EmotionalStateData applyMaskToEmotions(EmotionalStateData lastEmotionalStateData, EmotionalStateData maskApplied);
+
 }

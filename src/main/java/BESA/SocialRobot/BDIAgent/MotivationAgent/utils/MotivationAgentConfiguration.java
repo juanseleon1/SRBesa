@@ -5,50 +5,87 @@ import BESA.BDI.AgentStructuralModel.AutonomyManager.AutonomyManager;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.RobotEmotionalStrategy;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 
 public class MotivationAgentConfiguration {
 
+    private RobotResources robotResources;
+    private RobotEmotionalConfig robotEmotionalConfig;
+    private LatentGoalStructure goalStructure;  
+    private AutonomyManager autonomyManager;
+    private double threshold;
+    private String semanticDictPath;
+    private String characterDescPath;
+    private RobotEmotionalStrategy robotEmotionalStrategy;
     public RobotResources getResources() {
-        return null;
+        return robotResources;
     }
 
     public RobotEmotionalConfig getEmotionalConfig() {
-        return null;
+        return robotEmotionalConfig;
     }
 
     public LatentGoalStructure getGoalStructure() {
-        return null;
+        return goalStructure;
     }
 
     public AutonomyManager getAutonomyManager() {
-        return null;
+        return autonomyManager;
     }
 
     public double getThreshold() {
-        return 0;
-    }
-
-    public void setup(MotivationAgent motivationAgent) {
-        //TODO: Setup
-        /**
-         * 1. Setup support Agents 
-         * 2. Setup Service Providers
-         * 3. Setup Action Provider
-         * 4. Setup Motivation Agent
-         */
+        return threshold;
     }
 
     public String getSemanticDictPath() {
-        return null;
+        return semanticDictPath;
     }
 
     public String getCharacterDescPath() {
-        return null;
+        return characterDescPath;
     }
 
     public RobotEmotionalStrategy getRobotEmotionalStrategy() {
-        return null;
+        return robotEmotionalStrategy;
+    }
+
+    public RobotResources getRobotResources() {
+        return robotResources;
+    }
+
+    public void setRobotResources(RobotResources robotResources) {
+        this.robotResources = robotResources;
+    }
+
+    public RobotEmotionalConfig getRobotEmotionalConfig() {
+        return robotEmotionalConfig;
+    }
+
+    public void setRobotEmotionalConfig(RobotEmotionalConfig robotEmotionalConfig) {
+        this.robotEmotionalConfig = robotEmotionalConfig;
+    }
+
+    public void setGoalStructure(LatentGoalStructure goalStructure) {
+        this.goalStructure = goalStructure;
+    }
+
+    public void setAutonomyManager(AutonomyManager autonomyManager) {
+        this.autonomyManager = autonomyManager;
+    }
+
+    public void setThreshold(double threshold) {
+        this.threshold = threshold;
+    }
+
+    public void setSemanticDictPath(String semanticDictPath) {
+        this.semanticDictPath = semanticDictPath;
+    }
+
+    public void setCharacterDescPath(String characterDescPath) {
+        this.characterDescPath = characterDescPath;
+    }
+
+    public void setRobotEmotionalStrategy(RobotEmotionalStrategy robotEmotionalStrategy) {
+        this.robotEmotionalStrategy = robotEmotionalStrategy;
     }
 
 }

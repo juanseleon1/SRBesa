@@ -24,8 +24,8 @@ public static String name = "ExplainabilityAgent";
 public static String saveRecordsGuard = "SaveRecordsGuard";
 public static String requestReasoningGuard = "RequestReasoningGuard";
 
-    public ExplainabilityAgent(String alias, RecordSaver recordSaver) throws KernelAgentExceptionBESA {
-        super(alias, new ExplainabilityAgentState(recordSaver), buildAgentStruct(), 0.96);
+    public ExplainabilityAgent(RecordSaver recordSaver) throws KernelAgentExceptionBESA {
+        super(name, new ExplainabilityAgentState(recordSaver), buildAgentStruct(), 0.96);
     }
 
     @Override
