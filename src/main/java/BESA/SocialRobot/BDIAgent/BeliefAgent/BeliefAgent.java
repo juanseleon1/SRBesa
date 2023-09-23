@@ -49,6 +49,9 @@ public class BeliefAgent implements Believes {
         } else if(si instanceof UserEmotionalData || si instanceof RequestEventRecordData){
             isUpdated = interactionState.update(si);
         } 
+        activeUsers.forEach((user) -> {
+            userProfiles.get(user).update(si);
+        });
         return isUpdated;
     }
 

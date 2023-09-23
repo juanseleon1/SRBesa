@@ -10,11 +10,20 @@ import BESA.SocialRobot.InteractiveAgent.guard.ConversationEventData;
 import rational.data.InfoData;
 import rational.mapping.Believes;
 
-public class ConversationContext implements Believes{
+public class ConversationContext implements Believes {
     private String userId;
     private Map<String, String> queries;
     private List<String> conversationRecord;
+    private boolean isUserTalking;
+    private boolean isRobotTalking;
 
+    public boolean isUserTalking() {
+        return isUserTalking;
+    }
+
+    public void setUserTalking(boolean isUserTalking) {
+        this.isUserTalking = isUserTalking;
+    }
 
     public ConversationContext() {
         queries = new HashMap<>();
@@ -33,17 +42,17 @@ public class ConversationContext implements Believes{
         return userId;
     }
 
-    public void setUserId(String userId){
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-        @Override
+    @Override
     public boolean update(InfoData data) {
         boolean isUpdated = false;
         ConversationEventData conversationEventData = (ConversationEventData) data;
-        if(conversationEventData.isQueryAnswer()){
+        if (conversationEventData.isQueryAnswer()) {
             addQuery(conversationEventData.getOrigin(), conversationEventData.getAnswer());
-        } else{
+        } else {
             conversationRecord.add(conversationEventData.getMessage());
         }
         return isUpdated;
@@ -54,12 +63,28 @@ public class ConversationContext implements Believes{
         return this;
     }
 
-    public List<String> getConversationRecord(){
+    public List<String> getConversationRecord() {
         return conversationRecord;
     }
 
-    public Map<String, String> getQueries(){
+    public Map<String, String> getQueries() {
         return queries;
+    }
+
+    public void setQueries(Map<String, String> queries) {
+        this.queries = queries;
+    }
+
+    public void setConversationRecord(List<String> conversationRecord) {
+        this.conversationRecord = conversationRecord;
+    }
+
+    public boolean isRobotTalking() {
+        return isRobotTalking;
+    }
+
+    public void setRobotTalking(boolean isRobotTalking) {
+        this.isRobotTalking = isRobotTalking;
     }
 
 }

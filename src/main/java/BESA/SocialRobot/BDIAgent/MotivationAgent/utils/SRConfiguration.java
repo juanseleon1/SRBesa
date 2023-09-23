@@ -141,17 +141,10 @@ public class SRConfiguration {
         return motivationAgent;
     }
 
-    public void setMotivationAgent(MotivationAgent motivationAgent) {
-        this.motivationAgent = motivationAgent;
-    }
-
     public ActionAgent getActionAgent() {
         return actionAgent;
     }
 
-    public void setActionAgent(ActionAgent actionAgent) {
-        this.actionAgent = actionAgent;
-    }
 
     public RecordSaver getRecordSaver() {
         return recordSaver;

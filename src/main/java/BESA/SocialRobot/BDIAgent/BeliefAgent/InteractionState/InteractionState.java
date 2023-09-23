@@ -44,6 +44,8 @@ public class InteractionState implements Believes {
         } else if (data instanceof RequestEventRecordData) {
             requestedToExplain = true;
             isUpdated = true;
+        } else{
+            getCurrentServiceContext().update(data);
         }
         return isUpdated;
     }

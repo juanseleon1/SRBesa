@@ -4,8 +4,10 @@ package BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionContex
 import java.util.ArrayList;
 import java.util.List;
 
+import rational.mapping.Believes;
 
-public abstract class ServiceContext{
+
+public abstract class ServiceContext implements Believes{
     private boolean isActive;
     private List<String> relatedUsers;
 
@@ -33,4 +35,16 @@ public abstract class ServiceContext{
         relatedUsers.remove(userID);
     }
 
+    public List<String> getRelatedUsers() {
+        return relatedUsers;
+    }
+
+    public void setRelatedUsers(List<String> relatedUsers) {
+        this.relatedUsers = relatedUsers;
+    }
+
+    @Override
+    public Believes clone() throws CloneNotSupportedException {
+        return this;
+    }
 }
