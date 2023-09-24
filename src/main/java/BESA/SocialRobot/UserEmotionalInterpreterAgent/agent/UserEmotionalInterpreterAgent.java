@@ -25,7 +25,6 @@ public class UserEmotionalInterpreterAgent extends SRSupportAgent {
 
     public UserEmotionalInterpreterAgent(UserEmotionalInterpreterState state) throws KernelAgentExceptionBESA {
         super(name, state, buildAgentStruct(), 0.96);
-        System.out.println("SensorHandlerAgent Iniciado");
     }
 
     private static StructBESA buildAgentStruct() {
@@ -40,13 +39,13 @@ public class UserEmotionalInterpreterAgent extends SRSupportAgent {
     }
 
     @Override
-    public List<AgentSubscription<?, ?>> buildConfiguration() {
-        AgentSubscription<UserEmotionalData, CalculateEmotionsGuard> emotionalSubscription = new AgentSubscription<>(
-                ServiceNames.EMOTIONEXTRACTOR);
-        AgentSubscription<UserEmotionalData, CalculateEmotionsGuard> videoSubscription = new AgentSubscription<>(
-                ServiceNames.RAWVIDEO);
+    public List<AgentSubscription> buildConfiguration() {
+        AgentSubscription emotionalSubscription = new AgentSubscription(
+                ServiceNames.EMOTIONEXTRACTOR, UserEmotionalData.class, CalculateEmotionsGuard.class);
+        AgentSubscription videoSubscription = new AgentSubscription(
+                ServiceNames.RAWVIDEO, UserEmotionalData.class, CalculateEmotionsGuard.class);
 
-        List<AgentSubscription<?, ?>> agSubscriptions = new ArrayList<>();
+        List<AgentSubscription> agSubscriptions = new ArrayList<>();
         agSubscriptions.add(emotionalSubscription);
         agSubscriptions.add(videoSubscription);
 

@@ -1,7 +1,10 @@
 package BESA.SocialRobot.BDIAgent.MotivationAgent.utils;
 
+import java.util.List;
+
 import BESA.BDI.AgentStructuralModel.Agent.LatentGoalStructure;
 import BESA.BDI.AgentStructuralModel.AutonomyManager.AutonomyManager;
+import BESA.BDI.AgentStructuralModel.LatentGoalStructure.Mission;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.RobotEmotionalStrategy;
@@ -16,6 +19,9 @@ public class MotivationAgentConfiguration {
     private String semanticDictPath;
     private String characterDescPath;
     private RobotEmotionalStrategy robotEmotionalStrategy;
+    private Mission defaultMission;
+    private List<Mission> missions;
+
     public RobotResources getResources() {
         return robotResources;
     }
@@ -86,6 +92,22 @@ public class MotivationAgentConfiguration {
 
     public void setRobotEmotionalStrategy(RobotEmotionalStrategy robotEmotionalStrategy) {
         this.robotEmotionalStrategy = robotEmotionalStrategy;
+    }
+
+    public Mission getDefaultMission() {
+        return defaultMission;
+    }
+
+    public void setDefaultMission(Mission defaultMission) {
+        this.defaultMission = defaultMission;
+    }
+
+    public List<Mission> getMissions() {
+        return missions;
+    }
+
+    public void setMissions(List<Mission> missions) {
+        this.missions = missions;
     }
 
 }

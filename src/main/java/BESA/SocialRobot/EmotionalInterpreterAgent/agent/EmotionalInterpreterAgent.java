@@ -37,8 +37,8 @@ public class EmotionalInterpreterAgent extends SRSupportAgent {
     }
 
     @Override
-    public List<AgentSubscription<?, ?>> buildConfiguration() {
-        List<AgentSubscription<?, ?>> agSubscriptions = new ArrayList<>();
+    public List<AgentSubscription> buildConfiguration() {
+        List<AgentSubscription> agSubscriptions = new ArrayList<>();
         return agSubscriptions;
     }
 }

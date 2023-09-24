@@ -21,7 +21,6 @@ public abstract class EmotionalModel {
     public EmotionalModel() {
         this.emotionalState = new EmotionalState();
         this.personality = new Personality();
-        this.configureEmotionalModel();
     }
 
     public void addEmotionAxis(EmotionAxis ea) {
@@ -141,7 +140,7 @@ public abstract class EmotionalModel {
         handler.sendEvent(sensorEvtA);
     }
 
-    private void configureEmotionalModel() {
+    protected void configureEmotionalModel() {
         loadSemanticDictionary();
         loadCharacterDescriptor();
         loadEmotionalAxes();
@@ -166,5 +165,17 @@ public abstract class EmotionalModel {
     public abstract void loadCharacterDescriptor();
 
     public abstract void loadEmotionalAxes();
+
+    public synchronized List<EmotionAxis> getEmotionAxis(){
+        return emotionalState.getEmotions();
+    }
+
+    public EmotionalState getEmotionalState() {
+        return emotionalState;
+    }
+
+    public Personality getPersonality() {
+        return personality;
+    }
 
 }

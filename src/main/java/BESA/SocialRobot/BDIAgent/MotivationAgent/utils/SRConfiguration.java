@@ -53,7 +53,6 @@ public class SRConfiguration {
             setupSupportAgents();
             setupActionAgent();
             setupMotivationAgent();
-
         } catch (ExceptionBESA e) {
             e.printStackTrace();
         }

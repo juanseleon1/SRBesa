@@ -20,11 +20,12 @@ public abstract class SRSupportAgent extends AgentBESA {
         super(alias, state, structAgent, passwd);
     }
 
-    public abstract List<AgentSubscription<?, ?>> buildConfiguration();
+    public abstract List<AgentSubscription> buildConfiguration();
 
     @Override
     public void setupAgent() {
-        List<AgentSubscription<?, ?>> subs = this.buildConfiguration();
+        System.out.println("Agent class: " + this.getClass().getName() + " is setting up");
+        List<AgentSubscription> subs = this.buildConfiguration();
         this.subscribeServices(subs);
     }
 
@@ -33,10 +34,10 @@ public abstract class SRSupportAgent extends AgentBESA {
 
     }
 
-    private void subscribeServices(List<AgentSubscription<?, ?>> subscriptions){
+    private void subscribeServices(List<AgentSubscription> subscriptions){
         subscriptions.forEach(suscription -> {
-
             try {
+                System.out.println("Agent class: " + this.getClass().getName() + " is subscribing to service: " + suscription);
                 String spAgId = AdmBESA.getInstance().lookupSPServiceInDirectory(suscription.getServiceAgentId());
                 AgHandlerBESA agH;
                 agH = AdmBESA.getInstance().getHandlerByAid(spAgId);

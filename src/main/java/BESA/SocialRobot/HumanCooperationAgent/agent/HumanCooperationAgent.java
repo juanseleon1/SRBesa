@@ -32,8 +32,9 @@ public class HumanCooperationAgent extends SRSupportAgent {
     private static StructBESA buildAgentStruct() {
         StructBESA struct = new StructBESA();
         try {
-            struct.addBehavior("interactionEventGuard");
+            struct.addBehavior(interactionAnswerGuard);
             struct.bindGuard(interactionAnswerGuard, SHInteractionAnswerGuard.class);
+            struct.addBehavior(permissionRequestGuard);
             struct.bindGuard(permissionRequestGuard, SHInteractionRequestGuard.class);
         } catch (ExceptionBESA ex) {
             Logger.getLogger(HumanCooperationAgent.class.getName()).log(Level.SEVERE, null, ex);
@@ -42,14 +43,14 @@ public class HumanCooperationAgent extends SRSupportAgent {
     }
 
     @Override
-    public List<AgentSubscription<?, ?>> buildConfiguration() {
-        AgentSubscription<InteractionAnswerData, SHInteractionAnswerGuard> messageSubscription = new AgentSubscription<>(
-                ServiceNames.MESSAGE);
-        AgentSubscription<InteractionAnswerData, SHInteractionAnswerGuard> mailSubscription = new AgentSubscription<>(
-                ServiceNames.MAIL);
-        AgentSubscription<InteractionAnswerData, SHInteractionAnswerGuard> tabletEvtSubscription = new AgentSubscription<>(
-                ServiceNames.TABLETEVENT);
-        List<AgentSubscription<?, ?>> agSubscriptions = new ArrayList<>();
+    public List<AgentSubscription> buildConfiguration() {
+        AgentSubscription messageSubscription = new AgentSubscription(
+                ServiceNames.MESSAGE, InteractionAnswerData.class, SHInteractionAnswerGuard.class);
+        AgentSubscription mailSubscription = new AgentSubscription(
+                ServiceNames.MAIL, InteractionAnswerData.class, SHInteractionAnswerGuard.class);
+        AgentSubscription tabletEvtSubscription = new AgentSubscription(
+                ServiceNames.INTERFACEEVENT, InteractionAnswerData.class, SHInteractionAnswerGuard.class);
+        List<AgentSubscription> agSubscriptions = new ArrayList<>();
         agSubscriptions.add(messageSubscription);
         agSubscriptions.add(mailSubscription);
         agSubscriptions.add(tabletEvtSubscription);

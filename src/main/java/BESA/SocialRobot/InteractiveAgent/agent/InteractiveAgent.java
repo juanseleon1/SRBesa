@@ -27,15 +27,14 @@ public class InteractiveAgent extends SRSupportAgent {
 
     public InteractiveAgent(InteractiveAgentState state) throws KernelAgentExceptionBESA {
         super(name, state, buildAgentStruct(), 0.96);
-        System.out.println("SensorHandlerAgent Iniciado");
     }
 
     private static StructBESA buildAgentStruct() {
         StructBESA struct = new StructBESA();
         try {
-            struct.addBehavior("interactionEventGuard");
+            struct.addBehavior(interactionEventGuard);
             struct.bindGuard(interactionEventGuard, HumanInteractionEventGuard.class);
-            struct.addBehavior("interactionRequestGuard");
+            struct.addBehavior(interactionRequestGuard);
             struct.bindGuard(interactionRequestGuard, HumanInteractionRequestGuard.class);
         } catch (ExceptionBESA ex) {
             Logger.getLogger(InteractiveAgent.class.getName()).log(Level.SEVERE, null, ex);
@@ -44,10 +43,10 @@ public class InteractiveAgent extends SRSupportAgent {
     }
 
     @Override
-    public List<AgentSubscription<?, ?>> buildConfiguration() {
-        AgentSubscription<InteractionEventData, HumanInteractionEventGuard> interactionSubscription = new AgentSubscription<>(
-                ServiceNames.SPEECHENGINE);
-        List<AgentSubscription<?, ?>> agSubscriptions = new ArrayList<>();
+    public List<AgentSubscription> buildConfiguration() {
+        AgentSubscription interactionSubscription = new AgentSubscription(
+                ServiceNames.SPEECHENGINE, InteractionEventData.class, HumanInteractionEventGuard.class);
+        List<AgentSubscription> agSubscriptions = new ArrayList<>();
         agSubscriptions.add(interactionSubscription);
         return agSubscriptions;
     }

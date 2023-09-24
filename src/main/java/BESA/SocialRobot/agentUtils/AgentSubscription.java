@@ -1,30 +1,19 @@
 package BESA.SocialRobot.agentUtils;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
 import BESA.Kernel.Agent.GuardBESA;
 import BESA.Kernel.Agent.Event.DataBESA;
 import BESA.SocialRobot.ServiceProvider.services.ServiceNames;
 
-public class AgentSubscription<D extends DataBESA, G extends GuardBESA> {
+public class AgentSubscription {
 
     private String serviceAgentId;
     private String dataClassName;
     private String guardClassName;
 
-    public AgentSubscription(ServiceNames agentId) {
+    public AgentSubscription(ServiceNames agentId, Class<? extends DataBESA> data, Class<? extends GuardBESA> guard ) {
         this.serviceAgentId = agentId.name();
-        Type genericSuperclass = getClass().getGenericSuperclass();
-
-        if (genericSuperclass instanceof ParameterizedType) {
-            ParameterizedType parameterizedType = (ParameterizedType) genericSuperclass;
-            Type[] typeArguments = parameterizedType.getActualTypeArguments();
-            if (typeArguments.length >= 2) {
-                this.dataClassName = typeArguments[0].getClass().getName();
-                this.guardClassName = typeArguments[1].getClass().getName();
-            }
-        }
+        this.dataClassName = guard.getName();
+        this.guardClassName = data.getName();
     }
 
     public String getServiceAgentId() {
@@ -49,5 +38,14 @@ public class AgentSubscription<D extends DataBESA, G extends GuardBESA> {
 
     public void setGuardClassName(String guardClassName) {
         this.guardClassName = guardClassName;
+    }
+
+    @Override
+    public String toString() {
+        return "AgentSubscription{" +
+                "serviceAgentId='" + serviceAgentId + '\'' +
+                ", dataClassName='" + dataClassName + '\'' +
+                ", guardClassName='" + guardClassName + '\'' +
+                '}';
     }
 }

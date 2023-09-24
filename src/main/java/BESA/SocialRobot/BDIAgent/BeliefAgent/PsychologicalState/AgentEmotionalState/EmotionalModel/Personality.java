@@ -61,4 +61,40 @@ public class Personality {
         return str;
     }
 
+    @Override
+    public Personality clone() {
+        Personality clonedPersonality = new Personality();
+        
+        // Deep copy the objectRelationships map
+        for (Map.Entry<String, String> entry : objectRelationships.entrySet()) {
+            clonedPersonality.objectRelationships.put(entry.getKey(), entry.getValue());
+        }
+
+        // Deep copy the personRelationships map
+        for (Map.Entry<String, String> entry : personRelationships.entrySet()) {
+            clonedPersonality.personRelationships.put(entry.getKey(), entry.getValue());
+        }
+
+        // Deep copy the eventDesirability map
+        for (Map.Entry<String, String> entry : eventDesirability.entrySet()) {
+            clonedPersonality.eventDesirability.put(entry.getKey(), entry.getValue());
+        }
+
+        return clonedPersonality;
+    }
+
+    public Map<String, String> getObjectRelationships() {
+        return objectRelationships;
+    }
+
+    public Map<String, String> getPersonRelationships() {
+        return personRelationships;
+    }
+
+    public Map<String, String> getEventDesirability() {
+        return eventDesirability;
+    }
+
+    
+
 }

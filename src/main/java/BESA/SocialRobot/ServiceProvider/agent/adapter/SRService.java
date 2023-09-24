@@ -17,7 +17,7 @@ public abstract class SRService<T extends SRServiceConfiguration> extends Asynch
         this.config = config;
         this.receiver = receiver;
         adapter.startAdapter();
-        receiver.startReceiver();
+        receiver.startReceiver(name);
     }
 
     @Override

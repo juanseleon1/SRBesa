@@ -12,7 +12,6 @@ import org.yaml.snakeyaml.constructor.Constructor;
 public class LoadEmotionalModelConfig{
 
     public static SemanticDictionaryDescriptor decodeYamlSemanticDictionary(String filePath) throws FileNotFoundException {
-
         InputStream is = new FileInputStream(new File(filePath));
         Constructor constructor = new Constructor(SemanticDictionaryDescriptor.class,new LoaderOptions());
         TypeDescription d = new TypeDescription(SemanticDictionaryDescriptor.class);

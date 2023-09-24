@@ -42,9 +42,9 @@ public static String requestReasoningGuard = "RequestReasoningGuard";
     {
          StructBESA struct=new StructBESA();
         try {
-            struct.addBehavior("requestReasoningGuard");
+            struct.addBehavior(requestReasoningGuard);
             struct.bindGuard(requestReasoningGuard, RequestReasoningGuard.class);
-            struct.addBehavior("saveRecordsGuard");
+            struct.addBehavior(saveRecordsGuard);
             struct.bindGuard(saveRecordsGuard, SaveRecordsGuard.class);
 
         } catch (ExceptionBESA ex) {

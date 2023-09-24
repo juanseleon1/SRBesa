@@ -5,6 +5,8 @@ import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.SocialRobot.ServiceProvider.agent.guard.ProcessRobotReplyGuard;
+import BESA.SocialRobot.ServiceProvider.agent.guard.RobotReplyData;
+import BESA.SocialRobot.ServiceProvider.services.ServiceNames;
 
 /**
  *
@@ -15,19 +17,19 @@ public abstract class SRAdapterReceiver {
     private boolean hasStarted;
     private String spAlias;
 
-    public SRAdapterReceiver(String spAlias) {
-        this.spAlias = spAlias;
+    public SRAdapterReceiver() {
         hasStarted = false;
     }
 
-    protected void handleRobotData(RobotData rd) throws ExceptionBESA {
+    protected void handleRobotData(RobotReplyData rd) throws ExceptionBESA {
         AgHandlerBESA agH = AdmBESA.getInstance().getHandlerByAlias(spAlias);
         EventBESA evSP = new EventBESA(ProcessRobotReplyGuard.class.getName(), rd);
         agH.sendEvent(evSP);
     }
 
-    public void startReceiver(){
+    public void startReceiver(ServiceNames spAlias){
         if(!hasStarted){
+            this.spAlias = spAlias.name();
             this.setup();
             hasStarted = true;
         }

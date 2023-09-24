@@ -5,7 +5,6 @@ import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EmotionalStat
 
 public class ActionModulator {
     private EmotionalStateData lastEmotionalStateData;
-    private EmotionalStateData maskApplied;
     private EnrichmentStrategy enrichmentStrategy;
 
     public ActionModulator(EnrichmentStrategy enrichmentStrategy) {
@@ -30,9 +29,6 @@ public class ActionModulator {
 
     public ActionRequestData enrichActionRequestData(ActionRequestData actionRequestData) {
         EmotionalStateData dataToApply = lastEmotionalStateData;
-        if(maskApplied != null){
-            dataToApply = enrichmentStrategy.applyMaskToEmotions(lastEmotionalStateData, maskApplied);
-        }
         return enrichmentStrategy.enrichActionRequestData(actionRequestData, dataToApply);
     }
 

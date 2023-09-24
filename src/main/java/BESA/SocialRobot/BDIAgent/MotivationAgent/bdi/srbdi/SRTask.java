@@ -2,6 +2,7 @@ package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi;
 
 import java.util.Map;
 
+import BESA.BDI.AgentStructuralModel.LatentGoalStructure.Mission;
 import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
@@ -10,6 +11,9 @@ import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.guard.ProcessActionGuard;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EnrichActionGuard;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.ChangeMissionData;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.ChangeMissionGuard;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.ActionRequestBuilder;
 import rational.mapping.Believes;
 import rational.mapping.Task;
@@ -24,16 +28,17 @@ public abstract class SRTask extends Task {
     public SRTask(TaskContext context) {
         this.context = context;
     }
+
     public SRTask() {
         this.context = new TaskContext();
     }
-    
 
     @Override
     public synchronized void setTaskWaitingForExecution() {
         super.setTaskWaitingForExecution();
         context.removeAllActions();
     }
+
     @Override
     public void cancelTask(Believes beliefs) {
         sendTaskStatusUpdateRequest(TaskRequestType.CANCEL);
@@ -65,8 +70,8 @@ public abstract class SRTask extends Task {
                     this.getClass().getName());
             context.addAction(action);
             AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
-            EventBESA sensorEvtA = new EventBESA(EnrichActionGuard.class.getName(), action);
-            handler.sendEvent(sensorEvtA);
+            EventBESA evtBesa = new EventBESA(EnrichActionGuard.class.getName(), action);
+            handler.sendEvent(evtBesa);
         } catch (ExceptionBESA e) {
             e.printStackTrace();
         }
@@ -77,8 +82,19 @@ public abstract class SRTask extends Task {
             ActionRequestData action = ActionRequestBuilder.buildActionRequest(status.name(),
                     this.getClass().getName());
             AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
-            EventBESA sensorEvtA = new EventBESA(ProcessActionGuard.class.getName(), action);
-            handler.sendEvent(sensorEvtA);
+            EventBESA evtBesa = new EventBESA(ProcessActionGuard.class.getName(), action);
+            handler.sendEvent(evtBesa);
+        } catch (ExceptionBESA e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void sendMissionChange(Mission mission) {
+        try {
+            ChangeMissionData data = new ChangeMissionData(mission);
+            AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(MotivationAgent.name);
+            EventBESA evtBesa = new EventBESA(ChangeMissionGuard.class.getName(), data);
+            handler.sendEvent(evtBesa);
         } catch (ExceptionBESA e) {
             e.printStackTrace();
         }

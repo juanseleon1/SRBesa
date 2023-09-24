@@ -1,8 +1,8 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
 public class SemanticValue {
-    private final String name;
-    private final double value;
+    private String name;
+    private double value;
     
     public SemanticValue(String name, double value) {
         this.name = name;
@@ -20,5 +20,13 @@ public class SemanticValue {
     @Override
     public String toString() {
         return name + ": " + value;
+    }
+
+    public void setValue(double value) {
+        this.value = Utils.checkNegativeOneToOneLimits(value);
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
