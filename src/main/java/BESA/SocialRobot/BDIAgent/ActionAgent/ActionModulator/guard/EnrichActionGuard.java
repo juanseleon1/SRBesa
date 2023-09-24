@@ -9,6 +9,7 @@ import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgentState;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
+import BESA.SocialRobot.BDIAgent.ActionAgent.ModulatedActionRequestData;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.guard.ProcessActionGuard;
 
 public class EnrichActionGuard extends GuardBESA {
@@ -23,7 +24,7 @@ public class EnrichActionGuard extends GuardBESA {
         } else {
             try {
                 ActionRequestData infoRecibida = (ActionRequestData) event.getData();
-                ActionRequestData enrichedData = state.getActionModulator().enrichActionRequestData(infoRecibida);
+                ModulatedActionRequestData enrichedData = state.getActionModulator().enrichActionRequestData(infoRecibida);
                 EventBESA eventBesa = new EventBESA(ProcessActionGuard.class.getName(), enrichedData);
                 AgHandlerBESA agHandlerBESA;
                 agHandlerBESA = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);

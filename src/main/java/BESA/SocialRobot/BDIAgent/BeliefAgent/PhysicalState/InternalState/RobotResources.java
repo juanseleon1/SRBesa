@@ -1,7 +1,25 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState;
 
-public abstract class RobotResources {
-    public abstract void loadConfig();
+import java.util.List;
 
-    // TODO: Define resource config and creation when load is done.
+public abstract class RobotResources {
+    List<Resource> resources;
+
+    
+    public List<Resource> getResources() {
+        return resources;
+    }
+    
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
+    
+    public void addResource(Resource resource) {
+        resources.add(resource);
+    }
+    
+    public void removeResource(Resource resource) {
+        resources.remove(resource);
+    }
+    public abstract void loadRobotResourceProfile();
 }

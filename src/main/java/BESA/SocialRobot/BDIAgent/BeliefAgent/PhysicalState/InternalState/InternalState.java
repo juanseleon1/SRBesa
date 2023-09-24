@@ -6,13 +6,9 @@ import rational.mapping.Believes;
 
 public class InternalState implements Believes {
     private RobotResources robotResources;
-    private RobotEmotionalConfig robotEmotionalConfig;
 
-    public InternalState(RobotResources robotResources, RobotEmotionalConfig robotEmotionalConfig) {
+    public InternalState(RobotResources robotResources) {
         this.robotResources = robotResources;
-        this.robotEmotionalConfig = robotEmotionalConfig;
-        robotResources.loadConfig();
-        robotEmotionalConfig.loadConfig();
     }
 
     @Override
@@ -35,12 +31,4 @@ public class InternalState implements Believes {
         this.robotResources = robotResources;
     }
 
-    public RobotEmotionalConfig getRobotEmotionalConfig() {
-        return robotEmotionalConfig;
-    }
-
-    public void setRobotEmotionalConfig(RobotEmotionalConfig robotEmotionalConfig) {
-        this.robotEmotionalConfig = robotEmotionalConfig;
-    }
-    
 }

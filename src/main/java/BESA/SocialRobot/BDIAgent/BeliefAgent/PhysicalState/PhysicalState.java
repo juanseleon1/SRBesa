@@ -3,7 +3,6 @@ package BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.AccidentMgmt.ErrorState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.AccidentMgmt.ExceptionState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.InternalState;
-import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.Resources.ComputationalResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.Resources.ExternalResourcesState;
@@ -17,10 +16,10 @@ public class PhysicalState implements Believes {
     private ComputationalResources computationalResources;
     private ExternalResourcesState externalResourcesState;
 
-    public PhysicalState(RobotResources robotResources, RobotEmotionalConfig robotEmotionalConfig) {
+    public PhysicalState(RobotResources robotResources) {
         errorState = new ErrorState();
         exceptionState = new ExceptionState();
-        internalState = new InternalState(robotResources,robotEmotionalConfig);
+        internalState = new InternalState(robotResources);
         computationalResources = new ComputationalResources();
         externalResourcesState = new ExternalResourcesState();
     }

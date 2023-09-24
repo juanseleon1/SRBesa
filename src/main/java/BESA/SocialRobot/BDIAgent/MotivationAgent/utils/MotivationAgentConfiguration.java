@@ -5,14 +5,12 @@ import java.util.List;
 import BESA.BDI.AgentStructuralModel.Agent.LatentGoalStructure;
 import BESA.BDI.AgentStructuralModel.AutonomyManager.AutonomyManager;
 import BESA.BDI.AgentStructuralModel.LatentGoalStructure.Mission;
-import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.RobotEmotionalStrategy;
 
 public class MotivationAgentConfiguration {
 
     private RobotResources robotResources;
-    private RobotEmotionalConfig robotEmotionalConfig;
     private LatentGoalStructure goalStructure;  
     private AutonomyManager autonomyManager;
     private double threshold;
@@ -24,10 +22,6 @@ public class MotivationAgentConfiguration {
 
     public RobotResources getResources() {
         return robotResources;
-    }
-
-    public RobotEmotionalConfig getEmotionalConfig() {
-        return robotEmotionalConfig;
     }
 
     public LatentGoalStructure getGoalStructure() {
@@ -60,14 +54,6 @@ public class MotivationAgentConfiguration {
 
     public void setRobotResources(RobotResources robotResources) {
         this.robotResources = robotResources;
-    }
-
-    public RobotEmotionalConfig getRobotEmotionalConfig() {
-        return robotEmotionalConfig;
-    }
-
-    public void setRobotEmotionalConfig(RobotEmotionalConfig robotEmotionalConfig) {
-        this.robotEmotionalConfig = robotEmotionalConfig;
     }
 
     public void setGoalStructure(LatentGoalStructure goalStructure) {

@@ -41,6 +41,7 @@ public class SRConfiguration {
     private UserEmotionalInterpreterAgent userEmotionalInterpreterAgent;
     private ActionAgentState actionAgentState;
 
+
     public SRConfiguration() {
         sps = new HashMap<>();
         serviceProviders = new ArrayList<>();
@@ -103,9 +104,8 @@ public class SRConfiguration {
     }
 
     protected void setupMotivationAgent() throws KernelAgentExceptionBESA, ExceptionBESA {
-        config.getResources().loadConfig();
+        config.getResources().loadRobotResourceProfile();
         motivationAgent = new MotivationAgent(config);
-
     }
 
     public void addServiceProviderConfig(String alias, List<SRService<?>> services) {
@@ -224,6 +224,5 @@ public class SRConfiguration {
     public void setActionAgentState(ActionAgentState actionAgentState) {
         this.actionAgentState = actionAgentState;
     }
-
     
 }

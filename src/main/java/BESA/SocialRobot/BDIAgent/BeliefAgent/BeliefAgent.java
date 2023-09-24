@@ -10,7 +10,6 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionContext
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.PsychologicalState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.RobotEmotionalStrategy;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.PhysicalState;
-import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.UserProfile.UserProfile;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.WorldModel.WorldModel;
@@ -32,10 +31,10 @@ public class BeliefAgent implements Believes {
     private Map<String, UserProfile> userProfiles;
     private WorldModel worldModel;
 
-    public BeliefAgent(RobotResources resources, RobotEmotionalConfig emotionalConfig, String semanticDictPath, String characterDescPath, RobotEmotionalStrategy emotionalStrategy) {
+    public BeliefAgent(RobotResources resources,  String semanticDictPath, String characterDescPath, RobotEmotionalStrategy emotionalStrategy) {
         interactionState = new InteractionState();
         psychologicalState = new PsychologicalState(semanticDictPath, characterDescPath, emotionalStrategy);
-        physicalState = new PhysicalState(resources, emotionalConfig);
+        physicalState = new PhysicalState(resources);
         userProfiles = new HashMap<>();
         worldModel = new WorldModel();
         activeUsers = new ArrayList<>();

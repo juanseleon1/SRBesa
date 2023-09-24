@@ -7,24 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
-import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotEmotionalConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.agentUtils.ServiceDataRequest;
 
-public abstract class ActionExecutor {
-    ActionDescriptor actionDescriptor;
+public class ActionExecutor {
     RobotResources resourceDescriptor;
-    RobotEmotionalConfig configDescriptor;
     Map<String, Set<ServiceDataRequest>> actionPrimitives;
     Map<String, String> taskActions;
     Map<String, List<String>> actionsPerTask;
 
 
-    public ActionExecutor(RobotResources resourceDescriptor, RobotEmotionalConfig configDescriptor, ActionDescriptor actionDescriptor) {
+    public ActionExecutor(RobotResources resourceDescriptor) {
         this.resourceDescriptor = resourceDescriptor;
-        this.configDescriptor = configDescriptor;
-        this.actionDescriptor = actionDescriptor;
         this.actionPrimitives = new HashMap<>();
         this.taskActions = new HashMap<>();
         this.actionsPerTask = new HashMap<>();
@@ -45,8 +39,6 @@ public abstract class ActionExecutor {
     public Set<ServiceDataRequest> getRegisteredPrimitivesPerAction(String action){
         return actionPrimitives.get(action);
     }
-
-    public abstract List<ServiceDataRequest> getActionPrimitives(ActionRequestData data);
 
     public String getTaskForAction(String action) {
         return taskActions.get(action);
