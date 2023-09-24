@@ -8,7 +8,7 @@ import BESA.BDI.AgentStructuralModel.StateBDI;
 import BESA.BDI.AgentStructuralModel.Agent.AgentBDI;
 import BESA.BDI.AgentStructuralModel.Agent.LatentGoalStructure;
 import BESA.BDI.AgentStructuralModel.AutonomyManager.AutonomyManager;
-import BESA.BDI.AgentStructuralModel.LatentGoalStructure.Mission;
+import BESA.BDI.AgentStructuralModel.LatentGoalStructure.AgentRole;
 import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.KernelAgentExceptionBESA;
 import BESA.Kernel.Agent.StructBESA;
@@ -16,7 +16,7 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.RobotEmotionalStrategy;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.guard.UpdatePermissionRequest;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.ChangeMissionGuard;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.ChangeAgentRoleGuard;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.sync.SyncTaskGuard;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.MotivationAgentConfiguration;
 import BESA.SocialRobot.BDIAgent.explainability.SRHistoryCollector;
@@ -28,8 +28,8 @@ public class MotivationAgent extends AgentBDI {
 
     public MotivationAgent(RobotResources resources,
             LatentGoalStructure goalStruct, AutonomyManager autonomyManager, int threshold, String semanticDictPath,
-            String characterDescPath, RobotEmotionalStrategy robotEmotionalConfig, Mission defaultMission,
-            List<Mission> missions)
+            String characterDescPath, RobotEmotionalStrategy robotEmotionalConfig, AgentRole defaultAgentRole,
+            List<AgentRole> missions)
             throws KernelAgentExceptionBESA, ExceptionBESA {
         super(name,
                 new BeliefAgent(resources, semanticDictPath, characterDescPath, robotEmotionalConfig),
@@ -37,8 +37,8 @@ public class MotivationAgent extends AgentBDI {
                 autonomyManager, threshold,
                 new StructBESA());
         StateBDI stateBDI = (StateBDI) this.state;
-        stateBDI.getMachineBDIParams().setDefaultMission(defaultMission);
-        stateBDI.getMachineBDIParams().setMissions(missions);
+        stateBDI.getMachineBDIParams().setDefaultAgentRole(defaultAgentRole);
+        stateBDI.getMachineBDIParams().setAgentRoles(missions);
         setupRationalAgent();
     }
 
@@ -49,8 +49,8 @@ public class MotivationAgent extends AgentBDI {
                 config.getGoalStructure(),
                 config.getAutonomyManager(), config.getThreshold(), buildAgentStruct());
         StateBDI stateBDI = (StateBDI) this.state;
-        stateBDI.getMachineBDIParams().setDefaultMission(config.getDefaultMission());
-        stateBDI.getMachineBDIParams().setMissions(config.getMissions());
+        stateBDI.getMachineBDIParams().setDefaultAgentRole(config.getDefaultAgentRole());
+        stateBDI.getMachineBDIParams().setAgentRoles(config.getAgentRoles());
         setupRationalAgent();
     }
 
@@ -61,8 +61,8 @@ public class MotivationAgent extends AgentBDI {
             struct.bindGuard("SyncTaskGuard", SyncTaskGuard.class);
             struct.addBehavior("UpdatePermissionRequest");
             struct.bindGuard("UpdatePermissionRequest", UpdatePermissionRequest.class);
-            struct.addBehavior("ProcessMissionChange");
-            struct.bindGuard("ProcessMissionChange", ChangeMissionGuard.class);
+            struct.addBehavior("ProcessAgentRoleChange");
+            struct.bindGuard("ProcessAgentRoleChange", ChangeAgentRoleGuard.class);
         } catch (ExceptionBESA ex) {
             Logger.getLogger(UserEmotionalInterpreterAgent.class.getName()).log(Level.SEVERE, null, ex);
         }

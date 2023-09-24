@@ -14,7 +14,7 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalSt
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Yaml.LoadEmotionalModelConfig;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Yaml.SemanticDictionaryDescriptor;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.EmotionalImpact;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.EmotionalMission;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.EmotionalAgentRole;
 
 public class AgentEmotionalState extends EmotionalModel {
 
@@ -22,7 +22,7 @@ public class AgentEmotionalState extends EmotionalModel {
     private String characterDescPath;
     private RobotEmotionalStrategy emotionalStrategy;
     private EmotionalStateData latestEmoData;
-    private EmotionalMission origEmotionalMission;
+    private EmotionalAgentRole origEmotionalAgentRole;
 
     public AgentEmotionalState(String semanticDictPath, String characterDescPath,
             RobotEmotionalStrategy emotionalStrategy) {
@@ -77,14 +77,14 @@ public class AgentEmotionalState extends EmotionalModel {
                 emotionalImpacts.add(new EmotionalImpact(axis.getEventInfluences(), axis.getForgetFactor(),
                         axis.getBaseValue()));
             });
-            origEmotionalMission = new EmotionalMission(emotionalImpacts, getPersonality().clone());
+            origEmotionalAgentRole = new EmotionalAgentRole(emotionalImpacts, getPersonality().clone());
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
         //Making a copy of the original Semantic Dictionary
     }
 
-    public synchronized void applyMission(EmotionalMission mission){
+    public synchronized void applyAgentRole(EmotionalAgentRole mission){
         List<EmotionAxis> axes = this.getEmotionAxis();
         mission.getEmotionalImpacts().forEach(impact -> {
             EmotionAxis axis = axes.stream().filter(a -> a.getPositiveName().equals(impact.getPositiveEmotionName())).findFirst()
@@ -108,8 +108,8 @@ public class AgentEmotionalState extends EmotionalModel {
         emotionalStateChanged();
     }
 
-    public void resetMission(){
-        applyMission(origEmotionalMission);
+    public void resetAgentRole(){
+        applyAgentRole(origEmotionalAgentRole);
     }
 
     public EmotionalStateData getRobotEmotionalState() {

@@ -2,18 +2,18 @@ package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission;
 
 import java.util.List;
 
-import BESA.BDI.AgentStructuralModel.LatentGoalStructure.Mission;
+import BESA.BDI.AgentStructuralModel.LatentGoalStructure.AgentRole;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Personality;
 
-public class EmotionalMission extends Mission {
+public class EmotionalAgentRole extends AgentRole {
     private List<EmotionalImpact> emotionalImpacts;
     private Personality personality;
 
-    public EmotionalMission(List<EmotionalImpact> emotionalImpacts) {
+    public EmotionalAgentRole(List<EmotionalImpact> emotionalImpacts) {
         this.emotionalImpacts = emotionalImpacts;
     }
 
-    public EmotionalMission(List<EmotionalImpact> emotionalImpacts, Personality personality) {
+    public EmotionalAgentRole(List<EmotionalImpact> emotionalImpacts, Personality personality) {
         this.emotionalImpacts = emotionalImpacts;
         this.personality = personality;
     }

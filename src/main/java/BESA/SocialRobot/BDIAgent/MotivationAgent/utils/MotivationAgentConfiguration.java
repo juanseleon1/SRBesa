@@ -4,7 +4,7 @@ import java.util.List;
 
 import BESA.BDI.AgentStructuralModel.Agent.LatentGoalStructure;
 import BESA.BDI.AgentStructuralModel.AutonomyManager.AutonomyManager;
-import BESA.BDI.AgentStructuralModel.LatentGoalStructure.Mission;
+import BESA.BDI.AgentStructuralModel.LatentGoalStructure.AgentRole;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.RobotEmotionalStrategy;
 
@@ -17,8 +17,8 @@ public class MotivationAgentConfiguration {
     private String semanticDictPath;
     private String characterDescPath;
     private RobotEmotionalStrategy robotEmotionalStrategy;
-    private Mission defaultMission;
-    private List<Mission> missions;
+    private AgentRole defaultAgentRole;
+    private List<AgentRole> missions;
 
     public RobotResources getResources() {
         return robotResources;
@@ -80,19 +80,19 @@ public class MotivationAgentConfiguration {
         this.robotEmotionalStrategy = robotEmotionalStrategy;
     }
 
-    public Mission getDefaultMission() {
-        return defaultMission;
+    public AgentRole getDefaultAgentRole() {
+        return defaultAgentRole;
     }
 
-    public void setDefaultMission(Mission defaultMission) {
-        this.defaultMission = defaultMission;
+    public void setDefaultAgentRole(AgentRole defaultAgentRole) {
+        this.defaultAgentRole = defaultAgentRole;
     }
 
-    public List<Mission> getMissions() {
+    public List<AgentRole> getAgentRoles() {
         return missions;
     }
 
-    public void setMissions(List<Mission> missions) {
+    public void setAgentRoles(List<AgentRole> missions) {
         this.missions = missions;
     }
 

@@ -2,7 +2,7 @@ package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi;
 
 import java.util.Map;
 
-import BESA.BDI.AgentStructuralModel.LatentGoalStructure.Mission;
+import BESA.BDI.AgentStructuralModel.LatentGoalStructure.AgentRole;
 import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
@@ -12,8 +12,8 @@ import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.guard.ProcessActionGuard;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EnrichActionGuard;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.ChangeMissionData;
-import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.ChangeMissionGuard;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.ChangeAgentRoleData;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.ChangeAgentRoleGuard;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.ActionRequestBuilder;
 import rational.mapping.Believes;
 import rational.mapping.Task;
@@ -89,11 +89,11 @@ public abstract class SRTask extends Task {
         }
     }
 
-    protected void sendMissionChange(Mission mission) {
+    protected void sendAgentRoleChange(AgentRole mission) {
         try {
-            ChangeMissionData data = new ChangeMissionData(mission);
+            ChangeAgentRoleData data = new ChangeAgentRoleData(mission);
             AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(MotivationAgent.name);
-            EventBESA evtBesa = new EventBESA(ChangeMissionGuard.class.getName(), data);
+            EventBESA evtBesa = new EventBESA(ChangeAgentRoleGuard.class.getName(), data);
             handler.sendEvent(evtBesa);
         } catch (ExceptionBESA e) {
             e.printStackTrace();
