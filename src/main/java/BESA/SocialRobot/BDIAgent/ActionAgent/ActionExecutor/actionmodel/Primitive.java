@@ -4,8 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Primitive {
-    String name;
-    Set<Parameter> parameters;
+    private String name;
+    private Set<Parameter> parameters;
+    private String service;
+    private String function;
+
+    public Primitive() {
+        parameters = new HashSet<>();
+    }
 
     public Primitive(String name) {
         this.name = name;
@@ -30,6 +36,22 @@ public class Primitive {
 
     public void setParameters(Set<Parameter> parameters) {
         this.parameters = parameters;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public String getFunction() {
+        return function;
+    }
+
+    public void setFunction(String function) {
+        this.function = function;
     }
 
 }

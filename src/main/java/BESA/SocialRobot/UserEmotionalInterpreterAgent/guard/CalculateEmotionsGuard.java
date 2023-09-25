@@ -26,7 +26,7 @@ public class CalculateEmotionsGuard extends GuardBESA {
             UserEmotionalInterpreterState state = (UserEmotionalInterpreterState) this.getAgent().getState();
             UserEmotionalData infoRecibida = (UserEmotionalData) ebesa.getData();
             if (!state.isUserModelPresent(infoRecibida.getUserId())) {
-                UserEmotionalModel model = state.retrievEmotionalModel(infoRecibida.getUserId());
+                UserEmotionalModel model = state.retrieveEmotionalModel(infoRecibida.getUserId());
                 state.addUserModel(infoRecibida.getUserId(), model);
             }
             List<UserEmotion> emotions = state.calculateCompositeEmotions(infoRecibida.getUserId());

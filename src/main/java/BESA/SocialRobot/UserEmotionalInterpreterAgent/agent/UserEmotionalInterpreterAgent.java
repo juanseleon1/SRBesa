@@ -42,11 +42,15 @@ public class UserEmotionalInterpreterAgent extends SRSupportAgent {
     public List<AgentSubscription> buildConfiguration() {
         AgentSubscription emotionalSubscription = new AgentSubscription(
                 ServiceNames.EMOTIONEXTRACTOR, UserEmotionalData.class, CalculateEmotionsGuard.class);
+        AgentSubscription emotionalVoiceSubscription = new AgentSubscription(
+                ServiceNames.SENTIMENTANALYSIS, UserEmotionalData.class, CalculateEmotionsGuard.class);
         AgentSubscription videoSubscription = new AgentSubscription(
                 ServiceNames.RAWVIDEO, UserEmotionalData.class, CalculateEmotionsGuard.class);
 
         List<AgentSubscription> agSubscriptions = new ArrayList<>();
         agSubscriptions.add(emotionalSubscription);
+        agSubscriptions.add(emotionalVoiceSubscription);
+
         agSubscriptions.add(videoSubscription);
 
         return agSubscriptions;

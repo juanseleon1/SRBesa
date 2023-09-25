@@ -7,6 +7,10 @@ public class Action {
     String name;
     Set<Primitive> primitives;
 
+    public Action() {
+        primitives = new HashSet<>();
+    }
+
     public Action(String name) {
         this.name = name;
         primitives = new HashSet<>();

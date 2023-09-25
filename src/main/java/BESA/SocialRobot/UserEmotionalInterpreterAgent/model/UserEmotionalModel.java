@@ -8,10 +8,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotion;
+import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotionalData;
 
 public abstract class UserEmotionalModel {
     
-    List<EmotionBundle> emotionBundles;
+    private List<UserEmotionalData> emotionBundles;
     private Timer timer = new Timer();
     private long cleanUpTime;
 
@@ -27,7 +28,7 @@ public abstract class UserEmotionalModel {
 
     public abstract List<UserEmotion> calculateCompositeEmotions();
 
-    public void addEmotionBundle(EmotionBundle bundle) {
+    public void addEmotionBundle(UserEmotionalData bundle) {
         this.emotionBundles.add(bundle);
     }
 
@@ -38,13 +39,19 @@ public abstract class UserEmotionalModel {
     public void cleanupExpiredBundles() {
         LocalDateTime dateLimit = LocalDateTime.now().minus(cleanUpTime, ChronoUnit.MINUTES);
         //Get iterator for the bundle list
-        Iterator<EmotionBundle> iterator = this.emotionBundles.iterator();
+        Iterator<UserEmotionalData> iterator = this.emotionBundles.iterator();
         //traverse iterator and remove expired bundles
         while (iterator.hasNext()) {
-            EmotionBundle bundle = iterator.next();
+            UserEmotionalData bundle = iterator.next();
             if (bundle.getTimestamp().isBefore(dateLimit)) {
                 iterator.remove();
             }
         }
+    }
+    public List<UserEmotionalData> getEmotionBundles() {
+        return emotionBundles;
+    }
+    public void setEmotionBundles(List<UserEmotionalData> emotionBundles) {
+        this.emotionBundles = emotionBundles;
     }
 }

@@ -1,6 +1,7 @@
 package BESA.SocialRobot.ServiceProvider.services.interfaces.interfaceevent;
 
 import BESA.Kernel.Agent.Event.DataBESA;
+import BESA.SocialRobot.HumanCooperationAgent.guard.InteractionAnswerData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.SRServiceConfiguration;
 import BESA.SocialRobot.agentUtils.ServiceDataRequest;
@@ -145,7 +146,7 @@ public abstract class InterfaceEventServiceConfig implements SRServiceConfigurat
 
     protected abstract DataBESA translateQuitVideoActionResponse(RobotData robotData);
 
-    protected abstract DataBESA handleInterfaceEvent(RobotData robotData);
+    protected abstract InteractionAnswerData handleInterfaceEvent(RobotData robotData);
 
 
 }

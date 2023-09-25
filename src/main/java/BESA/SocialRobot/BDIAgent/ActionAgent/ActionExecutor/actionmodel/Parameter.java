@@ -4,8 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Parameter {
-    String name;
-    Map<String, String> config;
+    private String name;
+    private Map<String, String> config;
+
+    public Parameter() {
+        config = new HashMap<>();
+    }
 
     public Parameter(String name) {
         this.name = name;
@@ -19,7 +23,6 @@ public class Parameter {
     public String getConfig(String key) {
         return config.get(key);
     }
-
 
     public String getName() {
         return name;

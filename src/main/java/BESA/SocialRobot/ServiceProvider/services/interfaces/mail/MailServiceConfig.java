@@ -1,9 +1,9 @@
 package BESA.SocialRobot.ServiceProvider.services.interfaces.mail;
 
 import BESA.Kernel.Agent.Event.DataBESA;
+import BESA.SocialRobot.HumanCooperationAgent.guard.InteractionAnswerData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.SRServiceConfiguration;
-import BESA.SocialRobot.ServiceProvider.agent.guard.RobotReplyData;
 import BESA.SocialRobot.agentUtils.ServiceDataRequest;
 
 public abstract class MailServiceConfig implements SRServiceConfiguration {
@@ -51,5 +51,5 @@ public abstract class MailServiceConfig implements SRServiceConfiguration {
     }
 
     public abstract RobotData translateSendMailAction(ServiceDataRequest dataRequest);
-    public abstract RobotReplyData translateSendMailResponse(RobotData robotData);
+    public abstract InteractionAnswerData translateSendMailResponse(RobotData robotData);
 }

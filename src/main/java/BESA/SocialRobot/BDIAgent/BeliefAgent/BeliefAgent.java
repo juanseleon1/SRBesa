@@ -15,6 +15,7 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.UserProfile.UserProfile;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.WorldModel.WorldModel;
 import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalModelImpact;
 import BESA.SocialRobot.ExplainabilityAgent.guard.RequestEventRecordData;
+import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotionalData;
 import rational.data.InfoData;
 import rational.mapping.Believes;
@@ -31,7 +32,8 @@ public class BeliefAgent implements Believes {
     private Map<String, UserProfile> userProfiles;
     private WorldModel worldModel;
 
-    public BeliefAgent(RobotResources resources,  String semanticDictPath, String characterDescPath, RobotEmotionalStrategy emotionalStrategy) {
+    public BeliefAgent(RobotResources resources, String semanticDictPath, String characterDescPath,
+            RobotEmotionalStrategy emotionalStrategy) {
         interactionState = new InteractionState();
         psychologicalState = new PsychologicalState(semanticDictPath, characterDescPath, emotionalStrategy);
         physicalState = new PhysicalState(resources);
@@ -45,9 +47,9 @@ public class BeliefAgent implements Believes {
         boolean isUpdated = false;
         if (si instanceof EmotionalModelImpact) {
             isUpdated = psychologicalState.update(si);
-        } else if(si instanceof UserEmotionalData || si instanceof RequestEventRecordData){
+        } else if (si instanceof UserEmotionalData || si instanceof RequestEventRecordData || si instanceof RobotData) {
             isUpdated = interactionState.update(si);
-        } 
+        }
         activeUsers.forEach((user) -> {
             userProfiles.get(user).update(si);
         });
@@ -83,11 +85,11 @@ public class BeliefAgent implements Believes {
         this.physicalState = physicalState;
     }
 
-    public Map<String,UserProfile> getUserProfiles() {
+    public Map<String, UserProfile> getUserProfiles() {
         return userProfiles;
     }
 
-    public void setUserProfiles(Map<String,UserProfile> userProfiles) {
+    public void setUserProfiles(Map<String, UserProfile> userProfiles) {
         this.userProfiles = userProfiles;
     }
 
@@ -108,7 +110,7 @@ public class BeliefAgent implements Believes {
     }
 
     public void registerServiceContext(Class<?> service, ServiceContext context) {
-        
+
         interactionState.getServiceContexts().put(service.getName(), context);
     }
 

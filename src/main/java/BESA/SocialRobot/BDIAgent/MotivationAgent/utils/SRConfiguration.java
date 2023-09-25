@@ -104,7 +104,6 @@ public class SRConfiguration {
     }
 
     protected void setupMotivationAgent() throws KernelAgentExceptionBESA, ExceptionBESA {
-        config.getResources().loadRobotResourceProfile();
         motivationAgent = new MotivationAgent(config);
     }
 

@@ -1,5 +1,6 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Resource {
@@ -7,6 +8,10 @@ public class Resource {
     private long id;
     private String name;
     private Map<String, Map<String, String>> parameters;
+
+    public Resource() {
+        parameters = new HashMap<>();
+    }
 
     public Resource(String name, Map<String, Map<String, String>> parameters) {
         this.id = generateId();

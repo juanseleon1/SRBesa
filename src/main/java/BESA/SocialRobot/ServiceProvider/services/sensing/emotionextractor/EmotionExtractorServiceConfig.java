@@ -3,6 +3,7 @@ package BESA.SocialRobot.ServiceProvider.services.sensing.emotionextractor;
 import BESA.Kernel.Agent.Event.DataBESA;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.SRServiceConfiguration;
+import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotionalData;
 import BESA.SocialRobot.agentUtils.ServiceDataRequest;
 
 public abstract class EmotionExtractorServiceConfig implements SRServiceConfiguration {
@@ -52,6 +53,6 @@ public abstract class EmotionExtractorServiceConfig implements SRServiceConfigur
 
     public abstract RobotData translateGetUserEmotionsAction(ServiceDataRequest dataRequest);
 
-    public abstract DataBESA translateGetUserEmotionsResponse(RobotData robotData);
+    public abstract UserEmotionalData translateGetUserEmotionsResponse(RobotData robotData);
 
 }

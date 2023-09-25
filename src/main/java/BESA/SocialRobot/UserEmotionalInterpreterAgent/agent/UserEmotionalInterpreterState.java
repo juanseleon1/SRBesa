@@ -36,5 +36,5 @@ public abstract class UserEmotionalInterpreterState extends StateBESA {
         model.persist();
     }
 
-    public abstract UserEmotionalModel retrievEmotionalModel(String id);
+    public abstract UserEmotionalModel retrieveEmotionalModel(String id);
 }

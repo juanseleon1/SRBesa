@@ -71,6 +71,7 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
     public void setupAgent() {
         ServiceProviderState ssp = (ServiceProviderState) this.getState();
         ssp.getDescriptor().getServiceAccessTable().forEach((string, service) -> {
+            System.out.println("Registering service " + service.getName());
             this.getAdmLocal().bindSPServiceInDirectory(this.getAid(), service.getName());
         });
     }
@@ -93,7 +94,7 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
             for (int i = 0; i < res.size(); i++) {
                 SPInfoGuard tmp = (SPInfoGuard) res.get(i);
                 if (tmp.getServiceName().equals(serviceName) && tmp.getDataType().equals(data.getClass().getName())) {
-                    // Devuelve el resultado de la ejeuciï¿½n al agente solicitante
+                    // Devuelve el resultado de la ejeucion al agente solicitante
                     EventBESA evento = new EventBESA(tmp.getIdGuard(), data);
                     try {
                         this.getAdmLocal().getHandlerByAid(key).sendEvent(evento);

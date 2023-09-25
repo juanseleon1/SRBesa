@@ -1,5 +1,6 @@
 package BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.actionmodel.Action;
@@ -7,6 +8,10 @@ import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.actionmodel.Action;
 public class RobotActionProfile {
 
     Map<String, Action> actions;
+
+    public RobotActionProfile() {
+        this.actions = new HashMap<>();
+    }
 
     public RobotActionProfile(Map<String, Action> actions) {
         this.actions = actions;

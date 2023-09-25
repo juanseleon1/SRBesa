@@ -9,6 +9,7 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.UserInteraction.Us
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.request.RequestHandler;
 import BESA.SocialRobot.ExplainabilityAgent.guard.RequestEventRecordData;
 import BESA.SocialRobot.InteractiveAgent.guard.ConversationEventData;
+import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotionalData;
 import rational.data.InfoData;
 import rational.mapping.Believes;
@@ -44,8 +45,8 @@ public class InteractionState implements Believes {
         } else if (data instanceof RequestEventRecordData) {
             requestedToExplain = true;
             isUpdated = true;
-        } else{
-            getCurrentServiceContext().update(data);
+        } else if (data instanceof RobotData) {
+            isUpdated = getCurrentServiceContext().update(data);
         }
         return isUpdated;
     }

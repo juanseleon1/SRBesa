@@ -2,22 +2,23 @@ package BESA.SocialRobot.ServiceProvider.agent.adapter;
 
 import java.util.Map;
 
-import BESA.Kernel.Agent.Event.DataBESA;
+import rational.data.InfoData;
 
-public class RobotData extends DataBESA{
-    private int id;
+public class RobotData extends InfoData{
+    private double id;
     private String service;
     private String function;
     private Map<String,?> parameters;
 
-    public RobotData(int id, String service, String function, Map<String, ?> parameters) {
+    public RobotData(double id, String service, String function, Map<String, ?> parameters) {
+        super("null");
         this.id = id;
         this.service = service;
         this.function = function;
         this.parameters = parameters;
     }
 
-    public int getId() {
+    public double getId() {
         return id;
     }
 
