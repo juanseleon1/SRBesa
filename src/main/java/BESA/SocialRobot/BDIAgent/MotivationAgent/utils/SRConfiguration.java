@@ -23,7 +23,7 @@ import BESA.SocialRobot.ServiceProvider.agent.adapter.SRService;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.agent.UserEmotionalInterpreterAgent;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.agent.UserEmotionalInterpreterState;
 
-public class SRConfiguration {
+public abstract class SRConfiguration {
 
     private MotivationAgentConfiguration config;
     private Map<String, List<SRService<?>>> sps;
@@ -53,12 +53,15 @@ public class SRConfiguration {
             setupServiceProviders();
             setupSupportAgents();
             setupActionAgent();
+            setupLatentGoalStructureAndMasks();
             setupMotivationAgent();
         } catch (ExceptionBESA e) {
             e.printStackTrace();
         }
 
     }
+
+    protected abstract void setupLatentGoalStructureAndMasks();
 
     public void start() {
         try {

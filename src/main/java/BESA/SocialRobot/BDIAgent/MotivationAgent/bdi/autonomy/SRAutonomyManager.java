@@ -33,7 +33,7 @@ public class SRAutonomyManager extends AutonomyManager {
             checkIsPassed = false;
             ServiceGoal<?> srGoal = (ServiceGoal<?>) goalBDI;
             // Set input values
-            fis.setVariable("Criticality", srGoal.calculateCriticality());
+            fis.setVariable("Criticality", srGoal.calculateCriticality(beliefs));
             fis.setVariable("Accountability", srGoal.getAccountability());
 
             // Evaluate the fuzzy rules

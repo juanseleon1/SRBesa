@@ -2,9 +2,11 @@ package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import BESA.BDI.AgentStructuralModel.GoalBDI;
 import BESA.BDI.AgentStructuralModel.StateBDI;
 import BESA.BDI.AgentStructuralModel.Agent.AgentBDI;
 import BESA.BDI.AgentStructuralModel.Agent.LatentGoalStructure;
@@ -18,6 +20,7 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotRe
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.RobotEmotionalStrategy;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.guard.UpdatePermissionRequest;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.mission.ChangeAgentRoleGuard;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi.ServiceGoal;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.sync.SyncTaskGuard;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.MotivationAgentConfiguration;
 import BESA.SocialRobot.BDIAgent.explainability.SRHistoryCollector;
@@ -46,6 +49,14 @@ public class MotivationAgent extends AgentBDI {
         StateBDI stateBDI = (StateBDI) this.state;
         stateBDI.getMachineBDIParams().setDefaultAgentRole(defaultAgentRole);
         stateBDI.getMachineBDIParams().setAgentRoles(missions);
+        Set<GoalBDI> goals = goalStruct.getBdiGoals();
+        BeliefAgent beliefAgent = (BeliefAgent) stateBDI.getBelieves();
+        goals.forEach(goal -> {
+            if (goal instanceof ServiceGoal) {
+                ServiceGoal<?> serviceGoal = (ServiceGoal<?>) goal;
+                beliefAgent.registerServiceContext(getClass(), serviceGoal.getUserContext());
+            }
+        });
     }
 
     public MotivationAgent(MotivationAgentConfiguration config) throws KernelAgentExceptionBESA, ExceptionBESA {
@@ -57,6 +68,15 @@ public class MotivationAgent extends AgentBDI {
         StateBDI stateBDI = (StateBDI) this.state;
         stateBDI.getMachineBDIParams().setDefaultAgentRole(config.getDefaultAgentRole());
         stateBDI.getMachineBDIParams().setAgentRoles(config.getAgentRoles());
+        Set<GoalBDI> goals = config.getGoalStructure().getBdiGoals();
+        BeliefAgent beliefAgent = (BeliefAgent) stateBDI.getBelieves();
+        goals.forEach(goal -> {
+            if (goal instanceof ServiceGoal) {
+                ServiceGoal<?> serviceGoal = (ServiceGoal<?>) goal;
+                beliefAgent.registerServiceContext(getClass(), serviceGoal.getUserContext());
+            }
+        });
+
     }
 
     private static StructBESA buildAgentStruct() {
