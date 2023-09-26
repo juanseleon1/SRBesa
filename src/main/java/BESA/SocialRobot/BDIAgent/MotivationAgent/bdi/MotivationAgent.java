@@ -51,6 +51,8 @@ public class MotivationAgent extends AgentBDI {
         stateBDI.getMachineBDIParams().setAgentRoles(missions);
         Set<GoalBDI> goals = goalStruct.getBdiGoals();
         BeliefAgent beliefAgent = (BeliefAgent) stateBDI.getBelieves();
+        beliefAgent.getPsychologicalState().setDefaultAgentRole(defaultAgentRole);
+        beliefAgent.getPsychologicalState().setRoles(missions);
         goals.forEach(goal -> {
             if (goal instanceof ServiceGoal) {
                 ServiceGoal<?> serviceGoal = (ServiceGoal<?>) goal;

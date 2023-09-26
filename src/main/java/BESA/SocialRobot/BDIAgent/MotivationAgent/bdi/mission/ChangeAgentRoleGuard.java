@@ -20,7 +20,11 @@ public class ChangeAgentRoleGuard extends GuardBESA {
         if (mission instanceof EmotionalAgentRole) {
             EmotionalAgentRole emotionalAgentRole = (EmotionalAgentRole) mission;
             if (emotionalAgentRole.isValid()) {
-                beliefAgent.getPsychologicalState().getAgentEmotionalState().applyAgentRole(emotionalAgentRole);
+                boolean isDefault = false;
+                if (bdiState.getMachineBDIParams().getDefaultAgentRole().equals(emotionalAgentRole)) {
+                    isDefault = true;
+                }
+                beliefAgent.getPsychologicalState().getAgentEmotionalState().applyAgentRole(emotionalAgentRole, isDefault);
             }
         }
 

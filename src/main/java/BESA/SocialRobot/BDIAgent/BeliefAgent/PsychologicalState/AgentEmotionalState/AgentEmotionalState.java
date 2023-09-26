@@ -81,10 +81,9 @@ public class AgentEmotionalState extends EmotionalModel {
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        //Making a copy of the original Semantic Dictionary
     }
 
-    public synchronized void applyAgentRole(EmotionalAgentRole mission){
+    public synchronized void applyAgentRole(EmotionalAgentRole mission, boolean isDefault){
         List<EmotionAxis> axes = this.getEmotionAxis();
         mission.getEmotionalImpacts().forEach(impact -> {
             EmotionAxis axis = axes.stream().filter(a -> a.getPositiveName().equals(impact.getPositiveEmotionName())).findFirst()
@@ -92,7 +91,13 @@ public class AgentEmotionalState extends EmotionalModel {
             if (axis != null) {
                 axis.setBaseValue(impact.getBaseValue());
                 axis.setForgetFactor(impact.getForgetFactor());
-                axis.setEventInfluences(impact.getEventInfluences());
+                if(!isDefault){
+                    impact.getEventInfluences().forEach((k, v) -> {
+                        axis.setEventInfluence(k, v);
+                    });
+                } else{
+                    axis.setEventInfluences(impact.getEventInfluences());
+                }
             }
         });
         Personality newPersonality = mission.getPersonality();
@@ -109,7 +114,7 @@ public class AgentEmotionalState extends EmotionalModel {
     }
 
     public void resetAgentRole(){
-        applyAgentRole(origEmotionalAgentRole);
+        applyAgentRole(origEmotionalAgentRole, true);
     }
 
     public EmotionalStateData getRobotEmotionalState() {
