@@ -1,17 +1,16 @@
 package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.goal.task;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import BESA.Exception.ExceptionBESA;
-import BESA.Kernel.Agent.Event.EventBESA;
-import BESA.Kernel.System.AdmBESA;
-import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.request.Request;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.request.RequestHandler;
-import BESA.SocialRobot.HumanCooperationAgent.agent.HumanCooperationAgent;
 import BESA.SocialRobot.HumanCooperationAgent.guard.InteractionRequestData;
-import BESA.SocialRobot.HumanCooperationAgent.guard.SHInteractionRequestGuard;
+import BESA.SocialRobot.ServiceProvider.services.ServiceNames;
+import BESA.SocialRobot.agentUtils.ServiceDataRequest;
+import BESA.SocialRobot.agentUtils.ServiceUtils;
 import rational.mapping.Believes;
 import rational.mapping.Task;
 
@@ -33,14 +32,13 @@ public class AskForPermission extends Task {
         RequestHandler requestHandler = srBeliefs.getInteractionState().getRequestHandler();
         List<Request> requests = requestHandler.getPendingRequests();
         InteractionRequestData data = new InteractionRequestData(requests);
-        try {
-            AgHandlerBESA agH = AdmBESA.getInstance().getHandlerByAlias(HumanCooperationAgent.name);
-            EventBESA evt = new EventBESA(SHInteractionRequestGuard.class.getName(), data);
-            agH.sendEvent(evt);
-        } catch (ExceptionBESA e) {
-            e.printStackTrace();
-        }
+
+        Map<String, Object> params = new ConcurrentHashMap<>();
+        params.put("requests", data.getRequests());
+        ServiceDataRequest sData = ServiceUtils.buildServiceDataRequest(ServiceNames.MESSAGE, "sendMessageAction",
+                params);
         requestHandler.setRequestsToProcessed(requests);
+        ServiceUtils.requestService(sData);
     }
 
     @Override

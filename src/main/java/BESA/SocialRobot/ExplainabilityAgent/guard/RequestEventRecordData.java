@@ -3,10 +3,7 @@ package BESA.SocialRobot.ExplainabilityAgent.guard;
 import BESA.SocialRobot.ExplainabilityAgent.model.EventRecord;
 import rational.data.InfoData;
 
-/**
- *
- * @author juans
- */
+
 public class RequestEventRecordData extends InfoData {
     private EventRecord latestInnerStateRecord;
     private EventRecord latestUserStateRecord;

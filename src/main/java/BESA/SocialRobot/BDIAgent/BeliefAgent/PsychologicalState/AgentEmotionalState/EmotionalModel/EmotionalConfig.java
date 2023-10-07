@@ -1,10 +1,7 @@
 
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
-/**
- *
- * @author juans
- */
+
 public class EmotionalConfig {
 
     public static enum People {

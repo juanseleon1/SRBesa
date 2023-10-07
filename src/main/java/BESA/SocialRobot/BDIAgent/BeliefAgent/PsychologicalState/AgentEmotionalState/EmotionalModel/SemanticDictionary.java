@@ -1,7 +1,7 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.Personality.EmotionElementType;
@@ -15,9 +15,9 @@ public class SemanticDictionary {
     private final Map<String, SemanticValue> eventDesirability;
 
     private SemanticDictionary() {
-        objectRelationships = new HashMap<>();
-        personRelationships = new HashMap<>();
-        eventDesirability = new HashMap<>();
+        objectRelationships = new ConcurrentHashMap<>();
+        personRelationships = new ConcurrentHashMap<>();
+        eventDesirability = new ConcurrentHashMap<>();
     }
 
     public synchronized static SemanticDictionary getInstance() {

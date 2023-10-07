@@ -31,8 +31,9 @@ public class RequestPermission extends GoalBDI {
     }
 
     @Override
-    public double detectGoal(Believes arg0) throws KernellAgentEventExceptionBESA {
-        return 100;
+    public double detectGoal(Believes beliefs) throws KernellAgentEventExceptionBESA {
+        BeliefAgent srBeliefs = (BeliefAgent) beliefs;
+        return srBeliefs.getInteractionState().getNumberOfPermissionsPending();
     }
 
     @Override
@@ -43,12 +44,12 @@ public class RequestPermission extends GoalBDI {
 
     @Override
     public double evaluatePlausibility(Believes beliefs) throws KernellAgentEventExceptionBESA {
-        return 100;
+        return 1;
     }
 
     @Override
     public double evaluateViability(Believes beliefs) throws KernellAgentEventExceptionBESA {
-        return 100;
+        return 1;
     }
 
     @Override

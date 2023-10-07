@@ -24,7 +24,7 @@ import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi.ServiceGoal;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.sync.SyncTaskGuard;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.utils.MotivationAgentConfiguration;
 import BESA.SocialRobot.BDIAgent.explainability.SRHistoryCollector;
-import BESA.SocialRobot.HumanCooperationAgent.guard.SHInteractionAnswerGuard;
+import BESA.SocialRobot.HumanCooperationAgent.guard.InteractionAnswerData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.ServiceProvider.services.ServiceNames;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.agent.UserEmotionalInterpreterAgent;
@@ -53,6 +53,7 @@ public class MotivationAgent extends AgentBDI {
         BeliefAgent beliefAgent = (BeliefAgent) stateBDI.getBelieves();
         beliefAgent.getPsychologicalState().setDefaultAgentRole(defaultAgentRole);
         beliefAgent.getPsychologicalState().setRoles(missions);
+
         goals.forEach(goal -> {
             if (goal instanceof ServiceGoal) {
                 ServiceGoal<?> serviceGoal = (ServiceGoal<?>) goal;
@@ -72,10 +73,14 @@ public class MotivationAgent extends AgentBDI {
         stateBDI.getMachineBDIParams().setAgentRoles(config.getAgentRoles());
         Set<GoalBDI> goals = config.getGoalStructure().getBdiGoals();
         BeliefAgent beliefAgent = (BeliefAgent) stateBDI.getBelieves();
+        beliefAgent.getPsychologicalState().setDefaultAgentRole(config.getDefaultAgentRole());
+        beliefAgent.getPsychologicalState().setRoles(config.getAgentRoles());
+
         goals.forEach(goal -> {
             if (goal instanceof ServiceGoal) {
                 ServiceGoal<?> serviceGoal = (ServiceGoal<?>) goal;
-                beliefAgent.registerServiceContext(getClass(), serviceGoal.getUserContext());
+
+                beliefAgent.registerServiceContext(serviceGoal.getClass(), serviceGoal.getUserContext());
             }
         });
 
@@ -107,11 +112,17 @@ public class MotivationAgent extends AgentBDI {
     private List<AgentSubscription> buildConfiguration() {
         AgentSubscription resourceSubscription = new AgentSubscription(
                 ServiceNames.ROBOT_RESOURCES, RobotData.class, InformationFlowGuard.class);
+        AgentSubscription movementSubscription = new AgentSubscription(
+                ServiceNames.MOVEMENT, RobotData.class, InformationFlowGuard.class);
+        AgentSubscription messageSubscription = new AgentSubscription(
+                ServiceNames.MESSAGE, InteractionAnswerData.class, UpdatePermissionRequest.class);
         AgentSubscription tabletEvtSubscription = new AgentSubscription(
-                ServiceNames.INTERFACEEVENT, RobotData.class, SHInteractionAnswerGuard.class);
+                ServiceNames.INTERFACEEVENT, RobotData.class, InformationFlowGuard.class);
         List<AgentSubscription> agSubscriptions = new ArrayList<>();
         agSubscriptions.add(resourceSubscription);
         agSubscriptions.add(tabletEvtSubscription);
+        agSubscriptions.add(messageSubscription);
+        agSubscriptions.add(movementSubscription);
         return agSubscriptions;
     }
 

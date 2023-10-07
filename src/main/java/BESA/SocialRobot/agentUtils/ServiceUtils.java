@@ -39,7 +39,7 @@ public class ServiceUtils {
     }
 
     public static ServiceDataRequest buildServiceDataRequest(ServiceNames serviceName, String function,
-            Map<String, ?> params) {
+            Map<String, Object> params) {
         ServiceDataRequest sdr = new ServiceDataRequest(++requestId, serviceName.name(), function, params);
         return sdr;
     }
@@ -48,7 +48,7 @@ public class ServiceUtils {
     public static void subscribeServices(List<AgentSubscription> subscriptions, String agID){
         subscriptions.forEach(suscription -> {
             try {
-                System.out.println("Agent " + agID + " is subscribing to services "+suscription);
+                //.println("Agent " + agID + " is subscribing to services "+suscription);
                 String spAgId = AdmBESA.getInstance().lookupSPServiceInDirectory(suscription.getServiceAgentId());
                 AgHandlerBESA agH;
                 agH = AdmBESA.getInstance().getHandlerByAid(spAgId);

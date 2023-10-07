@@ -19,7 +19,6 @@ public class InternalState implements Believes {
 
     @Override
     public Believes clone() throws CloneNotSupportedException {
-        super.clone();
         return this;
     }
 

@@ -26,4 +26,11 @@ public class SyncTaskActionData extends DataBESA{
     public void setActionId(String actionId) {
         this.actionId = actionId;
     }
+
+    @Override
+    public String toString() {
+        return "SyncTaskActionData [taskName=" + taskName + ", actionId=" + actionId + "]";
+    }
+
+    
 }

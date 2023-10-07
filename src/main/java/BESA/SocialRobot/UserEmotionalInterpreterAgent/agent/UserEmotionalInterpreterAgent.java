@@ -15,10 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author juans
- */
+
 public class UserEmotionalInterpreterAgent extends SRSupportAgent {
     public static String name = "UserEmotionalInterpreterAgent";
     public static String calculateEmotionsGuard = "CalculateEmotionsGuard";

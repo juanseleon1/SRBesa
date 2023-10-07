@@ -1,6 +1,6 @@
 package BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.actionmodel;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 public class Parameter {
@@ -8,12 +8,12 @@ public class Parameter {
     private Map<String, String> config;
 
     public Parameter() {
-        config = new HashMap<>();
+        config = new ConcurrentHashMap<>();
     }
 
     public Parameter(String name) {
         this.name = name;
-        config = new HashMap<>();
+        config = new ConcurrentHashMap<>();
     }
 
     public void addConfig(String key, String value) {
@@ -38,6 +38,11 @@ public class Parameter {
 
     public void setConfig(Map<String, String> config) {
         this.config = config;
+    }
+
+    @Override
+    public String toString() {
+        return "Parameter [name=" + name + ", config=" + config + "]";
     }
 
 }

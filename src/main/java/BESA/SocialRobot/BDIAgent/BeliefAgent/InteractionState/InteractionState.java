@@ -1,8 +1,9 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionContext.ConversationContext;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionContext.ServiceContext;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.UserInteraction.UserInteractionState;
@@ -22,11 +23,12 @@ public class InteractionState implements Believes {
     private RequestHandler requestHandler;
     private boolean requestedToExplain;
     private boolean recordsUpdated;
+    private float userDistance;
 
     public InteractionState() {
-        conversations = new HashMap<>();
-        serviceContexts = new HashMap<>();
-        interactions = new HashMap<>();
+        conversations = new ConcurrentHashMap<>();
+        serviceContexts = new ConcurrentHashMap<>();
+        interactions = new ConcurrentHashMap<>();
         requestHandler = new RequestHandler();
         requestedToExplain = false;
         recordsUpdated = false;
@@ -35,6 +37,7 @@ public class InteractionState implements Believes {
 
     @Override
     public boolean update(InfoData data) {
+        ReportBESA.debug("JLEON13InteractionState update Event sent to info: " + data.getClass().getName());
         boolean isUpdated = false;
         if (data instanceof UserEmotionalData) {
             UserEmotionalData emotionalData = (UserEmotionalData) data;
@@ -46,14 +49,30 @@ public class InteractionState implements Believes {
             requestedToExplain = true;
             isUpdated = true;
         } else if (data instanceof RobotData) {
+            ReportBESA.debug("JLEON13InteractionState update Event sent to info: " + data);
+            ReportBESA.debug("JLEON13CURRENT SERVICE: " + getCurrentServiceContext());
             isUpdated = getCurrentServiceContext().update(data);
         }
+        ReportBESA.debug("InteractionState update Event sent to info: " + isUpdated);
         return isUpdated;
     }
 
     @Override
-    public Believes clone() throws CloneNotSupportedException {
-        return this;
+    public InteractionState clone() {
+            InteractionState cloned = new InteractionState();
+            cloned.conversations = new ConcurrentHashMap<>(conversations.size());
+            for (Map.Entry<String, ConversationContext> entry : conversations.entrySet()) {
+                cloned.conversations.put(entry.getKey(), entry.getValue().clone());
+            }
+            cloned.serviceContexts = new ConcurrentHashMap<>(serviceContexts.size());
+            for (Map.Entry<String, ServiceContext> entry : serviceContexts.entrySet()) {
+                cloned.serviceContexts.put(entry.getKey(), entry.getValue().clone());
+            }
+            cloned.interactions = new ConcurrentHashMap<>(interactions.size());
+            for (Map.Entry<String, UserInteractionState> entry : interactions.entrySet()) {
+                cloned.interactions.put(entry.getKey(), entry.getValue().clone());
+            }
+            return cloned;
     }
 
     public Map<String, ConversationContext> getConversations() {
@@ -105,10 +124,17 @@ public class InteractionState implements Believes {
     }
 
     public UserInteractionState getCurrentInteraction(String id) {
+        if (!interactions.containsKey(id)) {
+            interactions.put(id, new UserInteractionState());
+        }
         return interactions.get(id);
     }
 
     public ConversationContext getCurrentConversation(String id) {
+        ReportBESA.debug("InteractionState getCurrentConversation: " + id);
+        if (!conversations.containsKey(id)) {
+            conversations.put(id, new ConversationContext());
+        }
         return conversations.get(id);
     }
 
@@ -150,6 +176,20 @@ public class InteractionState implements Believes {
 
     public boolean getRecordsUpdated() {
         return recordsUpdated;
+    }
+
+    public float getUserDistance() {
+        return userDistance;
+    }
+
+    public void setUserDistance(float userDistance) {
+        this.userDistance = userDistance;
+    }
+
+    @Override
+    public String toString() {
+        return "InteractionState [conversations=" + conversations + ", serviceContexts=" + serviceContexts
+                + ", interactions=" + interactions + "]";
     }
 
 }

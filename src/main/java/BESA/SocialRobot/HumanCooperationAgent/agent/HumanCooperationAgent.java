@@ -16,10 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author juans
- */
+
 public class HumanCooperationAgent extends SRSupportAgent {
     public static String name = "HumanCooperationAgent";
     public static String interactionAnswerGuard = "interactionAnswerGuard";

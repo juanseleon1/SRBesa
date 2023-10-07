@@ -1,6 +1,6 @@
 package BESA.SocialRobot.InteractiveAgent.agent;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 import BESA.Exception.ExceptionBESA;
@@ -9,6 +9,7 @@ import BESA.Kernel.Agent.Event.DataBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalData;
 import BESA.SocialRobot.ExplainabilityAgent.model.EventRecord;
 import BESA.SocialRobot.InteractiveAgent.guard.ConversationEventBundle;
@@ -17,10 +18,7 @@ import BESA.SocialRobot.InteractiveAgent.manager.ConversationManager;
 import BESA.SocialRobot.InteractiveAgent.manager.PromptBuilder;
 import BESA.SocialRobot.ServiceProvider.agent.ServiceRequestManager;
 
-/**
- *
- * @author juans
- */
+
 public class InteractiveAgentState extends StateBESA {
     private Map<String, ConversationManager> conversations;
     private InterfaceInterpreter interpreter;
@@ -33,7 +31,7 @@ public class InteractiveAgentState extends StateBESA {
 
     public InteractiveAgentState(PromptBuilder promptBuilder, InterfaceInterpreter interpreter,
             ConversationManagerBuilder builder) {
-        this.conversations = new HashMap<>();
+        this.conversations = new ConcurrentHashMap<>();
         this.promptBuilder = promptBuilder;
         this.interpreter = interpreter;
         this.builder = builder;
@@ -45,8 +43,9 @@ public class InteractiveAgentState extends StateBESA {
     }
 
     public ConversationEventBundle processConversationEvent(InteractionEventData data) {
+        ReportBESA.debug("Processing voice event" + data);
         String id = data.getUserId();
-        if (conversations.containsKey(id)) {
+        if (!conversations.containsKey(id)) {
             conversations.put(id, builder.buildConversationManager());
         }
         return conversations.get(id).processConversationEvent(promptBuilder, manager, data);

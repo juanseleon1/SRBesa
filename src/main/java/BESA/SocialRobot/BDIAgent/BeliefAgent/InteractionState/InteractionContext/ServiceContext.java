@@ -44,7 +44,6 @@ public abstract class ServiceContext implements Believes{
     }
 
     @Override
-    public Believes clone() throws CloneNotSupportedException {
-        return this;
-    }
+    public abstract ServiceContext clone();
+
 }

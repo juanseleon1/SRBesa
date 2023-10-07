@@ -12,8 +12,8 @@ public class AgentSubscription {
 
     public AgentSubscription(ServiceNames agentId, Class<? extends DataBESA> data, Class<? extends GuardBESA> guard ) {
         this.serviceAgentId = agentId.name();
-        this.dataClassName = guard.getName();
-        this.guardClassName = data.getName();
+        this.dataClassName = data.getName();
+        this.guardClassName = guard.getName();
     }
 
     public String getServiceAgentId() {

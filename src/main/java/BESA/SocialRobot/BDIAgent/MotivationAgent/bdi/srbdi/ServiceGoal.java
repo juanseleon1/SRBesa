@@ -14,6 +14,7 @@ public abstract class ServiceGoal<T extends ServiceContext> extends GoalBDI {
         super(id, role, description, GoalBDITypes.OPORTUNITY);
         this.accountability = accountability;
         this.userContext = userContext;
+        this.setAuthorized(false);
     }
 
     public abstract double calculateCriticality(Believes beliefs);

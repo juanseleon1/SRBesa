@@ -1,10 +1,12 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionContext.ServiceContext;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.PsychologicalState;
@@ -12,18 +14,17 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalSt
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.PhysicalState;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState.RobotResources;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.UserProfile.UserProfile;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.WorldModel.AccidentData;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.WorldModel.WorldModel;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.sync.PingData;
 import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalModelImpact;
 import BESA.SocialRobot.ExplainabilityAgent.guard.RequestEventRecordData;
+import BESA.SocialRobot.InteractiveAgent.guard.ConversationEventData;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotionalData;
 import rational.data.InfoData;
 import rational.mapping.Believes;
 
-/**
- *
- * @author juans
- */
 public class BeliefAgent implements Believes {
     private List<String> activeUsers;
     private InteractionState interactionState;
@@ -32,33 +33,56 @@ public class BeliefAgent implements Believes {
     private Map<String, UserProfile> userProfiles;
     private WorldModel worldModel;
 
+    public BeliefAgent() {
+    }
+
     public BeliefAgent(RobotResources resources, String semanticDictPath, String characterDescPath,
             RobotEmotionalStrategy emotionalStrategy) {
         interactionState = new InteractionState();
         psychologicalState = new PsychologicalState(semanticDictPath, characterDescPath, emotionalStrategy);
         physicalState = new PhysicalState(resources);
-        userProfiles = new HashMap<>();
+        userProfiles = new ConcurrentHashMap<>();
         worldModel = new WorldModel();
         activeUsers = new ArrayList<>();
     }
 
     @Override
     public boolean update(InfoData si) {
-        boolean isUpdated = false;
-        if (si instanceof EmotionalModelImpact) {
-            isUpdated = psychologicalState.update(si);
-        } else if (si instanceof UserEmotionalData || si instanceof RequestEventRecordData || si instanceof RobotData) {
-            isUpdated = interactionState.update(si);
+        ReportBESA.debug("JLEON12BeliefAgent update Event sent to info: " + si);
+
+        AtomicBoolean isUpdated = new AtomicBoolean(false);
+        if (si instanceof PingData) {
+            isUpdated.set(true);
+        } else if (si instanceof EmotionalModelImpact) {
+            ReportBESA.debug("Is impact: " + si);
+            isUpdated.set(psychologicalState.update(si));
+        } else if (si instanceof UserEmotionalData || si instanceof ConversationEventData
+                || si instanceof RequestEventRecordData || si instanceof RobotData) {
+            ReportBESA.debug("BeliefAgent update Event sent to interaction state " + si);
+            isUpdated.set(interactionState.update(si));
+        } else if (si instanceof AccidentData){
+            ReportBESA.debug("BeliefAgent update Event sent to world model " + si);
+            isUpdated.set(worldModel.update(si));
         }
         activeUsers.forEach((user) -> {
-            userProfiles.get(user).update(si);
+            isUpdated.set(isUpdated.get() || userProfiles.get(user).update(si));
         });
-        return isUpdated;
+
+        return isUpdated.get();
     }
 
     @Override
     public Believes clone() throws CloneNotSupportedException {
         return this;
+    }
+
+    public BeliefAgent getLocalCopy() throws CloneNotSupportedException {
+        BeliefAgent clone = new BeliefAgent();
+        clone.interactionState = (InteractionState) interactionState.clone();
+        clone.psychologicalState = (PsychologicalState) psychologicalState.clone();
+        clone.physicalState = (PhysicalState) physicalState.clone();
+        clone.activeUsers = new ArrayList<>(activeUsers);
+        return clone;
     }
 
     public InteractionState getInteractionState() {
@@ -122,4 +146,9 @@ public class BeliefAgent implements Believes {
         return activeUsers;
     }
 
+    @Override
+    public String toString() {
+        return "BeliefAgent [activeUsers=" + activeUsers + ", interactionState=" + interactionState
+                + ", psychologicalState=" + psychologicalState + "]";
+    }
 }

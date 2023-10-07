@@ -2,10 +2,7 @@ package BESA.SocialRobot.ServiceProvider.agent.adapter;
 
 import BESA.Adapter.AdapterBESA;
 
-/**
- *
- * @author juans
- */
+
 public abstract class SRAdapter extends AdapterBESA {
     private boolean hasStarted;
     protected SRAdapter() {

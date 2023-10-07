@@ -22,4 +22,15 @@ public class ServiceRequestManager<T> {
         pendingRequests.remove(id);
     }
 
+    public void clearRequests() {
+        pendingRequests.clear();
+    }
+
+    @Override
+    public String toString() {
+        return "ServiceRequestManager [pendingRequests=" + pendingRequests + "]";
+    }
+
+    
+
 }

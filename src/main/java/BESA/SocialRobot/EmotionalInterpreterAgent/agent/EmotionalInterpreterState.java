@@ -3,10 +3,7 @@ package BESA.SocialRobot.EmotionalInterpreterAgent.agent;
 
 import BESA.Kernel.Agent.StateBESA;
 
-/**
- *
- * @author juans
- */
+
 public class EmotionalInterpreterState extends StateBESA{
     private EmotionalInterpreterStrategy eaStrategy;
     

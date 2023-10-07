@@ -4,6 +4,7 @@ import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EmotionalStateData;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EnrichActionGuard;
@@ -47,20 +48,23 @@ public abstract class EmotionalModel {
     }
 
     public void processEmotionalEvent(EmotionalEvent ev) {
+        ReportBESA.debug("PROCESSING EMO EVENTS processEmotionalEvent");
+
         double i = estimateEmotionIntensity(ev);
         if (ev.getPerson() != null) {
-            System.out.println("XEREVENTO: " + ev + " Valencia" + i);
+            ReportBESA.debug("XEREVENTO: " + ev + " Valencia" + i);
         }
         emotionalState.updateEmotions(ev.getEvent(), i);
-        System.out.println(ev.toString());
+        ReportBESA.debug(ev.toString());
         emotionalStateChanged();
     }
 
     public void processEmotionalEvents(List<EmotionalEvent> evts) {
+        ReportBESA.debug("PROCESSING EMO EVENTS processEmotionalEvents");
         evts.forEach((ev) -> {
             double i = estimateEmotionIntensity(ev);
             if (ev.getPerson() != null) {
-                System.out.println("XEREVENTO: " + ev + " Valencia" + i);
+                ReportBESA.debug("XEREVENTO: " + ev + " Valencia" + i);
             }
             emotionalState.updateEmotions(ev.getEvent(), i);
         });
@@ -114,6 +118,9 @@ public abstract class EmotionalModel {
     }
 
     @Override
+    public abstract EmotionalModel clone();
+    
+    @Override
     public String toString() {
         return personality.toString()
                 + "\r\n" + emotionalState.toString();
@@ -129,12 +136,13 @@ public abstract class EmotionalModel {
                 typeName = "Objetos";
             }
             String msg = "El diccionario semántico de " + typeName + " no contiene un item con el nombre " + key;
-            System.out.println("ERROR: " + msg);
+            ReportBESA.debug("ERROR: " + msg);
             Logger.getLogger(EmotionalModel.class.getName()).log(Level.WARNING, msg);
         }
     }
     
     protected void sendToActionModulator(EmotionalStateData ed) throws ExceptionBESA {
+        ReportBESA.debug("SENDING TO ACTMOD JLEON2");
         AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
         EventBESA sensorEvtA = new EventBESA(EnrichActionGuard.class.getName(), ed);
         handler.sendEvent(sensorEvtA);
@@ -150,7 +158,7 @@ public abstract class EmotionalModel {
         EmotionAxis maxAx = null;
         double val = Double.NEGATIVE_INFINITY;
         List<EmotionAxis> emoList = emotionalState.getEmotionsListCopy();
-        // System.out.println("Ejes de la lista: " + emoList.size());
+        // ReportBESA.debug("Ejes de la lista: " + emoList.size());
         for (EmotionAxis e : emoList) {
             if (e.getCurrentValue() > val) {
                 maxAx = e;

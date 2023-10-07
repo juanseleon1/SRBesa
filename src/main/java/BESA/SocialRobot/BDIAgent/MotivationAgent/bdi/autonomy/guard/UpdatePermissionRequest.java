@@ -7,6 +7,7 @@ import BESA.Kernel.Agent.GuardBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 import BESA.SocialRobot.HumanCooperationAgent.guard.InteractionAnswerData;
 import rational.guards.InformationFlowGuard;
 
@@ -20,14 +21,13 @@ public class UpdatePermissionRequest extends GuardBESA {
             StateBDI stateBDI = (StateBDI) agentBDI.getState();
             InteractionAnswerData data = (InteractionAnswerData) event.getData();
             BeliefAgent srBeliefs = (BeliefAgent) stateBDI.getBelieves();
-            if(data.getApproved()){
+            if (data.getApproved()) {
                 srBeliefs.getInteractionState().getRequestHandler().approveRequest(data.getId());
             } else {
                 srBeliefs.getInteractionState().getRequestHandler().denyRequest(data.getId());
             }
             EventBESA eventBesa = new EventBESA(InformationFlowGuard.class.getName(), data);
-            AgHandlerBESA agHandlerBESA;
-            agHandlerBESA = agentBDI.getAdmLocal().getHandlerByAlias(agentBDI.getAlias());
+            AgHandlerBESA agHandlerBESA = agentBDI.getAdmLocal().getHandlerByAlias(MotivationAgent.name);
             agHandlerBESA.sendEvent(eventBesa);
         } catch (ExceptionBESA e) {
             e.printStackTrace();

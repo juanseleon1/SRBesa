@@ -2,6 +2,7 @@ package BESA.SocialRobot.UserEmotionalInterpreterAgent.model;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
@@ -14,10 +15,11 @@ public abstract class UserEmotionalModel {
     
     private List<UserEmotionalData> emotionBundles;
     private Timer timer = new Timer();
-    private long cleanUpTime;
+    private long cleanUpTime=20000;
 
     public UserEmotionalModel() {
-            timer.schedule(new TimerTask() {
+        emotionBundles = new ArrayList<>();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 cleanupExpiredBundles();

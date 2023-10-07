@@ -16,10 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author juans
- */
+
 public class InteractiveAgent extends SRSupportAgent {
     public static String name = "InteractiveAgent";
     public static String interactionEventGuard = "InteractionEventGuard";

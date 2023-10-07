@@ -8,9 +8,15 @@ public class RobotData extends InfoData{
     private double id;
     private String service;
     private String function;
-    private Map<String,?> parameters;
+    private Map<String, Object> parameters;
 
-    public RobotData(double id, String service, String function, Map<String, ?> parameters) {
+    
+
+    public RobotData() {
+        super(null);
+    }
+
+    public RobotData(double id, String service, String function, Map<String, Object> parameters) {
         super("null");
         this.id = id;
         this.service = service;
@@ -30,8 +36,31 @@ public class RobotData extends InfoData{
         return function;
     }
 
-    public Map<String, ?> getParameters() {
+    public Map<String, Object> getParameters() {
         return parameters;
     }
 
+    
+
+    @Override
+    public String toString() {
+        return "RobotData [id=" + id + ", service=" + service + ", function=" + function + ", parameters=" + parameters
+                + "]";
+    }
+
+    public void setId(double id) {
+        this.id = id;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public void setFunction(String function) {
+        this.function = function;
+    }
+
+    public void setParameters(Map<String, Object> parameters) {
+        this.parameters = parameters;
+    }
 }

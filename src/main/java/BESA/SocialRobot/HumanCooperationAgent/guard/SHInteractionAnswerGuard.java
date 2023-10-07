@@ -10,10 +10,7 @@ import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.guard.UpdatePermis
 import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.GuardBESA;
 
-/**
- *
- * @author juans
- */
+
 public class SHInteractionAnswerGuard extends GuardBESA {
 
     @Override

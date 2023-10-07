@@ -54,4 +54,10 @@ public class Primitive {
         this.function = function;
     }
 
+    @Override
+    public String toString() {
+        return "Primitive [name=" + name + ", parameters=" + parameters + ", service=" + service + ", function="
+                + function + "]";
+    }
+
 }

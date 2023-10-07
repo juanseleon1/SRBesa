@@ -2,12 +2,16 @@ package BESA.SocialRobot.ServiceProvider.agent.guard;
 
 import BESA.Kernel.Agent.Event.DataBESA;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
+
 //Send by service provider to Agent Executor to sync.
-public class RobotReplyData extends DataBESA{
+public class RobotReplyData extends DataBESA {
 
     private RobotData robotData;
     private double primitiveID;
     private String action;
+
+    public RobotReplyData() {
+    }
 
     public RobotReplyData(RobotData robotData, double primitiveID, String action) {
         this.robotData = robotData;
@@ -27,10 +31,6 @@ public class RobotReplyData extends DataBESA{
         this.robotData = robotData;
     }
 
-    public void setPrimitiveId(double primitiveID) {
-        this.primitiveID = primitiveID;
-    }
-
     public String getAction() {
         return action;
     }
@@ -38,5 +38,18 @@ public class RobotReplyData extends DataBESA{
     public void setAction(String action) {
         this.action = action;
     }
-    
+
+    @Override
+    public String toString() {
+        return "RobotReplyData [robotData=" + robotData + ", primitiveID=" + primitiveID + ", action=" + action + "]";
+    }
+
+    public double getPrimitiveID() {
+        return primitiveID;
+    }
+
+    public void setPrimitiveID(double primitiveID) {
+        this.primitiveID = primitiveID;
+    }
+
 }

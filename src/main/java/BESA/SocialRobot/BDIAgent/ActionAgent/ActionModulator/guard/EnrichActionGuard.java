@@ -6,6 +6,7 @@ import BESA.Kernel.Agent.Event.DataBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgentState;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
@@ -16,6 +17,7 @@ public class EnrichActionGuard extends GuardBESA {
 
     @Override
     public void funcExecGuard(EventBESA event) {
+        ReportBESA.debug("EnrichActionGuard");
         ActionAgentState state = (ActionAgentState) this.getAgent().getState();
         DataBESA data = event.getData();
         if (data instanceof EmotionalStateData) {

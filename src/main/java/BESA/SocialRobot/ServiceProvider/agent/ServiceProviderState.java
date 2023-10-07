@@ -12,7 +12,7 @@ public class ServiceProviderState extends StateServiceProvider {
         manager = new ServiceRequestManager<>();
     }
 
-    public ServiceRequestManager<Double>  getRequestManager() {
+    public ServiceRequestManager<Double> getRequestManager() {
         return manager;
     }
 
@@ -26,4 +26,11 @@ public class ServiceProviderState extends StateServiceProvider {
     public void requestCompleted(double id) {
         manager.requestCompleted(id);
     }
+
+    @Override
+    public String toString() {
+        return "ServiceProviderState [manager=" + manager + "]";
+    }
+
+    
 }

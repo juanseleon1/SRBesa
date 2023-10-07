@@ -4,10 +4,7 @@ package BESA.SocialRobot.HumanCooperationAgent.guard;
 
 import rational.data.InfoData;
 
-/**
- *
- * @author juans
- */
+
 public class InteractionAnswerData extends InfoData {
     private boolean approved;
     private String id;

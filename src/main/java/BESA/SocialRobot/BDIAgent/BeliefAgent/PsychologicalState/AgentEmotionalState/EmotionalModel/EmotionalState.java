@@ -83,7 +83,18 @@ public class EmotionalState {
     public List<EmotionAxis> getEmotions() {
         return emotions;
     }
-    
-    
+
+    @Override
+    public EmotionalState clone() {
+        try {
+            EmotionalState cloned = new EmotionalState();
+            for (EmotionAxis axis : emotions) {
+                cloned.emotions.add(axis.clone());
+            }
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
     
 }

@@ -36,5 +36,10 @@ public class Action {
         this.primitives = primitives;
     }
 
+    @Override
+    public String toString() {
+        return "Action [name=" + name + ", primitives=" + primitives + "]";
+    }
+
     
 }

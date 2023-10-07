@@ -5,8 +5,9 @@ import BESA.Kernel.Agent.GuardBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
-import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgentState;
+import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.sync.SyncTaskActionData;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.sync.SyncTaskGuard;
 import BESA.SocialRobot.ServiceProvider.agent.guard.RobotReplyData;
@@ -21,15 +22,18 @@ public class SyncActionGuard extends GuardBESA {
         try {
             ActionAgentState state = (ActionAgentState) this.getAgent().getState();
             RobotReplyData data = (RobotReplyData) event.getData();
+            ReportBESA.debug("SyncActionGuard " +data);
             ServiceDataRequest dummy = new ServiceDataRequest(data.getPrimitiveId());
-            state.getActionExecutor().primitiveDoneForAction(data.getAction(), dummy);
-            if (state.getActionExecutor().checkActionIsDone(data.getAction())) {
-                String task = state.getActionExecutor().getTaskForAction(data.getAction());
-                state.getActionExecutor().deleteAction(data.getAction());
-                SyncTaskActionData syncData = new SyncTaskActionData(data.getAction(), task);
+            String actionId = state.getActionExecutor().getActionPerPrimitiveId(dummy.getId());
+            state.getActionExecutor().primitiveDoneForAction(actionId, dummy);
+            if (state.getActionExecutor().checkActionIsDone(actionId)) {
+                ReportBESA.debug("Action is done");
+                String task = state.getActionExecutor().getTaskForAction(actionId);
+                state.getActionExecutor().deleteAction(actionId);
+                SyncTaskActionData syncData = new SyncTaskActionData(task,actionId);
                 EventBESA eventBesa = new EventBESA(SyncTaskGuard.class.getName(), syncData);
                 AgHandlerBESA agHandlerBESA;
-                agHandlerBESA = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
+                agHandlerBESA = AdmBESA.getInstance().getHandlerByAlias(MotivationAgent.name);
                 agHandlerBESA.sendEvent(eventBesa);
             }
         } catch (ExceptionBESA e) {

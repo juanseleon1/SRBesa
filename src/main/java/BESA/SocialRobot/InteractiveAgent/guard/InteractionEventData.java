@@ -6,27 +6,26 @@ import java.util.Map;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotion;
 import rational.data.InfoData;
 
-/**
- *
- * @author juans
- */
+
 public class InteractionEventData extends InfoData {
 
     private InteractionEventTypes type;
-    private Map<String, ?> data;
+    private Map<String, Object> data;
     private String userId;
     private boolean hasEmotionalData;
     private List<UserEmotion> emotions;
 
-    public InteractionEventData(String userId, InteractionEventTypes type, Map<String, ?> data) {
+    public InteractionEventData(String userId, InteractionEventTypes type, Map<String, Object> data) {
         super(null);
+        this.userId = userId;
         this.type = type;
         this.data = data;
         hasEmotionalData = false;
     }
 
-    public InteractionEventData(String userId,InteractionEventTypes type, Map<String, ?> data, List<UserEmotion> emotions) {
+    public InteractionEventData(String userId,InteractionEventTypes type, Map<String, Object> data, List<UserEmotion> emotions) {
         super(null);
+        this.userId = userId;
         this.type = type;
         this.data = data;
         this.emotions = emotions;
@@ -41,11 +40,11 @@ public class InteractionEventData extends InfoData {
         this.type = type;
     }
 
-    public Map<String, ?> getData() {
+    public Map<String, Object> getData() {
         return data;
     }
 
-    public void setData(Map<String, ?> data) {
+    public void setData(Map<String, Object> data) {
         this.data = data;
     }
 
@@ -64,4 +63,11 @@ public class InteractionEventData extends InfoData {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "InteractionEventData [type=" + type + ", data=" + data + ", userId=" + userId + ", hasEmotionalData="
+                + hasEmotionalData + ", emotions=" + emotions + "]";
+    }
+
 }

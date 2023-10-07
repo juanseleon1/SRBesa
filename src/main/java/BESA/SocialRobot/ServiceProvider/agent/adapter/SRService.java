@@ -2,6 +2,7 @@ package BESA.SocialRobot.ServiceProvider.agent.adapter;
 
 import BESA.Kernel.Social.ServiceProvider.agent.SPServiceDataRequest;
 import BESA.Kernel.Social.ServiceProvider.agent.StateServiceProvider;
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.ServiceProvider.agent.ServiceProviderState;
 import BESA.SocialRobot.ServiceProvider.services.ServiceNames;
 import BESA.SocialRobot.agentUtils.ServiceDataRequest;
@@ -25,6 +26,7 @@ public abstract class SRService<T extends SRServiceConfiguration> extends Asynch
         ServiceDataRequest request = (ServiceDataRequest) dataRequest;
         ServiceProviderState spState = (ServiceProviderState) state;
         spState.addRequest(request.getId());
+        ReportBESA.debug("Sending request to robot with id " + request.getId());
         SRAdapter adapter = (SRAdapter) this.getAdapter();
         RobotData data = null;
         if (request.isCancelAction()) {

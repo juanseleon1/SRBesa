@@ -15,10 +15,7 @@ import BESA.SocialRobot.ExplainabilityAgent.guard.SaveRecordsGuard;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author juans
- */
+
 public class ExplainabilityAgent extends AgentBESA {
 public static String name = "ExplainabilityAgent";
 public static String saveRecordsGuard = "SaveRecordsGuard";

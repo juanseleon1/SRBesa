@@ -1,9 +1,11 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
 import java.util.Date;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import BESA.Log.ReportBESA;
 
 public class EmotionAxis {
 
@@ -21,7 +23,7 @@ public class EmotionAxis {
         this.forgetFactor = forgetFactor;
         this.setCurrentValue(currentValue);
         this.setBaseValue(baseValue);
-        eventInfluence = new HashMap<>();
+        eventInfluence = new ConcurrentHashMap<>();
     }
 
     public String getPositiveName() {
@@ -89,7 +91,7 @@ public class EmotionAxis {
     }
     public void printEventInfluences(){
         eventInfluence.keySet().forEach(object -> {
-            System.out.println("Event: "+object+" Object: "+eventInfluence.get(object));
+            ReportBESA.debug("Event: "+object+" Object: "+eventInfluence.get(object));
         });
     }
 

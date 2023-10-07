@@ -27,6 +27,11 @@ public abstract class ConversationManager {
         } else {
             conversationEventData.setMessage((String) data.getData().get("text"));
         }
+        if(data.getData().containsKey("robotIsTalking")){
+            conversationEventData.setRobotStatusSent(true);
+            conversationEventData.setRobotIsTalking((boolean) data.getData().get("robotIsTalking"));
+        }
+
         if (data.hasEmotionalData()) {
             emotionalData = new UserEmotionalData(data.getUserId(), EmotionalDataType.VOICE, data.getEmotions());
         }

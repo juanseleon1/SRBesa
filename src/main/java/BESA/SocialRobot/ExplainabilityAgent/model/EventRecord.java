@@ -16,8 +16,17 @@ public class EventRecord {
     private LocalDateTime date;
     private String intentionName;
     private String intentionType;
-    private Map<String, Double> currentGoalInformation;
-    private Map<String, Double> otherGoalInformation;
+    private String pyramidSnapshot;
+    private String latentGoalDescription;
+    private String currentRole;
+
+    public String getCurrentRole() {
+        return currentRole;
+    }
+
+    public void setCurrentRole(String currentRole) {
+        this.currentRole = currentRole;
+    }
 
     public EventRecord(String userId, Map<String, Double> userEmotions, List<String> lastConversationRecord,
             Map<String, String> lastQueries) {
@@ -35,22 +44,15 @@ public class EventRecord {
         this.date = LocalDateTime.now();
     }
 
-    public EventRecord(String intentionName, String intentionType, Map<String, Double> currentGoalInformation,
-            Map<String, Double> otherGoalInformation) {
+    public EventRecord(String intentionName, String intentionType, String pyramidSnapshot,
+            String latentGoalDescription, String currentRole) {
         this.type = EventRecordType.GOALS;
         this.intentionName = intentionName;
         this.intentionType = intentionType;
-        this.otherGoalInformation = otherGoalInformation;
-        this.currentGoalInformation = currentGoalInformation;
+        this.pyramidSnapshot = pyramidSnapshot;
+        this.latentGoalDescription = latentGoalDescription;
+        this.currentRole = currentRole;
         this.date = LocalDateTime.now();
-    }
-
-    public Map<String, Double> getCurrentGoalInformation() {
-        return currentGoalInformation;
-    }
-
-    public Map<String, Double> getOtherGoalInformation() {
-        return otherGoalInformation;
     }
 
     public String getUserId() {
@@ -87,6 +89,58 @@ public class EventRecord {
 
     public String getIntentionType() {
         return intentionType;
+    }
+
+    public void setType(EventRecordType type) {
+        this.type = type;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setUserEmotions(Map<String, Double> userEmotions) {
+        this.userEmotions = userEmotions;
+    }
+
+    public void setRobotEmotions(Map<RobotEmotions, Double> robotEmotions) {
+        this.robotEmotions = robotEmotions;
+    }
+
+    public void setLastConversationRecord(List<String> lastConversationRecord) {
+        this.lastConversationRecord = lastConversationRecord;
+    }
+
+    public void setLastQueries(Map<String, String> lastQueries) {
+        this.lastQueries = lastQueries;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public void setIntentionName(String intentionName) {
+        this.intentionName = intentionName;
+    }
+
+    public void setIntentionType(String intentionType) {
+        this.intentionType = intentionType;
+    }
+
+    public String getPyramidSnapshot() {
+        return pyramidSnapshot;
+    }
+
+    public void setPyramidSnapshot(String pyramidSnapshot) {
+        this.pyramidSnapshot = pyramidSnapshot;
+    }
+
+    public String getLatentGoalDescription() {
+        return latentGoalDescription;
+    }
+
+    public void setLatentGoalDescription(String latentGoalDescription) {
+        this.latentGoalDescription = latentGoalDescription;
     }
 
 }

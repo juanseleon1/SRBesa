@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import BESA.Exception.ExceptionBESA;
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EmotionalStateData;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.EmotionAxis;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel.EmotionalModel;
@@ -35,6 +36,7 @@ public class AgentEmotionalState extends EmotionalModel {
     @Override
     public void emotionalStateChanged() {
         try {
+            ReportBESA.debug("emotionalStateChanged called, sending data");
             EmotionalStateData data = emotionalStrategy.processEmotionsForRobot(this);
             latestEmoData = data;
             sendToActionModulator(data);
@@ -119,6 +121,11 @@ public class AgentEmotionalState extends EmotionalModel {
 
     public EmotionalStateData getRobotEmotionalState() {
         return latestEmoData;
+    }
+
+   @Override
+    public AgentEmotionalState clone() {
+            return this;
     }
 
 }

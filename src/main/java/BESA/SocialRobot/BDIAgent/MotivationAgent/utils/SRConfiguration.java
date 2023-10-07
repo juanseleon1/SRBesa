@@ -1,7 +1,7 @@
 package BESA.SocialRobot.BDIAgent.MotivationAgent.utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +18,8 @@ import BESA.SocialRobot.ExplainabilityAgent.agent.RecordSaver;
 import BESA.SocialRobot.HumanCooperationAgent.agent.HumanCooperationAgent;
 import BESA.SocialRobot.InteractiveAgent.agent.InteractiveAgent;
 import BESA.SocialRobot.InteractiveAgent.agent.InteractiveAgentState;
+import BESA.SocialRobot.RiskDetectionAgent.agent.RiskDetectionAgent;
+import BESA.SocialRobot.RiskDetectionAgent.agent.RiskDetectionAgentState;
 import BESA.SocialRobot.ServiceProvider.agent.ServiceProviderAgent;
 import BESA.SocialRobot.ServiceProvider.agent.adapter.SRService;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.agent.UserEmotionalInterpreterAgent;
@@ -38,12 +40,14 @@ public abstract class SRConfiguration {
     private EmotionalInterpreterAgent emotionalInterpreterAgent;
     private HumanCooperationAgent humanCooperationAgent;
     private InteractiveAgent interactiveAgent;
+    private RiskDetectionAgent riskDetectionAgent;
     private UserEmotionalInterpreterAgent userEmotionalInterpreterAgent;
     private ActionAgentState actionAgentState;
+    private RiskDetectionAgentState riskDetectionAgentState;
 
 
     public SRConfiguration() {
-        sps = new HashMap<>();
+        sps = new ConcurrentHashMap<>();
         serviceProviders = new ArrayList<>();
     }
 
@@ -72,6 +76,7 @@ public abstract class SRConfiguration {
             emotionalInterpreterAgent.start();
             humanCooperationAgent.start();
             interactiveAgent.start();
+            riskDetectionAgent.start();
             userEmotionalInterpreterAgent.start();
             motivationAgent.startTimers();
         } catch (ExceptionBESA e) {
@@ -96,6 +101,7 @@ public abstract class SRConfiguration {
          emotionalInterpreterAgent = new EmotionalInterpreterAgent(eas);
          humanCooperationAgent = new HumanCooperationAgent();
          interactiveAgent = new InteractiveAgent(interactiveAgentState);
+         riskDetectionAgent = new RiskDetectionAgent(riskDetectionAgentState);
          userEmotionalInterpreterAgent = new UserEmotionalInterpreterAgent(
                 userEmotionalInterpreterState);
 
@@ -225,6 +231,30 @@ public abstract class SRConfiguration {
 
     public void setActionAgentState(ActionAgentState actionAgentState) {
         this.actionAgentState = actionAgentState;
+    }
+
+    public void setMotivationAgent(MotivationAgent motivationAgent) {
+        this.motivationAgent = motivationAgent;
+    }
+
+    public void setActionAgent(ActionAgent actionAgent) {
+        this.actionAgent = actionAgent;
+    }
+
+    public RiskDetectionAgent getRiskDetectionAgent() {
+        return riskDetectionAgent;
+    }
+
+    public void setRiskDetectionAgent(RiskDetectionAgent riskDetectionAgent) {
+        this.riskDetectionAgent = riskDetectionAgent;
+    }
+
+    public RiskDetectionAgentState getRiskDetectionAgentState() {
+        return riskDetectionAgentState;
+    }
+
+    public void setRiskDetectionAgentState(RiskDetectionAgentState riskDetectionAgentState) {
+        this.riskDetectionAgentState = riskDetectionAgentState;
     }
     
 }

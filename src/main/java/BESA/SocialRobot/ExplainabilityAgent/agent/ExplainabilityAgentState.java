@@ -8,10 +8,7 @@ import java.util.List;
 import BESA.Kernel.Agent.StateBESA;
 import BESA.SocialRobot.ExplainabilityAgent.model.EventRecord;
 
-/**
- *
- * @author juans
- */
+
 public class ExplainabilityAgentState extends StateBESA {
     private List<EventRecord> records;
     private RecordSaver recordSaver;

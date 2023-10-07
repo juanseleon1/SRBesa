@@ -1,6 +1,6 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PhysicalState.InternalState;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 public class Resource {
@@ -10,7 +10,7 @@ public class Resource {
     private Map<String, Map<String, String>> parameters;
 
     public Resource() {
-        parameters = new HashMap<>();
+        parameters = new ConcurrentHashMap<>();
     }
 
     public Resource(String name, Map<String, Map<String, String>> parameters) {

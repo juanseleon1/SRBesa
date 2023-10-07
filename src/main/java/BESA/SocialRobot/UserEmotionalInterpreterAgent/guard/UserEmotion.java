@@ -2,9 +2,9 @@ package BESA.SocialRobot.UserEmotionalInterpreterAgent.guard;
 
 public class UserEmotion {
     private String name;
-    private float intensity;
+    private double intensity;
 
-    public UserEmotion(String name, float intensity) {
+    public UserEmotion(String name, double intensity) {
         this.name = name;
         this.intensity = intensity;
     }
@@ -13,7 +13,7 @@ public class UserEmotion {
         return name;
     }
 
-    public float getIntensity() {
+    public double getIntensity() {
         return intensity;
     }
 
@@ -21,8 +21,12 @@ public class UserEmotion {
         this.name = name;
     }
 
-    public void setIntensity(float intensity) {
+    public void setIntensity(double intensity) {
         this.intensity = intensity;
     }
 
+    @Override
+    public String toString() {
+        return "UserEmotion [name=" + name + ", intensity=" + intensity + "]";
+    }
 }

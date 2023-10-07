@@ -1,6 +1,6 @@
 package BESA.SocialRobot.UserEmotionalInterpreterAgent.agent;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Map;
 import BESA.Kernel.Agent.StateBESA;
@@ -11,7 +11,7 @@ public abstract class UserEmotionalInterpreterState extends StateBESA {
     private Map<String, UserEmotionalModel> userModels;
 
     public UserEmotionalInterpreterState() {
-        this.userModels = new HashMap<>();
+        this.userModels = new ConcurrentHashMap<>();
     }
 
     public Map<String, UserEmotionalModel> getUserModels() {

@@ -1,6 +1,6 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState.AgentEmotionalState.EmotionalModel;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 public class Personality {
@@ -14,9 +14,9 @@ public class Personality {
     private final Map<String, String> eventDesirability;
 
     public Personality() {
-        personRelationships = new HashMap<>();
-        objectRelationships = new HashMap<>();
-        eventDesirability = new HashMap<>();
+        personRelationships = new ConcurrentHashMap<>();
+        objectRelationships = new ConcurrentHashMap<>();
+        eventDesirability = new ConcurrentHashMap<>();
     }
 
     private Map<String, String> getList(EmotionElementType t) {

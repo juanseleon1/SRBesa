@@ -6,10 +6,7 @@ import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.request.Request;
 
 import rational.data.InfoData;
 
-/**
- *
- * @author juans
- */
+
 public class InteractionRequestData extends InfoData{
     List<Request> requests;
 

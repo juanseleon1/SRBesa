@@ -1,6 +1,6 @@
 package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.srbdi;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
@@ -9,7 +9,7 @@ public class TaskContext {
     private Map<String,ActionRequestData> actions;
 
     public TaskContext() {
-        actions = new HashMap<>();
+        actions = new ConcurrentHashMap<>();
     }
 
     public boolean isTaskDone() {
@@ -28,4 +28,8 @@ public class TaskContext {
         actions.clear();
     }
 
+    @Override
+    public String toString() {
+        return "TaskContext [actions=" + actions + "]";
+    }
 }

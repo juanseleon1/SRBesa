@@ -4,19 +4,16 @@ import java.util.Map;
 
 import rational.services.ActivateServiceData;
 
-/**
- *
- * @author juans
- */
+
 public class ServiceDataRequest extends ActivateServiceData {
 
     private double id;
     private String function;
-    private Map<String, ?> params;
+    private Map<String, Object> params;
     private boolean isFromInteractionAgent;
     private boolean cancelAction;
 
-    public ServiceDataRequest(double id, String service, String function, Map<String, ?> params) {
+    public ServiceDataRequest(double id, String service, String function, Map<String, Object> params) {
 
         super(service);
         this.id = id;
@@ -32,11 +29,11 @@ public class ServiceDataRequest extends ActivateServiceData {
         isFromInteractionAgent = false;
     }
 
-    public Map<String, ?> getParams() {
+    public Map<String, Object> getParams() {
         return params;
     }
 
-    public void setParams(Map<String, ?> params) {
+    public void setParams(Map<String, Object> params) {
         this.params = params;
     }
 
@@ -87,5 +84,13 @@ public class ServiceDataRequest extends ActivateServiceData {
         cancelRequest.setCancelAction(true);
         return cancelRequest;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceDataRequest [id=" + id + ", function=" + function + ", params=" + params
+                + ", isFromInteractionAgent=" + isFromInteractionAgent + ", cancelAction=" + cancelAction + "]";
+    }
+    
+
     
 }

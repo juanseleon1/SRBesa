@@ -9,9 +9,14 @@ public class ConversationEventData extends InfoData{
     private String origin;
     private String answer;
     private boolean isQueryAnswer;
+    private boolean robotIsTalking;
+    private boolean robotStatusSent;
+
     public ConversationEventData() {
         super("ConversationEventData");
         isQueryAnswer = false;
+        robotIsTalking = false;
+        robotStatusSent = false;
     }
     public String getUserId() {
         return userId;
@@ -45,4 +50,17 @@ public class ConversationEventData extends InfoData{
     public void setQueryId(int queryId){
         this.queryId = queryId;
     }
+    public boolean isRobotIsTalking() {
+        return robotIsTalking;
+    }
+    public void setRobotIsTalking(boolean robotIsTalking) {
+        this.robotIsTalking = robotIsTalking;
+    }
+    public boolean isRobotStatusSent() {
+        return robotStatusSent;
+    }
+    public void setRobotStatusSent(boolean robotStatusSent) {
+        this.robotStatusSent = robotStatusSent;
+    }
+    
 }

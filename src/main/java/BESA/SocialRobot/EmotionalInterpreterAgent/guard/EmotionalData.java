@@ -3,15 +3,16 @@ package BESA.SocialRobot.EmotionalInterpreterAgent.guard;
 
 import java.util.Map;
 
-import BESA.Kernel.Agent.Event.DataBESA;
+import rational.data.InfoData;
 
-public class EmotionalData extends DataBESA {
+public class EmotionalData extends InfoData {
     //This one goes to the emotional interpreter agent
     String origin;
     String action;
     Map<String, Double> emoParams;
     
     public EmotionalData(Map<String, Double> emoParams) {
+        super(null);
         this.emoParams = emoParams;
     }
 

@@ -6,10 +6,7 @@ import java.util.List;
 
 import rational.data.InfoData;
 
-/**
- *
- * @author juans
- */
+
 public class UserEmotionalData extends InfoData {
     private EmotionalDataType type;
     private List<UserEmotion> emotions;
@@ -53,5 +50,14 @@ public class UserEmotionalData extends InfoData {
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
+
+
+    @Override
+    public String toString() {
+        return "UserEmotionalData [type=" + type + ", emotions=" + emotions + ", timestamp=" + timestamp + ", userId="
+                + userId + "]";
+    }
+
+    
 
 }

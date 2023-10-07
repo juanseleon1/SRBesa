@@ -1,22 +1,23 @@
 package BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.UserInteraction;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Map;
 
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotion;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotionalData;
 import rational.data.InfoData;
 import rational.mapping.Believes;
 
-public class UserInteractionState implements Believes{
+public class UserInteractionState implements Believes {
 
     private Map<String, Double> userEmotions;
     private List<HistoricUserEmotions> historicUserEmotions;
 
     public UserInteractionState() {
-        userEmotions = new HashMap<>();
+        userEmotions = new ConcurrentHashMap<>();
         historicUserEmotions = new ArrayList<>();
     }
 
@@ -47,7 +48,9 @@ public class UserInteractionState implements Believes{
         List<UserEmotion> emotions = emotionalData.getEmotions();
         historicUserEmotions.add(new HistoricUserEmotions(emotions));
         for (UserEmotion emotion : emotions) {
-            if (emotion.getIntensity() != userEmotions.getOrDefault(emotion.getName(), 0.0d)) {
+            ReportBESA.debug("emotion name" + emotion.getName() + "emotion int" + emotion.getIntensity());
+            if (!userEmotions.containsKey(emotion.getName())
+                    || emotion.getIntensity() != userEmotions.get(emotion.getName())) {
                 isUpdated = true;
                 addUserEmotion(emotion.getName(), emotion.getIntensity());
             }
@@ -56,7 +59,9 @@ public class UserInteractionState implements Believes{
     }
 
     @Override
-    public Believes clone() throws CloneNotSupportedException {
-        return this;
+    public UserInteractionState clone() {
+        UserInteractionState cloned = new UserInteractionState();
+        cloned.userEmotions = new ConcurrentHashMap<>(userEmotions);
+        return cloned;
     }
 }

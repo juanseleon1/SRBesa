@@ -22,13 +22,14 @@ public abstract class SRAdapterReceiver {
     }
 
     protected void handleRobotData(RobotReplyData rd) throws ExceptionBESA {
-        AgHandlerBESA agH = AdmBESA.getInstance().getHandlerByAlias(spAlias);
+        String spAgId = AdmBESA.getInstance().lookupSPServiceInDirectory(spAlias);
+        AgHandlerBESA agH = AdmBESA.getInstance().getHandlerByAid(spAgId);
         EventBESA evSP = new EventBESA(ProcessRobotReplyGuard.class.getName(), rd);
         agH.sendEvent(evSP);
     }
 
-    public void startReceiver(ServiceNames spAlias){
-        if(!hasStarted){
+    public void startReceiver(ServiceNames spAlias) {
+        if (!hasStarted) {
             this.spAlias = spAlias.name();
             this.setup();
             hasStarted = true;

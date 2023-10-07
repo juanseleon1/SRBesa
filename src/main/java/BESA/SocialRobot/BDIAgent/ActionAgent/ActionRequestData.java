@@ -9,16 +9,16 @@ public class ActionRequestData extends DataBESA {
     private String actionId;
     private String action;
     private String task;
-    private Map<String, ?> parameters;
+    private Map<String, Object> parameters;
 
-    public ActionRequestData(String id, Map<String, ?> parameters, String action, String task) {
+    public ActionRequestData(String id, Map<String, Object> parameters, String action, String task) {
         this.actionId = id;
         this.parameters = parameters;
         this.action = action;
         this.task = task;
     }
 
-    public void setParameters(Map<String, ?> parameters) {
+    public void setParameters(Map<String, Object> parameters) {
         this.parameters = parameters;
     }
 
@@ -26,7 +26,7 @@ public class ActionRequestData extends DataBESA {
         this.action = action;
     }
 
-    public Map<String, ?> getParameters() {
+    public Map<String, Object> getParameters() {
         return parameters;
     }
 

@@ -11,10 +11,7 @@ import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.CalculateEmotionsGua
 import rational.guards.InformationFlowGuard;
 import BESA.Kernel.Agent.GuardBESA;
 
-/**
- *
- * @author juans
- */
+
 public class HumanInteractionEventGuard extends GuardBESA {
 
     @Override

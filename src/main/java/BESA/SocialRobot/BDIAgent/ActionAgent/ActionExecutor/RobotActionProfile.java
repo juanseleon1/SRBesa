@@ -1,6 +1,6 @@
 package BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.actionmodel.Action;
@@ -10,7 +10,7 @@ public class RobotActionProfile {
     Map<String, Action> actions;
 
     public RobotActionProfile() {
-        this.actions = new HashMap<>();
+        this.actions = new ConcurrentHashMap<>();
     }
 
     public RobotActionProfile(Map<String, Action> actions) {

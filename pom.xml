@@ -42,12 +42,10 @@
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>net.sourceforge.jFuzzyLogic</groupId>
-      <artifactId>jFuzzyLogic</artifactId>
-      <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${basedir}/repo/jFuzzyLogic_core.jar</systemPath>
-  </dependency>
+			<groupId>net</groupId>
+			<artifactId>jFuzzyLogic</artifactId>
+			<version>1</version>
+		</dependency>
   <dependency>
     <groupId>org.yaml</groupId>
     <artifactId>snakeyaml</artifactId>
