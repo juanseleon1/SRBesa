@@ -48,20 +48,20 @@ public class BeliefAgent implements Believes {
 
     @Override
     public boolean update(InfoData si) {
-        ReportBESA.debug("JLEON12BeliefAgent update Event sent to info: " + si);
+        //ReportBESA.debug("JLEON12BeliefAgent update Event sent to info: " + si);
 
         AtomicBoolean isUpdated = new AtomicBoolean(false);
         if (si instanceof PingData) {
             isUpdated.set(true);
         } else if (si instanceof EmotionalModelImpact) {
-            ReportBESA.debug("Is impact: " + si);
+            //ReportBESA.debug("Is impact: " + si);
             isUpdated.set(psychologicalState.update(si));
         } else if (si instanceof UserEmotionalData || si instanceof ConversationEventData
                 || si instanceof RequestEventRecordData || si instanceof RobotData) {
-            ReportBESA.debug("BeliefAgent update Event sent to interaction state " + si);
+            //ReportBESA.debug("BeliefAgent update Event sent to interaction state " + si);
             isUpdated.set(interactionState.update(si));
         } else if (si instanceof AccidentData){
-            ReportBESA.debug("BeliefAgent update Event sent to world model " + si);
+            //ReportBESA.debug("BeliefAgent update Event sent to world model " + si);
             isUpdated.set(worldModel.update(si));
         }
         activeUsers.forEach((user) -> {

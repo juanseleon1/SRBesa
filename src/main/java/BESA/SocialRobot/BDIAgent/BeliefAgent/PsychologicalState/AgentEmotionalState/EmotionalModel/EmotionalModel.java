@@ -48,23 +48,23 @@ public abstract class EmotionalModel {
     }
 
     public void processEmotionalEvent(EmotionalEvent ev) {
-        ReportBESA.debug("PROCESSING EMO EVENTS processEmotionalEvent");
+        //ReportBESA.debug("PROCESSING EMO EVENTS processEmotionalEvent");
 
         double i = estimateEmotionIntensity(ev);
         if (ev.getPerson() != null) {
-            ReportBESA.debug("XEREVENTO: " + ev + " Valencia" + i);
+            //ReportBESA.debug("XEREVENTO: " + ev + " Valencia" + i);
         }
         emotionalState.updateEmotions(ev.getEvent(), i);
-        ReportBESA.debug(ev.toString());
+        //ReportBESA.debug(ev.toString());
         emotionalStateChanged();
     }
 
     public void processEmotionalEvents(List<EmotionalEvent> evts) {
-        ReportBESA.debug("PROCESSING EMO EVENTS processEmotionalEvents");
+        //ReportBESA.debug("PROCESSING EMO EVENTS processEmotionalEvents");
         evts.forEach((ev) -> {
             double i = estimateEmotionIntensity(ev);
             if (ev.getPerson() != null) {
-                ReportBESA.debug("XEREVENTO: " + ev + " Valencia" + i);
+                //ReportBESA.debug("XEREVENTO: " + ev + " Valencia" + i);
             }
             emotionalState.updateEmotions(ev.getEvent(), i);
         });
@@ -136,13 +136,13 @@ public abstract class EmotionalModel {
                 typeName = "Objetos";
             }
             String msg = "El diccionario semántico de " + typeName + " no contiene un item con el nombre " + key;
-            ReportBESA.debug("ERROR: " + msg);
+            //ReportBESA.debug("ERROR: " + msg);
             Logger.getLogger(EmotionalModel.class.getName()).log(Level.WARNING, msg);
         }
     }
     
     protected void sendToActionModulator(EmotionalStateData ed) throws ExceptionBESA {
-        ReportBESA.debug("SENDING TO ACTMOD JLEON2");
+        //ReportBESA.debug("SENDING TO ACTMOD JLEON2");
         AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(ActionAgent.name);
         EventBESA sensorEvtA = new EventBESA(EnrichActionGuard.class.getName(), ed);
         handler.sendEvent(sensorEvtA);
@@ -158,7 +158,7 @@ public abstract class EmotionalModel {
         EmotionAxis maxAx = null;
         double val = Double.NEGATIVE_INFINITY;
         List<EmotionAxis> emoList = emotionalState.getEmotionsListCopy();
-        // ReportBESA.debug("Ejes de la lista: " + emoList.size());
+        //ReportBESA.debug("Ejes de la lista: " + emoList.size());
         for (EmotionAxis e : emoList) {
             if (e.getCurrentValue() > val) {
                 maxAx = e;

@@ -13,6 +13,8 @@ public class Request {
 
     public Request(String name, String userName, String userId) {
         this.name = name;
+        this.userName = userName;
+        this.userId = userId;
         this.timestamp = LocalDateTime.now();
         this.originalTime = LocalDateTime.now();
         this.status = RequestStatus.SOLICITED;
@@ -60,4 +62,12 @@ public class Request {
     public String getUserName() {
         return userName;
     }
+
+    @Override
+    public String toString() {
+        return "Request [name=" + name + ", userName=" + userName + ", userId=" + userId + ", originalTime="
+                + originalTime + ", timestamp=" + timestamp + ", status=" + status + "]";
+    }
+
+    
 }

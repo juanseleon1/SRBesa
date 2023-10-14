@@ -41,7 +41,7 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
             struct.bindGuard("ProcessRobotReplyGuard", ProcessRobotReplyGuard.class);
             return struct;
         } catch (ExceptionBESA ex) {
-            ReportBESA.error(ex);
+            //ReportBESA.error(ex);
             return null;
         }
     }
@@ -92,7 +92,7 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
 
             for (int i = 0; i < res.size(); i++) {
                 SPInfoGuard tmp = (SPInfoGuard) res.get(i);
-                ReportBESA.debug("data: "+data+ "tmp.getServiceName() " + tmp.getServiceName() + " serviceName " + serviceName + " tmp.getDataType() " + tmp.getDataType() + " data.getClass().getName() " + data.getClass().getName());
+                //ReportBESA.debug("data: "+data+ "tmp.getServiceName() " + tmp.getServiceName() + " serviceName " + serviceName + " tmp.getDataType() " + tmp.getDataType() + " data.getClass().getName() " + data.getClass().getName());
                 if (tmp.getServiceName().equals(serviceName) && tmp.getDataType().equals(data.getClass().getName())) {
                     // Devuelve el resultado de la ejeucion al agente solicitante
                     EventBESA evento = new EventBESA(tmp.getIdGuard(), data);
@@ -100,7 +100,7 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
                         this.getAdmLocal().getHandlerByAid(key).sendEvent(evento);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        ReportBESA.error(e.toString());
+                        //ReportBESA.error(e.toString());
                     }
                     break;
                 }
@@ -110,7 +110,7 @@ public class ServiceProviderAgent extends ServiceProviderBESA {
 
     public void sendActionConfirmation(RobotReplyData data) {
         try {
-            ReportBESA.debug("Sending action confirmation to action agent");
+            //ReportBESA.debug("Sending action confirmation to action agent");
             AgHandlerBESA handler = this.getAdmLocal().getHandlerByAlias(ActionAgent.name);
             EventBESA event = new EventBESA(SyncActionGuard.class.getName(), data);
             handler.sendEvent(event);

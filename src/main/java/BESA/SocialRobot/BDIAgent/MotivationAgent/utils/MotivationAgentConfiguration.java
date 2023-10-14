@@ -1,6 +1,6 @@
 package BESA.SocialRobot.BDIAgent.MotivationAgent.utils;
 
-import java.util.List;
+import java.util.Map;
 
 import BESA.BDI.AgentStructuralModel.Agent.LatentGoalStructure;
 import BESA.BDI.AgentStructuralModel.AutonomyManager.AutonomyManager;
@@ -18,7 +18,7 @@ public class MotivationAgentConfiguration {
     private String characterDescPath;
     private RobotEmotionalStrategy robotEmotionalStrategy;
     private AgentRole defaultAgentRole;
-    private List<AgentRole> missions;
+    private Map<String, AgentRole> missions;
 
     public RobotResources getResources() {
         return robotResources;
@@ -88,11 +88,11 @@ public class MotivationAgentConfiguration {
         this.defaultAgentRole = defaultAgentRole;
     }
 
-    public List<AgentRole> getAgentRoles() {
+    public Map<String, AgentRole> getAgentRoles() {
         return missions;
     }
 
-    public void setAgentRoles(List<AgentRole> missions) {
+    public void setAgentRoles(Map<String, AgentRole> missions) {
         this.missions = missions;
     }
 

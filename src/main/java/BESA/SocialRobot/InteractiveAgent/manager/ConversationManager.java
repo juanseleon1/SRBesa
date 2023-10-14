@@ -1,5 +1,6 @@
 package BESA.SocialRobot.InteractiveAgent.manager;
 
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.InteractiveAgent.guard.ConversationEventBundle;
 import BESA.SocialRobot.InteractiveAgent.guard.ConversationEventData;
 import BESA.SocialRobot.InteractiveAgent.guard.InteractionEventData;
@@ -14,7 +15,7 @@ public abstract class ConversationManager {
     public ConversationEventBundle processConversationEvent(PromptBuilder promptBuilder,
             ServiceRequestManager<String> manager, InteractionEventData data) {
         UserEmotionalData emotionalData = null;
-        ConversationEventData conversationEventData = new ConversationEventData();
+        ConversationEventData conversationEventData = handleCustomEventData(data);
         conversationEventData.setUserId(data.getUserId());
         if (data.getData().containsKey("origin")) {
             String origin = (String) data.getData().get("origin");
@@ -28,6 +29,7 @@ public abstract class ConversationManager {
             conversationEventData.setMessage((String) data.getData().get("text"));
         }
         if(data.getData().containsKey("robotIsTalking")){
+            //ReportBESA.debug("CHECKING DATA IN CONVO MANAGER"+data.getData().get("robotIsTalking"));
             conversationEventData.setRobotStatusSent(true);
             conversationEventData.setRobotIsTalking((boolean) data.getData().get("robotIsTalking"));
         }
@@ -37,5 +39,7 @@ public abstract class ConversationManager {
         }
         return new ConversationEventBundle(emotionalData, conversationEventData);
     }
+
+    public abstract ConversationEventData handleCustomEventData(InteractionEventData data);
 
 }

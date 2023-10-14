@@ -48,7 +48,7 @@ public class UserInteractionState implements Believes {
         List<UserEmotion> emotions = emotionalData.getEmotions();
         historicUserEmotions.add(new HistoricUserEmotions(emotions));
         for (UserEmotion emotion : emotions) {
-            ReportBESA.debug("emotion name" + emotion.getName() + "emotion int" + emotion.getIntensity());
+            //ReportBESA.debug("emotion name" + emotion.getName() + "emotion int" + emotion.getIntensity());
             if (!userEmotions.containsKey(emotion.getName())
                     || emotion.getIntensity() != userEmotions.get(emotion.getName())) {
                 isUpdated = true;

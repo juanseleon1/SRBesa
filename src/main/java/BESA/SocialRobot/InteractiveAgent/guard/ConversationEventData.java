@@ -62,5 +62,12 @@ public class ConversationEventData extends InfoData{
     public void setRobotStatusSent(boolean robotStatusSent) {
         this.robotStatusSent = robotStatusSent;
     }
+
+    @Override
+    public String toString() {
+        return "ConversationEventData [userId=" + userId + ", queryId=" + queryId + ", origin=" + origin + ", answer="
+                + answer + ", isQueryAnswer=" + isQueryAnswer + ", robotIsTalking=" + robotIsTalking
+                + ", robotStatusSent=" + robotStatusSent + "]";
+    }
     
 }

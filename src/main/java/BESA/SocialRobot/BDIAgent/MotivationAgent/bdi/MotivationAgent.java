@@ -2,6 +2,7 @@ package BESA.SocialRobot.BDIAgent.MotivationAgent.bdi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +40,7 @@ public class MotivationAgent extends AgentBDI {
     public MotivationAgent(RobotResources resources,
             LatentGoalStructure goalStruct, AutonomyManager autonomyManager, int threshold, String semanticDictPath,
             String characterDescPath, RobotEmotionalStrategy robotEmotionalConfig, AgentRole defaultAgentRole,
-            List<AgentRole> missions)
+            Map<String, AgentRole> missions)
             throws KernelAgentExceptionBESA, ExceptionBESA {
         super(name,
                 new BeliefAgent(resources, semanticDictPath, characterDescPath, robotEmotionalConfig),

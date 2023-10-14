@@ -21,4 +21,10 @@ public class EmotionalStateData extends DataBESA{
     public double getEmotion(RobotEmotions emotion){
         return emotions.get(emotion);
     }
+
+    @Override
+    public String toString() {
+        return "EmotionalStateData [emotions=" + emotions + "]";
+    }
+
 }

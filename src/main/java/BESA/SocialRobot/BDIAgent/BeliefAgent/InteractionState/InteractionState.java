@@ -10,7 +10,6 @@ import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.UserInteraction.Us
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.autonomy.request.RequestHandler;
 import BESA.SocialRobot.ExplainabilityAgent.guard.RequestEventRecordData;
 import BESA.SocialRobot.InteractiveAgent.guard.ConversationEventData;
-import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
 import BESA.SocialRobot.UserEmotionalInterpreterAgent.guard.UserEmotionalData;
 import rational.data.InfoData;
 import rational.mapping.Believes;
@@ -37,7 +36,8 @@ public class InteractionState implements Believes {
 
     @Override
     public boolean update(InfoData data) {
-        ReportBESA.debug("JLEON13InteractionState update Event sent to info: " + data.getClass().getName());
+        // ReportBESA.debug("JLEON13InteractionState update Event sent to info: " + data.getClass().getName());
+        // ReportBESA.debug("data: " + data);
         boolean isUpdated = false;
         if (data instanceof UserEmotionalData) {
             UserEmotionalData emotionalData = (UserEmotionalData) data;
@@ -48,18 +48,17 @@ public class InteractionState implements Believes {
         } else if (data instanceof RequestEventRecordData) {
             requestedToExplain = true;
             isUpdated = true;
-        } else if (data instanceof RobotData) {
-            ReportBESA.debug("JLEON13InteractionState update Event sent to info: " + data);
-            ReportBESA.debug("JLEON13CURRENT SERVICE: " + getCurrentServiceContext());
-            isUpdated = getCurrentServiceContext().update(data);
+        } 
+        if(activeService != null){
+            isUpdated = getCurrentServiceContext().update(data) || isUpdated;
         }
-        ReportBESA.debug("InteractionState update Event sent to info: " + isUpdated);
         return isUpdated;
     }
 
     @Override
     public InteractionState clone() {
             InteractionState cloned = new InteractionState();
+            cloned.setActiveService(this.getActiveService());
             cloned.conversations = new ConcurrentHashMap<>(conversations.size());
             for (Map.Entry<String, ConversationContext> entry : conversations.entrySet()) {
                 cloned.conversations.put(entry.getKey(), entry.getValue().clone());
@@ -131,7 +130,7 @@ public class InteractionState implements Believes {
     }
 
     public ConversationContext getCurrentConversation(String id) {
-        ReportBESA.debug("InteractionState getCurrentConversation: " + id);
+        //ReportBESA.debug("InteractionState getCurrentConversation: " + id);
         if (!conversations.containsKey(id)) {
             conversations.put(id, new ConversationContext());
         }

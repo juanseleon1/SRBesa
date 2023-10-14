@@ -1,7 +1,7 @@
 
 package BESA.SocialRobot.BDIAgent.BeliefAgent.PsychologicalState;
 
-import java.util.List;
+import java.util.Map;
 
 import BESA.BDI.AgentStructuralModel.LatentGoalStructure.AgentRole;
 import BESA.Log.ReportBESA;
@@ -15,7 +15,7 @@ public class PsychologicalState implements Believes {
 
     private AgentEmotionalState agentEmotionalState;
     private AgentRole defaultAgentRole;
-    private List<AgentRole> roles;
+    private Map<String, AgentRole> roles;
 
     public PsychologicalState() {
     }
@@ -27,7 +27,7 @@ public class PsychologicalState implements Believes {
 
     @Override
     public boolean update(InfoData si) {
-        ReportBESA.debug("PHYSICOLOGICAL STATE" + si.getClass());
+        //ReportBESA.debug("PHYSICOLOGICAL STATE" + si.getClass());
         if (si instanceof EmotionalModelImpact) {
             EmotionalModelImpact emoImpact = (EmotionalModelImpact) si;
             agentEmotionalState.processEmotionalEvents(emoImpact.getEmoEv());
@@ -58,11 +58,11 @@ public class PsychologicalState implements Believes {
         this.defaultAgentRole = defaultAgentRole;
     }
 
-    public List<AgentRole> getRoles() {
+    public Map<String, AgentRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<AgentRole> roles) {
+    public void setRoles(Map<String, AgentRole> roles) {
         this.roles = roles;
     }
 

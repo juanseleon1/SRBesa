@@ -5,11 +5,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Map;
 
+import BESA.BDI.AgentStructuralModel.StateBDI;
 import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.KernelAgentExceptionBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgentState;
+import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 import BESA.SocialRobot.EmotionalInterpreterAgent.agent.EmotionalInterpreterAgent;
 import BESA.SocialRobot.EmotionalInterpreterAgent.agent.EmotionalInterpreterStrategy;
@@ -71,6 +73,9 @@ public abstract class SRConfiguration {
         try {
             serviceProviders.forEach(sp -> sp.start());
             actionAgent.start();
+            StateBDI state = (StateBDI)motivationAgent.getState();
+            BeliefAgent beliefAgent = (BeliefAgent)state.getBelieves();
+            beliefAgent.getPsychologicalState().getAgentEmotionalState().emotionalStateChanged();
             motivationAgent.start();
             explainabilityAgent.start();
             emotionalInterpreterAgent.start();

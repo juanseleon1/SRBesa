@@ -17,18 +17,18 @@ public class ProcessActionGuard extends GuardBESA {
 
     @Override
     public void funcExecGuard(EventBESA event) {
-        ReportBESA.debug("ProcessActionGuard");
+        //ReportBESA.debug("ProcessActionGuard");
         ActionAgentState state = (ActionAgentState) this.agent.getState();
         DataBESA besa = event.getData();
         if (besa instanceof ModulatedActionRequestData) {
             ModulatedActionRequestData infoRecibida = (ModulatedActionRequestData) event.getData();
             List<ServiceDataRequest> primitives = infoRecibida.getServiceDataRequests();
-            ReportBESA.debug("Adding task " + infoRecibida.getTaskName());
+            //ReportBESA.debug("Adding task " + infoRecibida.getTaskName());
             if (!state.getActionExecutor().isActionPresent(infoRecibida.getActionId())) {
                 state.getActionExecutor().addTaskForAction(infoRecibida.getTaskName(), infoRecibida.getActionId());
-                ReportBESA.debug("Sending primitives..");
+                //ReportBESA.debug("Sending primitives..");
                 primitives.forEach((primitive) -> {
-                    ReportBESA.debug("Sending.. " + primitive);
+                    //ReportBESA.debug("Sending.. " + primitive);
                     ServiceUtils.requestService(primitive);
                     state.getActionExecutor().addPrimitiveToAction(infoRecibida.getActionId(), primitive);
                 });
@@ -38,12 +38,14 @@ public class ProcessActionGuard extends GuardBESA {
             if (info.getActionName().equals(TaskRequestType.CANCEL.toString())
                     || info.getActionName().equals(TaskRequestType.INTERRUPT.toString())) {
                 List<String> actions = state.getActionExecutor().getActionsPerTask(info.getTaskName());
-                actions.forEach((action) -> {
-                    state.getActionExecutor().getRegisteredPrimitivesPerAction(action).forEach((primitive) -> {
-                        ServiceUtils.requestService(ServiceDataRequest.buildCancelRequest(primitive));
+                if(actions!=null){
+                    actions.forEach((action) -> {
+                        state.getActionExecutor().getRegisteredPrimitivesPerAction(action).forEach((primitive) -> {
+                            ServiceUtils.requestService(ServiceDataRequest.buildCancelRequest(primitive));
+                        });
                     });
-                });
-                state.getActionExecutor().removeTaskData(info.getTaskName());
+                    state.getActionExecutor().removeTaskData(info.getTaskName());
+                }
             }
         }
     }

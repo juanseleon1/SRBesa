@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.RobotEmotions;
 
 public class EventRecord {
@@ -19,6 +20,7 @@ public class EventRecord {
     private String pyramidSnapshot;
     private String latentGoalDescription;
     private String currentRole;
+    private String serviceContext;
 
     public String getCurrentRole() {
         return currentRole;
@@ -38,10 +40,11 @@ public class EventRecord {
         this.date = LocalDateTime.now();
     }
 
-    public EventRecord(Map<RobotEmotions, Double> robotEmotions) {
+    public EventRecord(Map<RobotEmotions, Double> robotEmotions, String serviceContext) {
         this.type = EventRecordType.BELIEFS_AGENT;
         this.robotEmotions = robotEmotions;
         this.date = LocalDateTime.now();
+        this.serviceContext = serviceContext;
     }
 
     public EventRecord(String intentionName, String intentionType, String pyramidSnapshot,
@@ -141,6 +144,39 @@ public class EventRecord {
 
     public void setLatentGoalDescription(String latentGoalDescription) {
         this.latentGoalDescription = latentGoalDescription;
+    }
+
+    @Override
+    public String toString() {
+        switch (type) {
+            case BELIEFS_USER:
+                return String.format("Creencias sobre el usuario %s :\n" +
+                        "Emociones: %s\n" +
+                        "Último registro de conversación: %s\n" +
+                        "Últimas consultas del robot: %s\n" +
+                        "Fecha: %s",
+                        userId, userEmotions, lastConversationRecord, lastQueries, date);
+            case BELIEFS_AGENT:
+                String record = String.format("Creencias del Robot: \n" +
+                        "Emociones del robot: %s\n" +
+                        "Fecha: %s",
+                        robotEmotions, date);
+                if (serviceContext != null) {
+                    record += "\nContexto del Servicio: " + serviceContext + "\n";
+                }
+                return record;
+            case GOALS:
+                return String.format("Toma de Decisiones del Robot:\n" +
+                        "Intención actual: %s\n" +
+                        "Tipo de intención: %s\n" +
+                        "Piramide de Metas:\n%s\n" +
+                        "Descripción de objetivos latentes: %s\n" +
+                        "Rol actual: %s",
+                        intentionName, intentionType, pyramidSnapshot, latentGoalDescription, currentRole);
+
+            default:
+                return "Tipo de evento desconocido";
+        }
     }
 
 }

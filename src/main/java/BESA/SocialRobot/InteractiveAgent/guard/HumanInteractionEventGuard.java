@@ -1,6 +1,7 @@
 package BESA.SocialRobot.InteractiveAgent.guard;
 
 import BESA.Kernel.Agent.Event.EventBESA;
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.MotivationAgent.bdi.MotivationAgent;
 import BESA.SocialRobot.EmotionalInterpreterAgent.agent.EmotionalInterpreterAgent;
 import BESA.SocialRobot.EmotionalInterpreterAgent.guard.EmotionalData;
@@ -31,6 +32,7 @@ public class HumanInteractionEventGuard extends GuardBESA {
                             UserEmotionalInterpreterAgent.name);
                 }
                 ConversationEventData convData = bundle.getConversationEventData();
+                //ReportBESA.debug("Sending event to motivation agent"+convData);
                 state.sendEventToAgent(convData, InformationFlowGuard.class,
                         MotivationAgent.name);
                 if (convData.isQueryAnswer()) {

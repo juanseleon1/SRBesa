@@ -1,6 +1,7 @@
 package BESA.SocialRobot.ExplainabilityAgent.guard;
 
 import BESA.Kernel.Agent.Event.EventBESA;
+import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionModulator.guard.EmotionalStateData;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.BeliefAgent;
 import BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionState;
@@ -59,9 +60,9 @@ public class SaveRecordsGuard extends GuardBESA {
         if (infoRecibida.isParamsRecord()) {
             BDIMachineParams bdiParams = infoRecibida.getParams();
             GoalBDI currIntention = bdiParams.getIntention();
-            String pyramidSnapshot = bdiParams.getPyramidGoals().getGeneralHerarchyList().toString();
+            String pyramidSnapshot = bdiParams.getPotencialGoals().toString();
             String latentGoalDescription = processGoalStructure(bdiParams.getGoalStructure().getLatentGoals());
-            String getCurrentRoleName = bdiParams.getCurrentAgentRole().getClass().getSimpleName();
+            String getCurrentRoleName = bdiParams.getCurrentAgentRole().getName();
             EventRecord reasoningRecord = new EventRecord(currIntention.getDescription(),
                     currIntention.getType().name(),
                     pyramidSnapshot, latentGoalDescription, getCurrentRoleName);
@@ -73,8 +74,12 @@ public class SaveRecordsGuard extends GuardBESA {
             PsychologicalState pState = beliefAgent.getPsychologicalState();
             EmotionalStateData rEmoState = pState.getAgentEmotionalState().getRobotEmotionalState();
             if (rEmoState != null) {
+                String serviceContext = null;
+                if (beliefAgent.getInteractionState().getActiveService() != null) {
+                    serviceContext = beliefAgent.getInteractionState().getCurrentServiceContext().captureRecordData();
+                }
                 EventRecord innerRecord = new EventRecord(
-                        rEmoState.getEmotions());
+                        rEmoState.getEmotions(), serviceContext);
                 records.add(innerRecord);
             }
             users.forEach(user -> {
@@ -90,13 +95,9 @@ public class SaveRecordsGuard extends GuardBESA {
                     subsetQueries.put(entry.getKey(), entry.getValue());
                 }
                 UserInteractionState uState = state.getCurrentInteraction(user);
-                int maxRecords = cContext.getConversationRecord().size();
-                if (maxRecords > 0) {
-                    maxRecords = maxRecords > 5 ? 5 : maxRecords;
-                    EventRecord record = new EventRecord(user, uState.getUserEmotions(),
-                            cContext.getConversationRecord().subList(0, maxRecords), subsetQueries);
-                    records.add(record);
-                }
+                EventRecord record = new EventRecord(user, uState.getUserEmotions(),
+                        cContext.getConversationRecord(), subsetQueries);
+                records.add(record);
             });
         }
         return records;

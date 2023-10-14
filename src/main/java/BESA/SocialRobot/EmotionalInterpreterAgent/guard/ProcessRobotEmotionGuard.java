@@ -23,14 +23,14 @@ public class ProcessRobotEmotionGuard extends GuardBESA {
     public void funcExecGuard(EventBESA ebesa) {
         try {
             EmotionalData infoRecibida = (EmotionalData) ebesa.getData();
-            ReportBESA.debug("ProcessEmotionGuard Event Received: " + infoRecibida);
+            //ReportBESA.debug("ProcessEmotionGuard Event Received: " + infoRecibida);
             EmotionalInterpreterState eaState = (EmotionalInterpreterState) this.agent.getState();
             List<EmotionalEvent> emoList = eaState.getInterpreterStrategy().processEvents(infoRecibida);
             EmotionalModelImpact emoImpact = new EmotionalModelImpact(emoList);
             emoImpact.setEmoEv(emoList);
             AgHandlerBESA handler = AdmBESA.getInstance().getHandlerByAlias(MotivationAgent.name);
 
-            ReportBESA.debug("ProcessEmotionGuard Event sent to info: " + emoImpact);
+            //ReportBESA.debug("ProcessEmotionGuard Event sent to info: " + emoImpact);
 
             EventBESA sensorEvtA = new EventBESA(InformationFlowGuard.class.getName(), emoImpact);
             handler.sendEvent(sensorEvtA);

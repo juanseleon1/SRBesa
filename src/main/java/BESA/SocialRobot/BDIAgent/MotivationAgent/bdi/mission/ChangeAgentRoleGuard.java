@@ -14,17 +14,26 @@ public class ChangeAgentRoleGuard extends GuardBESA {
         StateBDI bdiState = (StateBDI) this.getAgent().getState();
         BeliefAgent beliefAgent = (BeliefAgent) bdiState.getBelieves();
         AgentRole mission = data.getAgentRole();
-        if (mission.hasWeights()) {
-            bdiState.setCurrentAgentRole(data.getAgentRole());
+        //ReportBESA.debug("ChangingRole" + mission);
+        if (data.isDefaultForAgentRole()) {
+            bdiState.setCurrentAgentRole(bdiState.getMachineBDIParams().getDefaultAgentRole());
+        } else {
+            if (mission.hasWeights()) {
+                //ReportBESA.debug("ChangingRole has weights");
+                bdiState.setCurrentAgentRole(data.getAgentRole());
+            }
         }
+
         if (mission instanceof EmotionalAgentRole) {
             EmotionalAgentRole emotionalAgentRole = (EmotionalAgentRole) mission;
-            if (emotionalAgentRole.isValid()) {
-                boolean isDefault = false;
-                if (bdiState.getMachineBDIParams().getDefaultAgentRole().equals(emotionalAgentRole)) {
-                    isDefault = true;
-                }
-                beliefAgent.getPsychologicalState().getAgentEmotionalState().applyAgentRole(emotionalAgentRole, isDefault);
+            //ReportBESA.debug("ChangingRole is emotional " + emotionalAgentRole);
+
+            if (data.isDefaultForEmotionalRole()) {
+                //ReportBESA.debug("ChangingRole is emotional default");
+                beliefAgent.getPsychologicalState().getAgentEmotionalState().resetAgentRole();
+            } else if (emotionalAgentRole.isValid()) {
+                beliefAgent.getPsychologicalState().getAgentEmotionalState().applyAgentRole(emotionalAgentRole,
+                        false);
             }
         }
 

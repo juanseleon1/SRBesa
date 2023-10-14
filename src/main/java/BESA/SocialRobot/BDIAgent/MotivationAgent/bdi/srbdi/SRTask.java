@@ -7,7 +7,6 @@ import BESA.Exception.ExceptionBESA;
 import BESA.Kernel.Agent.Event.EventBESA;
 import BESA.Kernel.System.AdmBESA;
 import BESA.Kernel.System.Directory.AgHandlerBESA;
-import BESA.Log.ReportBESA;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionAgent;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionRequestData;
 import BESA.SocialRobot.BDIAgent.ActionAgent.ActionExecutor.guard.ProcessActionGuard;
@@ -48,8 +47,8 @@ public abstract class SRTask extends Task {
 
     @Override
     public boolean checkFinish(Believes beliefs) {
-        ReportBESA.debug("checking context"+context);
-        ReportBESA.debug("Checking finish "+this.isInExecution()+" contextDone"+context.isTaskDone());
+        //ReportBESA.debug("checking context"+context);
+        //ReportBESA.debug("Checking finish "+this.isInExecution()+" contextDone"+context.isTaskDone());
         return this.isInExecution() && context.isTaskDone();
     }
 
@@ -60,7 +59,7 @@ public abstract class SRTask extends Task {
     }
 
     public void removeAction(String actionId) {
-        ReportBESA.debug("Removing action "+actionId+" Context is "+ context);
+        //ReportBESA.debug("Removing action "+actionId+" Context is "+ context);
         context.removeAction(actionId);
     }
 
@@ -70,7 +69,7 @@ public abstract class SRTask extends Task {
 
     protected void sendActionRequest(Map<String, Object> params, String name) {
         try {
-            ReportBESA.debug("Sending action request: " + name);
+            //ReportBESA.debug("Sending action request: " + name);
             ActionRequestData action = ActionRequestBuilder.buildActionRequest(params, name,
                     this.getClass().getName());
             context.addAction(action);

@@ -26,7 +26,7 @@ public abstract class SRService<T extends SRServiceConfiguration> extends Asynch
         ServiceDataRequest request = (ServiceDataRequest) dataRequest;
         ServiceProviderState spState = (ServiceProviderState) state;
         spState.addRequest(request.getId());
-        ReportBESA.debug("Sending request to robot with id " + request.getId());
+        //ReportBESA.debug("Sending request to robot with id " + request.getId());
         SRAdapter adapter = (SRAdapter) this.getAdapter();
         RobotData data = null;
         if (request.isCancelAction()) {

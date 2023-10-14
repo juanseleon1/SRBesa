@@ -9,11 +9,17 @@ public class EmotionalAgentRole extends AgentRole {
     private List<EmotionalImpact> emotionalImpacts;
     private Personality personality;
 
-    public EmotionalAgentRole(List<EmotionalImpact> emotionalImpacts) {
+    public EmotionalAgentRole(String name) {
+        super(name);
+    }
+
+    public EmotionalAgentRole(List<EmotionalImpact> emotionalImpacts, String name) {
+        super(name);
         this.emotionalImpacts = emotionalImpacts;
     }
 
-    public EmotionalAgentRole(List<EmotionalImpact> emotionalImpacts, Personality personality) {
+    public EmotionalAgentRole(List<EmotionalImpact> emotionalImpacts, Personality personality, String name) {
+        super(name);
         this.emotionalImpacts = emotionalImpacts;
         this.personality = personality;
     }
@@ -34,7 +40,18 @@ public class EmotionalAgentRole extends AgentRole {
         this.personality = personality;
     }
 
-    public boolean isValid(){
-        return (emotionalImpacts!=null && !emotionalImpacts.isEmpty()) || (personality!=null);
+    public boolean isValid() {
+        return (emotionalImpacts != null && !emotionalImpacts.isEmpty()) || (personality != null);
     }
+
+    public boolean hasPersonality() {
+        return personality != null;
+    }
+
+    @Override
+    public String toString() {
+        return "EmotionalAgentRole [emotionalImpacts=" + emotionalImpacts + ", personality=" + personality + "]";
+    }
+
+    
 }

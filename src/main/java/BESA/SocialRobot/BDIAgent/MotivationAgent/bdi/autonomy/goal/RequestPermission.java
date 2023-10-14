@@ -22,7 +22,8 @@ public class RequestPermission extends GoalBDI {
 
         RationalRole role = new RationalRole(RequestPermission.class.getName(), rolePlan);
         RequestPermission b = new RequestPermission(MotivationAgent.getPlanID(), role,
-                RequestPermission.class.getName(), GoalBDITypes.REQUIREMENT);
+                RequestPermission.class.getName(), GoalBDITypes.DUTY);
+        b.setAuthorized(true);
         return b;
     }
 

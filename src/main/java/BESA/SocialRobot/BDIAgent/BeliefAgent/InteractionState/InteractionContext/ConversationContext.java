@@ -51,10 +51,10 @@ public class ConversationContext implements Believes {
     public boolean update(InfoData data) {
         boolean isUpdated = false;
         ConversationEventData conversationEventData = (ConversationEventData) data;
-        ReportBESA.debug("ConversationContext update Event sent to info: " + conversationEventData.getMessage());
+        //ReportBESA.debug("ConversationContext update Event sent to info: " + conversationEventData.getMessage());
         if (conversationEventData.isQueryAnswer()) {
             isUpdated = true;
-            ReportBESA.debug("Is query");
+            //ReportBESA.debug("Is query");
             addQuery(conversationEventData.getOrigin(), conversationEventData.getAnswer());
         } else {
             if (conversationEventData.getMessage() != null && !conversationEventData.getMessage().isEmpty()) {

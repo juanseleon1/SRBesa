@@ -4,10 +4,11 @@ package BESA.SocialRobot.BDIAgent.BeliefAgent.InteractionState.InteractionContex
 import java.util.ArrayList;
 import java.util.List;
 
+import BESA.SocialRobot.ServiceProvider.agent.adapter.RobotData;
+import rational.data.InfoData;
 import rational.mapping.Believes;
 
-
-public abstract class ServiceContext implements Believes{
+public abstract class ServiceContext implements Believes {
     private boolean isActive;
     private List<String> relatedUsers;
 
@@ -44,6 +45,23 @@ public abstract class ServiceContext implements Believes{
     }
 
     @Override
+    public boolean update(InfoData data) {
+        boolean isUpdated = false;
+        if (data instanceof RobotData) {
+            isUpdated = handleRobotData((RobotData) data);
+        } else {
+            isUpdated = handleOtherData(data);
+        }
+        return isUpdated;
+    }
+
+    @Override
     public abstract ServiceContext clone();
+
+    public abstract boolean handleRobotData(RobotData data);
+
+    public abstract boolean handleOtherData(InfoData data);
+
+    public abstract String captureRecordData();
 
 }

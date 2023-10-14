@@ -34,11 +34,17 @@ public class ActionExecutor {
         primitiveActionRelation.put(primitive.getId(), action);
     }
 
+    public boolean checkIfActionHasPrimitive(String action, Double primitiveId) {
+        return action != null && tracker.containsKey(action) && tracker.get(action).contains(primitiveId);
+    }
+
     public void primitiveDoneForAction(String action, ServiceDataRequest primitive) {
-        ReportBESA.debug("Primitive done for action: " + action + " primitive: " + primitive);
-        ReportBESA.debug("Action primitives: " + actionPrimitives.get(action));
-        ReportBESA.debug("tracker primitives: " + tracker.get(action));
-        ReportBESA.debug("Action primitives should be removed: " + tracker.get(action).contains(primitive.getId()));
+        // ReportBESA.debug("Primitive done for action: " + action + " primitive: " +
+        // primitive);
+        // ReportBESA.debug("Action primitives: " + actionPrimitives.get(action));
+        // ReportBESA.debug("tracker primitives: " + tracker.get(action));
+        // ReportBESA.debug("Action primitives should be removed: " +
+        // tracker.get(action).contains(primitive.getId()));
         tracker.get(action).remove(primitive.getId());
         primitiveActionRelation.remove(primitive.getId());
     }
@@ -46,10 +52,10 @@ public class ActionExecutor {
     public String getActionPerPrimitiveId(Double primitiveId) {
         return primitiveActionRelation.get(primitiveId);
     }
-    
+
     public boolean checkActionIsDone(String action) {
-        ReportBESA.debug("Check action is done: " + tracker.get(action));
-        ReportBESA.debug("Check action is done: " + tracker.get(action).isEmpty());
+        // ReportBESA.debug("Check action is done: " + tracker.get(action));
+        // ReportBESA.debug("Check action is done: " + tracker.get(action).isEmpty());
         return tracker.get(action).isEmpty();
     }
 

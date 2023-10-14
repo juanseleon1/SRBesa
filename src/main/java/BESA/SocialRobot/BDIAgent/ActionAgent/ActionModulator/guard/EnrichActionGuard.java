@@ -17,7 +17,7 @@ public class EnrichActionGuard extends GuardBESA {
 
     @Override
     public void funcExecGuard(EventBESA event) {
-        ReportBESA.debug("EnrichActionGuard");
+        //ReportBESA.debug("EnrichActionGuard");
         ActionAgentState state = (ActionAgentState) this.getAgent().getState();
         DataBESA data = event.getData();
         if (data instanceof EmotionalStateData) {

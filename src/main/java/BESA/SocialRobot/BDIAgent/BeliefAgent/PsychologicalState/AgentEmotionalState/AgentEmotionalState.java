@@ -36,7 +36,7 @@ public class AgentEmotionalState extends EmotionalModel {
     @Override
     public void emotionalStateChanged() {
         try {
-            ReportBESA.debug("emotionalStateChanged called, sending data");
+            // ReportBESA.debug("emotionalStateChanged called, sending data");
             EmotionalStateData data = emotionalStrategy.processEmotionsForRobot(this);
             latestEmoData = data;
             sendToActionModulator(data);
@@ -71,51 +71,61 @@ public class AgentEmotionalState extends EmotionalModel {
 
     @Override
     public void loadEmotionalAxes() {
-        //Making a copy original emotional state
+        // Making a copy original emotional state
         try {
             List<EmotionalImpact> emotionalImpacts = new ArrayList<>();
             List<EmotionAxis> axes = this.getEmotionsListCopy();
             axes.forEach(axis -> {
+                // ReportBESA.debug("Copying for " + axis.getPositiveName());
                 emotionalImpacts.add(new EmotionalImpact(axis.getEventInfluences(), axis.getForgetFactor(),
                         axis.getBaseValue()));
             });
-            origEmotionalAgentRole = new EmotionalAgentRole(emotionalImpacts, getPersonality().clone());
+            origEmotionalAgentRole = new EmotionalAgentRole(emotionalImpacts, getPersonality().clone(), "Default");
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
     }
 
-    public synchronized void applyAgentRole(EmotionalAgentRole mission, boolean isDefault){
+    public synchronized void applyAgentRole(EmotionalAgentRole mission, boolean isDefault) {
         List<EmotionAxis> axes = this.getEmotionAxis();
         mission.getEmotionalImpacts().forEach(impact -> {
-            EmotionAxis axis = axes.stream().filter(a -> a.getPositiveName().equals(impact.getPositiveEmotionName())).findFirst()
+            EmotionAxis axis = axes.stream().filter(a -> a.getPositiveName().equals(impact.getPositiveEmotionName()))
+                    .findFirst()
                     .orElse(null);
             if (axis != null) {
+                // ReportBESA.debug("JLEON385 axes " + axis.getPositiveName() + " " +
+                // axis.getBaseValue() + " " + axis.getForgetFactor());
                 axis.setBaseValue(impact.getBaseValue());
                 axis.setForgetFactor(impact.getForgetFactor());
-                if(!isDefault){
+                if (!isDefault) {
                     impact.getEventInfluences().forEach((k, v) -> {
                         axis.setEventInfluence(k, v);
                     });
-                } else{
+                } else {
                     axis.setEventInfluences(impact.getEventInfluences());
                 }
+                // ReportBESA.debug("JLEON386 axes " + axis.getPositiveName() + " " +
+                // axis.getBaseValue() + " " + axis.getForgetFactor());
             }
         });
-        Personality newPersonality = mission.getPersonality();
-        newPersonality.getEventDesirability().forEach( (k,v) -> {
-            setEventDesirability(k, v);
-        });
-        newPersonality.getObjectRelationships().forEach( (k,v) -> {
-            setObjectRelationship(k, v);
-        });
-        newPersonality.getPersonRelationships().forEach( (k,v) -> {
-            setPersonRelationship(k, v);
-        });
+        if (mission.hasPersonality()) {
+            Personality newPersonality = mission.getPersonality();
+            newPersonality.getEventDesirability().forEach((k, v) -> {
+                setEventDesirability(k, v);
+            });
+            newPersonality.getObjectRelationships().forEach((k, v) -> {
+                setObjectRelationship(k, v);
+            });
+            newPersonality.getPersonRelationships().forEach((k, v) -> {
+                setPersonRelationship(k, v);
+            });
+        }
         emotionalStateChanged();
     }
 
-    public void resetAgentRole(){
+    public void resetAgentRole() {
+        // ReportBESA.debug("ResetAgentRole called" +
+        // origEmotionalAgentRole.toString());
         applyAgentRole(origEmotionalAgentRole, true);
     }
 
@@ -123,9 +133,9 @@ public class AgentEmotionalState extends EmotionalModel {
         return latestEmoData;
     }
 
-   @Override
+    @Override
     public AgentEmotionalState clone() {
-            return this;
+        return this;
     }
 
 }

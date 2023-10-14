@@ -45,4 +45,12 @@ public class EmotionalImpact {
     public void setPositiveEmotionName(String positiveEmotionName) {
         this.positiveEmotionName = positiveEmotionName;
     }
+
+    @Override
+    public String toString() {
+        return "EmotionalImpact [eventInfluences=" + eventInfluences + ", forgetFactor=" + forgetFactor + ", baseValue="
+                + baseValue + ", positiveEmotionName=" + positiveEmotionName + "]";
+    }
+
+    
 }

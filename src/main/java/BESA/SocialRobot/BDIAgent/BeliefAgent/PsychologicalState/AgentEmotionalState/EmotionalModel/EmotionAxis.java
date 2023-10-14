@@ -91,7 +91,7 @@ public class EmotionAxis {
     }
     public void printEventInfluences(){
         eventInfluence.keySet().forEach(object -> {
-            ReportBESA.debug("Event: "+object+" Object: "+eventInfluence.get(object));
+            //ReportBESA.debug("Event: "+object+" Object: "+eventInfluence.get(object));
         });
     }
 

@@ -43,7 +43,7 @@ public class InteractiveAgentState extends StateBESA {
     }
 
     public ConversationEventBundle processConversationEvent(InteractionEventData data) {
-        ReportBESA.debug("Processing voice event" + data);
+        //ReportBESA.debug("Processing voice event" + data);
         String id = data.getUserId();
         if (!conversations.containsKey(id)) {
             conversations.put(id, builder.buildConversationManager());

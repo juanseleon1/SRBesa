@@ -10,6 +10,8 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import BESA.Log.ReportBESA;
+
 public class RequestHandler {
     private Map<String, Request> requests;
     private Map<String, Request> approvedRequests;
@@ -33,11 +35,14 @@ public class RequestHandler {
 
     public boolean addRequest(String name, String userId, String userName) {
         boolean isAdded = false;
+        //ReportBESA.debug("Adding request " + name + " for user " + userId);
         Request existingRequest = requests.get(name);
         if (existingRequest != null) {
+            //ReportBESA.debug("renewing request");
             existingRequest.renew(); // Renew the existing request
         } else {
             // If not found, add a new request
+            //ReportBESA.debug("Adding request");
             if (!approvedRequests.containsKey(name+userId) && !rejectedRequests.containsKey(name)) {
                 requests.put(name, new Request(name, userName, userId));
             }

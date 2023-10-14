@@ -22,19 +22,22 @@ public class SyncActionGuard extends GuardBESA {
         try {
             ActionAgentState state = (ActionAgentState) this.getAgent().getState();
             RobotReplyData data = (RobotReplyData) event.getData();
-            ReportBESA.debug("SyncActionGuard " +data);
+            // ReportBESA.debug("SyncActionGuard " +data);
             ServiceDataRequest dummy = new ServiceDataRequest(data.getPrimitiveId());
             String actionId = state.getActionExecutor().getActionPerPrimitiveId(dummy.getId());
-            state.getActionExecutor().primitiveDoneForAction(actionId, dummy);
-            if (state.getActionExecutor().checkActionIsDone(actionId)) {
-                ReportBESA.debug("Action is done");
-                String task = state.getActionExecutor().getTaskForAction(actionId);
-                state.getActionExecutor().deleteAction(actionId);
-                SyncTaskActionData syncData = new SyncTaskActionData(task,actionId);
-                EventBESA eventBesa = new EventBESA(SyncTaskGuard.class.getName(), syncData);
-                AgHandlerBESA agHandlerBESA;
-                agHandlerBESA = AdmBESA.getInstance().getHandlerByAlias(MotivationAgent.name);
-                agHandlerBESA.sendEvent(eventBesa);
+            if (state.getActionExecutor().checkIfActionHasPrimitive(actionId, dummy.getId())) {
+
+                state.getActionExecutor().primitiveDoneForAction(actionId, dummy);
+                if (state.getActionExecutor().checkActionIsDone(actionId)) {
+                    //ReportBESA.debug("Action is done");
+                    String task = state.getActionExecutor().getTaskForAction(actionId);
+                    state.getActionExecutor().deleteAction(actionId);
+                    SyncTaskActionData syncData = new SyncTaskActionData(task, actionId);
+                    EventBESA eventBesa = new EventBESA(SyncTaskGuard.class.getName(), syncData);
+                    AgHandlerBESA agHandlerBESA;
+                    agHandlerBESA = AdmBESA.getInstance().getHandlerByAlias(MotivationAgent.name);
+                    agHandlerBESA.sendEvent(eventBesa);
+                }
             }
         } catch (ExceptionBESA e) {
             e.printStackTrace();

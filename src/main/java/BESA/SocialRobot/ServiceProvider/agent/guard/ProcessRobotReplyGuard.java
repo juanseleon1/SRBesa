@@ -21,14 +21,14 @@ public class ProcessRobotReplyGuard extends GuardBESA {
         SRServiceConfiguration config = service.getConfig();
         DataBESA dataBesa = config.convertRobotDataToDataBESA(data.getRobotData());
         ServiceProviderAgent agent = (ServiceProviderAgent) this.getAgent();
-        ReportBESA.debug("Processing event"+dataBesa);
-        ReportBESA.debug("primitive id"+data.getPrimitiveId());
-        ReportBESA.debug("has request pending"+spState);
+        //ReportBESA.debug("Processing event"+dataBesa);
+        //ReportBESA.debug("primitive id"+data.getPrimitiveId());
+        //ReportBESA.debug("has request pending"+spState);
         if (spState.hasRequestPending(data.getPrimitiveId())) {
             spState.requestCompleted(data.getPrimitiveId());
             agent.sendActionConfirmation(data);
         }
-        ReportBESA.debug("Processing event"+dataBesa);
+        //ReportBESA.debug("Processing event"+dataBesa);
         agent.processAsynchEvent(dataBesa, serviceName);
     }
 
